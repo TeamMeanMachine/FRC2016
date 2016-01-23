@@ -4,9 +4,9 @@ import org.usfirst.frc.team2471.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SpinTheDough extends Command{
+public class Roll extends Command{
 
-	public SpinTheDough()
+	public Roll()
 	{
 		requires(Robot.intake);
 	}
