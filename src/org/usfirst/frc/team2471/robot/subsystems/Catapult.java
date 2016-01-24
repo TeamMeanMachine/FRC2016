@@ -13,10 +13,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Catapult extends Subsystem{
 	public static boolean launching = false;
+	public static boolean isLocked = true;
 	
 	Solenoid launcherPiston;
     public static DigitalInput launcherIsDown;
-    public static AnalogInput launcherIsLocked, launcherPsiSensor;
+    public static AnalogInput launcherIsLockedSensor, launcherPsiSensor;
 
 	protected void initDefaultCommand() {
 		setDefaultCommand(new LaunchLoop());
@@ -25,7 +26,7 @@ public class Catapult extends Subsystem{
 	public Catapult(){
 		launcherPiston = RobotMap.launcherPiston;
 		launcherIsDown = RobotMap.launcherIsDown;
-		launcherIsLocked = RobotMap.launcherIsLocked;
+		launcherIsLockedSensor = RobotMap.launcherIsLocked;
 		launcherPsiSensor = RobotMap.launcherPsiSensor;
 	}
 	
