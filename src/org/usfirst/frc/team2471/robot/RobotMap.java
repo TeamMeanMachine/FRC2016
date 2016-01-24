@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2471.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -19,6 +22,13 @@ public class RobotMap {
     public static CANTalon right2;
     public static CANTalon right3;
     
+/*_____________________________Launcher____________________________________ */
+    public static Solenoid launcherPiston;
+    public static DigitalInput launcherIsDown;
+    public static AnalogInput launcherIsLocked, launcherPsiSensor; // TODO: better name
+    
+    
+    
 /*_____________________________Intake____________________________________ */
     
     public static CANTalon rollerIntake;
@@ -30,6 +40,11 @@ public class RobotMap {
     	right1 = new CANTalon(3);
     	right2 = new CANTalon(4);
     	right3 = new CANTalon(5);
+    	launcherPiston = new Solenoid(0); // TODO: Check
+    	launcherIsDown = new DigitalInput(0);
+    	launcherIsLocked = new AnalogInput(0);
+    	launcherPsiSensor = new AnalogInput(1);
+    	
     	
     	rollerIntake = new CANTalon(6);
     	

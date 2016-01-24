@@ -2,6 +2,7 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2471.robot.subsystems.Catapult;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
@@ -22,7 +23,8 @@ public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-	
+
+	public static Catapult launcher;
 	public static Intake intake;
 	public static Drive drive;
 
@@ -38,6 +40,7 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new ExampleCommand();
         drive = new Drive();
         intake = new Intake();
+        launcher = new Catapult();
     }
 	
 	public void disabledPeriodic() {
