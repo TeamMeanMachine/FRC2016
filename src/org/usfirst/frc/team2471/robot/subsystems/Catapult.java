@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.usfirst.frc.team2471.robot.subsystems;
 
 import org.usfirst.frc.team2471.robot.RobotMap;
