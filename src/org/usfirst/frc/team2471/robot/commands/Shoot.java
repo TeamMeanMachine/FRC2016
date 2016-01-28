@@ -1,13 +1,13 @@
 package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.Robot;
-import org.usfirst.frc.team2471.robot.subsystems.Catapult;
+import org.usfirst.frc.team2471.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Launch extends Command {
+public class Shoot extends Command {
 
-	public Launch() {
+	public Shoot() {
 		requires(Robot.launcher);
 	}
 
@@ -19,7 +19,7 @@ public class Launch extends Command {
 
 	@Override
 	protected void execute() {
-		if(Catapult.launching){
+		if(Shooter.launching){
 			
 		}
 		
@@ -27,7 +27,7 @@ public class Launch extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		if(Catapult.launching){
+		if(Shooter.launching){
 			return true;
 		}
 		else{
