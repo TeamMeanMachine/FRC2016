@@ -28,6 +28,8 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static Intake intake;
 	public static Drive drive;
+	
+	public static double topShootPower, botShootPower;
 
 	public static SendableChooser autoChooser;
     Command autonomousCommand;
@@ -39,7 +41,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	RobotMap.init();
 		oi = new OI();
-        // instantiate the command used for the autonomous period
         drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
@@ -50,6 +51,10 @@ public class Robot extends IterativeRobot {
         autoChooser.addDefault("Drive Straight", new ExampleCommand());
 //        autoChooser.addObject("Name", new Command());
         SmartDashboard.putData("AutoChooser", autoChooser);
+        
+
+		SmartDashboard.putNumber("Top", topShootPower);
+		SmartDashboard.putNumber("Bottom", botShootPower);
     }
 	
 	public void disabledPeriodic() {

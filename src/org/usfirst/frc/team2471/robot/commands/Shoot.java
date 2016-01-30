@@ -12,15 +12,11 @@ public class Shoot extends Command {
 
 	public Shoot() {
 		requires(Robot.shooter);
-		
-		SmartDashboard.putNumber("Top", x);
-		SmartDashboard.putNumber("Bottom", y);
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -39,13 +35,13 @@ public class Shoot extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		Robot.shooter.stop();
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		Robot.shooter.stop();
 	}
 
 }
