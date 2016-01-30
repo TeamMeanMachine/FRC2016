@@ -6,11 +6,12 @@ import org.usfirst.frc.team2471.robot.subsystems.Shooter;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static Drive drive;
 
+	public static SendableChooser autoChooser;
     Command autonomousCommand;
 
     /**
@@ -38,10 +40,16 @@ public class Robot extends IterativeRobot {
     	RobotMap.init();
 		oi = new OI();
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
         drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
+        
+        //Here is the Sendable for the autonomous command
+        autoChooser = new SendableChooser();
+        autoChooser.addObject("Nothing", new ExampleCommand());
+        autoChooser.addDefault("Drive Straight", new ExampleCommand());
+//        autoChooser.addObject("Name", new Command());
+        SmartDashboard.putData("AutoChooser", autoChooser);
     }
 	
 	public void disabledPeriodic() {
@@ -50,6 +58,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
+    	autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
