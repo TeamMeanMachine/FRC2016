@@ -20,7 +20,11 @@ public class DriveLoop extends Command{
 		double x = Robot.oi.driveStick.getRawAxis(1);
 		double y = Robot.oi.driveStick.getRawAxis(3);
 		
-		Robot.drive.setSpeed(x, y);
+		//No cubic functions for now, but possibly later
+		x = x * x * x;
+		y = y * y * y;
+				
+		Robot.drive.SetSpeed(x, y);
 	}
 
 	@Override

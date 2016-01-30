@@ -35,5 +35,4 @@ public class Shooter extends Subsystem{
 		motor1.set(0.0);
 		motor2.set(0.0);
 	}
-
 }

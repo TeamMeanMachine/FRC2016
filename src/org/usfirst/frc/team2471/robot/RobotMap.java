@@ -1,9 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Encoder;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -22,6 +20,9 @@ public class RobotMap {
     public static CANTalon right2;
     public static CANTalon right3;
     
+    public static Encoder rightE;
+    public static Encoder leftE;
+    
 /*_____________________________Shooter____________________________________ */
     public static CANTalon shootMotor1, shootMotor2;
     
@@ -38,6 +39,12 @@ public class RobotMap {
     	right1 = new CANTalon(3);
     	right2 = new CANTalon(4);
     	right3 = new CANTalon(5);
+    	
+    	leftE = new Encoder(1, 2);
+    	leftE.setDistancePerPulse(0.05/12);  // ( Math.PI * 3.0 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
+    	
+    	rightE = new Encoder(3, 4);
+    	rightE.setDistancePerPulse(-0.05/12);  // ( Math.PI * 3.0 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
     	
     	shootMotor1 = new CANTalon(8);
     	shootMotor2 = new CANTalon(7);
