@@ -4,9 +4,9 @@ import org.usfirst.frc.team2471.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Roll extends Command{
+public class SuckUpBall extends Command{
 
-	public Roll()
+	public SuckUpBall()
 	{
 		requires(Robot.intake);
 	}
@@ -20,7 +20,7 @@ public class Roll extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		
+		Robot.intake.intakeIN(.5);
 	}
 
 	@Override
@@ -32,13 +32,13 @@ public class Roll extends Command{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		Robot.intake.intakeSTOP();
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		Robot.intake.intakeSTOP();
 	}
 
 }

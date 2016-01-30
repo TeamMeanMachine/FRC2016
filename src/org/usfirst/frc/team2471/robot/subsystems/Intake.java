@@ -18,4 +18,16 @@ public class Intake extends Subsystem{
 	public Intake(){
 		roller = RobotMap.rollerIntake;
 	}
+	
+	public void intakeIN(double x){
+		roller.set(x);
+	}
+	
+	public void intakeOUT(double x){
+		roller.set(x);
+	}
+	
+	public void intakeSTOP(){
+		
+	}
 }
