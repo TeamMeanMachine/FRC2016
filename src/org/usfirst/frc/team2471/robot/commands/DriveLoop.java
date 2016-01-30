@@ -30,7 +30,6 @@ public class DriveLoop extends Command{
 
 	@Override
 	protected void end() {
-		Robot.drive.setSpeed(0, 0);
 		
 	}
 

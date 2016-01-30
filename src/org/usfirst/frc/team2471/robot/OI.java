@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.robot.commands.Shoot;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,10 +37,13 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 	public static Joystick driveStick, coStick;
+	public static JoystickButton shootButton;
+	
 	public OI(){
 		driveStick = new Joystick(0);
 		coStick = new Joystick(1);
-		
+		shootButton = new JoystickButton(coStick, 0);
+		shootButton.whileHeld(new Shoot());
 	}
 }
 

@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 
-	public static Shooter launcher;
+	public static Shooter shooter;
 	public static Intake intake;
 	public static Drive drive;
 
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new ExampleCommand();
         drive = new Drive();
         intake = new Intake();
-        launcher = new Shooter();
+        shooter = new Shooter();
     }
 	
 	public void disabledPeriodic() {

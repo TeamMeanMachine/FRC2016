@@ -22,10 +22,8 @@ public class RobotMap {
     public static CANTalon right2;
     public static CANTalon right3;
     
-/*_____________________________Launcher____________________________________ */
-    public static Solenoid launcherPiston;
-    public static DigitalInput launcherIsDown;
-    public static AnalogInput launcherIsLocked, launcherPsiSensor; // TODO: better name
+/*_____________________________Shooter____________________________________ */
+    public static CANTalon shootMotor1, shootMotor2;
     
     
     
@@ -40,10 +38,9 @@ public class RobotMap {
     	right1 = new CANTalon(3);
     	right2 = new CANTalon(4);
     	right3 = new CANTalon(5);
-    	launcherPiston = new Solenoid(0); // TODO: Check
-    	launcherIsDown = new DigitalInput(0);
-    	launcherIsLocked = new AnalogInput(0);
-    	launcherPsiSensor = new AnalogInput(1);
+    	
+    	shootMotor1 = new CANTalon(8);
+    	shootMotor2 = new CANTalon(7);
     	
     	
     	rollerIntake = new CANTalon(6);

@@ -4,11 +4,17 @@ import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shoot extends Command {
+	
+	private double x, y;
 
 	public Shoot() {
-		requires(Robot.launcher);
+		requires(Robot.shooter);
+		
+		SmartDashboard.putNumber("Top", x);
+		SmartDashboard.putNumber("Bottom", y);
 	}
 
 	@Override
@@ -19,20 +25,15 @@ public class Shoot extends Command {
 
 	@Override
 	protected void execute() {
-		if(Shooter.launching){
-			
-		}
+		x = SmartDashboard.getNumber("Top");
+		y = SmartDashboard.getNumber("Bottom");
 		
+		Robot.shooter.shoot(x, y);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if(Shooter.launching){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return true;
 	}
 
 	@Override
