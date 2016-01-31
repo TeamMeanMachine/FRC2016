@@ -2,6 +2,7 @@ package org.usfirst.frc.team2471.robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -26,6 +27,9 @@ public class RobotMap {
 /*_____________________________Shooter____________________________________ */
     public static CANTalon shootMotor1, shootMotor2;
     
+/*_________________________Aimer---------------------------------------*/
+    public static CANTalon aimer;
+    
     
     
 /*_____________________________Intake____________________________________ */
@@ -33,7 +37,9 @@ public class RobotMap {
     public static CANTalon rollerIntake;
     
     public static void init(){
-    	left1 = new CANTalon(0);
+    	
+    	aimer = new CANTalon(0);
+    	//left1 = new CANTalon(0);
     	left2 = new CANTalon(1);
     	left3 = new CANTalon(2);
     	right1 = new CANTalon(3);
@@ -51,6 +57,5 @@ public class RobotMap {
     	
     	
     	rollerIntake = new CANTalon(6);
-    	
     }
 }

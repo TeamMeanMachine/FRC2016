@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.robot.commands.Aim;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,14 +37,16 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
-	public static Joystick driveStick, coStick;
+	public static Joystick driverStick, coStick;
 	public static JoystickButton shootButton;
-	
+	public static JoystickButton aimButton;
 	public OI(){
-		driveStick = new Joystick(0);
+		driverStick = new Joystick(0);
 		coStick = new Joystick(1);
-		shootButton = new JoystickButton(coStick, 0);
+		shootButton = new JoystickButton(coStick, 1);
 		shootButton.whileHeld(new Shoot());
+		aimButton = new JoystickButton(driverStick, 1);
+		aimButton.whenPressed(new Aim());
 	}
 }
 
