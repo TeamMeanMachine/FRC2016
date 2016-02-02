@@ -29,19 +29,17 @@ public class Shoot extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		Robot.shooter.stop();
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		Robot.shooter.stop();
 	}
 
 }

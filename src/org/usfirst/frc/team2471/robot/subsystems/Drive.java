@@ -187,10 +187,4 @@ public class Drive extends Subsystem {
 			SetRightPower( forward - right );
 		}
 	}
-
-	public void drivetestplz(double x, double y){
-		RobotMap.left2.set(x);
-		RobotMap.left3.set(y);
-	}
-
 }

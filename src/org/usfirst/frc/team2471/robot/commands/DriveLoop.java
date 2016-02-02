@@ -24,19 +24,16 @@ public class DriveLoop extends Command{
 
 	@Override
 	protected void execute() {
-		/*double x = Robot.oi.driverStick.getRawAxis(1);
+		double x = Robot.oi.driverStick.getRawAxis(1);
 		double y = Robot.oi.driverStick.getRawAxis(3);
 		
 		//No cubic functions for now, but possibly later
 		x = x * x * x;
 		y = y * y * y;
-				
-		Robot.drive.SetSpeed(x, y);*/
 		
-		x = SmartDashboard.getNumber("Top");
-		y = SmartDashboard.getNumber("Bottom");
 		
-		Robot.drive.drivetestplz(SmartDashboard.getNumber("Top"), SmartDashboard.getNumber("Bottom"));
+		//For now we have to make sure not to break it while testing		
+		//Robot.drive.SetSpeed(x, y);
 	}
 
 	@Override

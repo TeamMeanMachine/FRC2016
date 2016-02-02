@@ -15,7 +15,7 @@ public class Shooter extends Subsystem{
 	public CANTalon motor2;
 
 	protected void initDefaultCommand() {
-	//	setDefaultCommand(new Shoot());
+		setDefaultCommand(new Shoot());
 	}
 
 	public Shooter(){
@@ -26,13 +26,13 @@ public class Shooter extends Subsystem{
 
 	public void shoot(double x, double y) {
 		// TODO Auto-generated method stub
-		motor1.set(x);
-		motor2.set(y);
+		RobotMap.left2.set(x);
+		RobotMap.left3.set(y);
 	}
 
 	public void stop() {
 		// TODO Auto-generated method stub
-		motor1.set(0.0);
-		motor2.set(0.0);
+		RobotMap.left2.set(0.0);
+		RobotMap.left3.set(0.0);
 	}
 }
