@@ -43,8 +43,8 @@ public class OI {
 	public OI(){
 		driverStick = new Joystick(0);
 		coStick = new Joystick(1);
-		shootButton = new JoystickButton(coStick, 1);
-		shootButton.whileHeld(new Shoot());
+		/*shootButton = new JoystickButton(coStick, 1);
+		shootButton.whileHeld(new Shoot());*/
 		aimButton = new JoystickButton(driverStick, 1);
 		aimButton.whenPressed(new Aim());
 	}
