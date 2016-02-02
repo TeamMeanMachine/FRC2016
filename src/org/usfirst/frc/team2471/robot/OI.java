@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.Aim;
-import org.usfirst.frc.team2471.robot.commands.Shoot;
+import org.usfirst.frc.team2471.robot.commands.RotateArmUp;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -40,6 +40,9 @@ public class OI {
 	public static Joystick driverStick, coStick;
 	public static JoystickButton shootButton;
 	public static JoystickButton aimButton;
+	public static JoystickButton armRotateUpButton;
+	public static JoystickButton armRotateDownButton;
+	
 	public OI(){
 		driverStick = new Joystick(0);
 		coStick = new Joystick(1);
@@ -47,6 +50,9 @@ public class OI {
 		shootButton.whileHeld(new Shoot());*/
 		aimButton = new JoystickButton(driverStick, 1);
 		aimButton.whenPressed(new Aim());
+		armRotateUpButton = new JoystickButton(coStick, 2);
+		armRotateUpButton.whenPressed(new RotateArmUp());
+		armRotateDownButton = new JoystickButton(coStick, 3);
 	}
 }
 

@@ -3,6 +3,7 @@ package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2471.robot.subsystems.AimDropper;
+import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
@@ -31,6 +32,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static Drive drive;
 	public static AimDropper aimdrop;
+	public static DefenseArm defenseArm;
 	
 	public static double topShootPower, botShootPower;
 
@@ -48,6 +50,7 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
         aimdrop = new AimDropper();
 		oi = new OI();
+		defenseArm = new DefenseArm();
         
         //Here is the Sendable for the autonomous command
         autoChooser = new SendableChooser();

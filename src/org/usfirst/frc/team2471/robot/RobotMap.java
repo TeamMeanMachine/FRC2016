@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
@@ -36,6 +37,12 @@ public class RobotMap {
     
     public static CANTalon rollerIntake;
     
+/*______________________________Defense Arm_________________________________*/
+    public static CANTalon rotateArm;
+    public static DigitalInput upperArmLimit;
+    public static DigitalInput lowerArmLimit;
+
+    
     public static void init(){
     	
     	aimer = new CANTalon(0);
@@ -55,7 +62,10 @@ public class RobotMap {
     	shootMotor1 = new CANTalon(8);
     	shootMotor2 = new CANTalon(7);
     	
-    	
     	rollerIntake = new CANTalon(6);
+    	
+    	rotateArm = new CANTalon(9);
+    	upperArmLimit = new DigitalInput(2);
+    	lowerArmLimit = new DigitalInput(3);
     }
 }
