@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -47,11 +48,16 @@ public class RobotMap {
     	
     	aimer = new CANTalon(0);
     	//left1 = new CANTalon(0);
+    	
+    	left1 = new CANTalon(10);
     	left2 = new CANTalon(1);
-    	left3 = new CANTalon(2);
+    	left2.changeControlMode(TalonControlMode.Follower);
+    	left2.set(left1.getDeviceID());
+    	
     	right1 = new CANTalon(3);
     	right2 = new CANTalon(4);
-    	right3 = new CANTalon(5);
+    	right2.changeControlMode(TalonControlMode.Follower);
+    	right2.set(right1.getDeviceID());
     	
     	leftE = new Encoder(1, 2);
     	leftE.setDistancePerPulse(0.05/12);  // ( Math.PI * 3.0 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
