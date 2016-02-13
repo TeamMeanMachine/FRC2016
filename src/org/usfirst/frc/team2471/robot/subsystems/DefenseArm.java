@@ -13,15 +13,15 @@ public class DefenseArm extends Subsystem{
 	}
 	
 	public void rotateUp(){
-		RobotMap.rotateArm.set(1.0);
+		RobotMap.portcullisArmLeft.set(1.0);
 	}
 	
 	public void rotateDown(){
-		RobotMap.rotateArm.set(-1.0);
+		RobotMap.portcullisArmLeft.set(-1.0);
 	}
 	
 	public void rotateStop(){
-		RobotMap.rotateArm.set(0.0);
+		RobotMap.portcullisArmLeft.set(0.0);
 	}
 
 }
