@@ -19,8 +19,8 @@ public class Shooter extends Subsystem{
 	}
 
 	public Shooter(){
-		motor1 = RobotMap.shootMotor1;
-		motor2 = RobotMap.shootMotor2;
+		motor1 = RobotMap.shootMotorTop;
+		motor2 = RobotMap.shootMotorBottom;
 	}
 	
 

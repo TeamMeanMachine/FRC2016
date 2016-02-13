@@ -27,7 +27,7 @@ public class RobotMap {
     public static Encoder leftE;
     
 /*_____________________________Shooter____________________________________ */
-    public static CANTalon shootMotor1, shootMotor2;
+    public static CANTalon shootMotorTop, shootMotorBottom;
     
 /*_________________________Aimer---------------------------------------*/
     public static CANTalon aimer;
@@ -39,39 +39,46 @@ public class RobotMap {
     public static CANTalon rollerIntake;
     
 /*______________________________Defense Arm_________________________________*/
-    public static CANTalon rotateArm;
+    public static CANTalon portcullisArmLeft, portcullisArmRight;
     public static DigitalInput upperArmLimit;
     public static DigitalInput lowerArmLimit;
 
     
     public static void init(){
     	
-    	aimer = new CANTalon(0);
+    	aimer = new CANTalon(13);
     	//left1 = new CANTalon(0);
     	
-    	left1 = new CANTalon(10);
-    	left2 = new CANTalon(1);
+    	left1 = new CANTalon(15);
+    	left2 = new CANTalon(14);
     	left2.changeControlMode(TalonControlMode.Follower);
     	left2.set(left1.getDeviceID());
     	
-    	right1 = new CANTalon(3);
-    	right2 = new CANTalon(4);
+    	right1 = new CANTalon(0);
+    	right2 = new CANTalon(1);
     	right2.changeControlMode(TalonControlMode.Follower);
     	right2.set(right1.getDeviceID());
     	
+    	/*
+    	 * no wires
     	leftE = new Encoder(1, 2);
-    	leftE.setDistancePerPulse(0.05/12);  // ( Math.PI * 3.0 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
-    	
+    	leftE.setDistancePerPulse( Math.PI * 7.5 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
     	rightE = new Encoder(3, 4);
-    	rightE.setDistancePerPulse(-0.05/12);  // ( Math.PI * 3.0 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
+    	rightE.setDistancePerPulse( -Math.PI * 7.5 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
+    	*/
     	
-    	shootMotor1 = new CANTalon(8);
-    	shootMotor2 = new CANTalon(7);
+    	shootMotorTop = new CANTalon(3);
+    	shootMotorBottom = new CANTalon(2);
     	
-    	rollerIntake = new CANTalon(6);
+    	rollerIntake = new CANTalon(9);
     	
-    	rotateArm = new CANTalon(9);
+    	portcullisArmLeft = new CANTalon(8);
+    	portcullisArmRight = new CANTalon(7);
+    	
+    	/*
+    	 * Do later
     	upperArmLimit = new DigitalInput(2);
     	lowerArmLimit = new DigitalInput(3);
+    	 */
     }
 }
