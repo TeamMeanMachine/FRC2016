@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DrivePreTalon extends Subsystem {
+public class DrivePIDTalon extends Subsystem {
 	
 	public static CANTalon left1;
 	public static CANTalon left2;
@@ -29,7 +29,7 @@ public class DrivePreTalon extends Subsystem {
 		setDefaultCommand(new DriveLoop());
 	}
 	
-	public DrivePreTalon(){
+	public DrivePIDTalon(){
 		left1 = RobotMap.left1;
 		left2 = RobotMap.left2;
 		right1 = RobotMap.right1;
