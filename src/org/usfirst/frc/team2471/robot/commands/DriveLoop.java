@@ -10,7 +10,7 @@ public class DriveLoop extends Command{
 	double x, y;
 	
 	public DriveLoop(){
-		requires(Robot.drive);
+		requires(Robot.drivePreTalon);
 		
 
 		SmartDashboard.putNumber("Top", x);
@@ -25,15 +25,17 @@ public class DriveLoop extends Command{
 	@Override
 	protected void execute() {
 		double x = Robot.oi.driverStick.getRawAxis(1);
-		double y = Robot.oi.driverStick.getRawAxis(3);
+		double y = -Robot.oi.driverStick.getRawAxis(2);
 		
 		//No cubic functions for now, but possibly later
-		x = x * x * x;
-		y = y * y * y;
+		//x = x * x * x;
+		//y = y * y * y;
 		
 		
 		//For now we have to make sure not to break it while testing		
-		//Robot.drive.SetSpeed(x, y);
+		Robot.drivePreTalon.SetSpeed(x, y);
+		/*Robot.drivePreTalon.SetRightPower(x);
+		Robot.drivePreTalon.SetLeftPower(y);*/
 	}
 
 	@Override

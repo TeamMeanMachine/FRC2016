@@ -51,8 +51,8 @@ public class DrivePreTalon extends Subsystem {
 	}
 	
 	public void driveConfig(double x, double y){
-		SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
-		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getRate());
+//		SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
+//		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getRate());
 		
 		double deadband = 0.05;
 		if (x <= deadband && x >= -deadband){
@@ -67,26 +67,26 @@ public class DrivePreTalon extends Subsystem {
 
 	public void SetRightPower(double x) {
 		right1.set(x);
-		right2.set(x);
+		//right2.set(x);
 	}
 	
 	public void SetLeftPower(double x){
 		left1.set(x);
-		left2.set(x);
+		//left2.set(x);
 	}
 	
 	public void SetSpeed(double right, double forward){
 		
 		bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);
-
+		bSpeedControl = false;
 		if (bSpeedControl)
 		{
 			left1.enable();
 			right1.enable();
 		}
 		else {
-			left1.disable();
-			right1.disable();
+			//left1.disable();
+			//right1.disable();
 		}
 
 		if (bSpeedControl)

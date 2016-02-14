@@ -13,13 +13,12 @@ public class SpitOutBall extends Command{
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.intake.intakeOUT(-.5);
+		Robot.intake.intakeOUT(1.0);
 	}
 
 	@Override

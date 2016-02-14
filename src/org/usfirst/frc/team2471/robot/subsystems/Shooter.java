@@ -26,13 +26,22 @@ public class Shooter extends Subsystem{
 
 	public void shoot(double x, double y) {
 		// TODO Auto-generated method stub
-		RobotMap.left2.set(x);
-		RobotMap.left3.set(y);
+		RobotMap.shootMotorTop.set(x);
+		RobotMap.shootMotorBottom.set(y);
+		
+		if ((x > 0.0 || x < 0.0) && (y > 0.0 || y < 0.0)){
+			RobotMap.shootIntake.set(-.4);
+		}else{
+			RobotMap.shootIntake.set(0.0);
+		}
 	}
 
 	public void stop() {
 		// TODO Auto-generated method stub
-		RobotMap.left2.set(0.0);
-		RobotMap.left3.set(0.0);
+//		RobotMap.left2.set(0.0);
+//		RobotMap.left3.set(0.0);
+		RobotMap.shootIntake.set(0.0);
+		RobotMap.shootMotorTop.set(0.0);
+		RobotMap.shootMotorBottom.set(0.0);
 	}
 }

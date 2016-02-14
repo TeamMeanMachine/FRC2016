@@ -1,7 +1,10 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.Aim;
+import org.usfirst.frc.team2471.robot.commands.RotateArmDown;
 import org.usfirst.frc.team2471.robot.commands.RotateArmUp;
+import org.usfirst.frc.team2471.robot.commands.SpitOutBall;
+import org.usfirst.frc.team2471.robot.commands.SuckUpBall;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -42,17 +45,30 @@ public class OI {
 	public static JoystickButton aimButton;
 	public static JoystickButton armRotateUpButton;
 	public static JoystickButton armRotateDownButton;
+	public static JoystickButton spitOut;
+	public static JoystickButton suckIn;
 	
 	public OI(){
 		driverStick = new Joystick(0);
 		coStick = new Joystick(1);
+		
 		/*shootButton = new JoystickButton(coStick, 1);
 		shootButton.whileHeld(new Shoot());*/
+		
 		aimButton = new JoystickButton(driverStick, 1);
 		aimButton.whenPressed(new Aim());
+		
 		armRotateUpButton = new JoystickButton(coStick, 2);
-		armRotateUpButton.whenPressed(new RotateArmUp());
+		armRotateUpButton.whileHeld(new RotateArmUp());
+		
 		armRotateDownButton = new JoystickButton(coStick, 3);
+		armRotateDownButton.whileHeld(new RotateArmDown());
+		
+		spitOut = new JoystickButton(coStick, 1);
+		spitOut.whileHeld(new SpitOutBall());
+		
+		suckIn = new JoystickButton(coStick, 4);
+		suckIn.whileHeld(new SuckUpBall());
 	}
 }
 

@@ -3,8 +3,8 @@ package org.usfirst.frc.team2471.robot;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -14,20 +14,20 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class RobotMap {
 	
+	public static PowerDistributionPanel pdp;
+	
 /*_____________________________________Drive-------------------------------- */
     public static CANTalon left1;
     public static CANTalon left2;
-    public static CANTalon left3;
     
     public static CANTalon right1;
     public static CANTalon right2;
-    public static CANTalon right3;
     
-    public static Encoder rightE;
-    public static Encoder leftE;
+    public static Solenoid aimDropCylinder;
+
     
 /*_____________________________Shooter____________________________________ */
-    public static CANTalon shootMotorTop, shootMotorBottom;
+    public static CANTalon shootMotorTop, shootMotorBottom, shootIntake;
     
 /*_________________________Aimer---------------------------------------*/
     public static CANTalon aimer;
@@ -39,9 +39,12 @@ public class RobotMap {
     public static CANTalon rollerIntake;
     
 /*______________________________Defense Arm_________________________________*/
-    public static CANTalon portcullisArmLeft, portcullisArmRight;
+    public static CANTalon defenseArmLeft, defenseArmRight;
     public static DigitalInput upperArmLimit;
     public static DigitalInput lowerArmLimit;
+    
+    public static Solenoid intakeActuate;
+    
 
     
     public static void init(){
@@ -59,6 +62,8 @@ public class RobotMap {
     	right2.changeControlMode(TalonControlMode.Follower);
     	right2.set(right1.getDeviceID());
     	
+    	aimDropCylinder = new Solenoid(7);
+    	
     	/*
     	 * no wires
     	leftE = new Encoder(1, 2);
@@ -69,11 +74,17 @@ public class RobotMap {
     	
     	shootMotorTop = new CANTalon(3);
     	shootMotorBottom = new CANTalon(2);
+    	shootIntake = new CANTalon(6);
     	
     	rollerIntake = new CANTalon(9);
     	
-    	portcullisArmLeft = new CANTalon(8);
-    	portcullisArmRight = new CANTalon(7);
+    	defenseArmLeft = new CANTalon(8);
+    	defenseArmRight = new CANTalon(7);
+    	
+    	intakeActuate = new Solenoid(6);
+    	
+    	pdp = new PowerDistributionPanel();
+    			
     	
     	/*
     	 * Do later

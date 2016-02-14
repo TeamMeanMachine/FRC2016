@@ -14,13 +14,13 @@ public class SuckUpBall extends Command{
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		
+		Robot.intake.intakeDown();
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.intake.intakeIN(.5);
+		Robot.intake.intakeIN(-1.0);
 	}
 
 	@Override
@@ -33,12 +33,14 @@ public class SuckUpBall extends Command{
 	protected void end() {
 		// TODO Auto-generated method stub
 		Robot.intake.intakeSTOP();
+		Robot.intake.intakeUp();
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
 		Robot.intake.intakeSTOP();
+		Robot.intake.intakeUp();
 	}
 
 }
