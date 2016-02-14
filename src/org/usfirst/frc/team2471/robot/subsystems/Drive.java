@@ -5,15 +5,18 @@ import org.usfirst.frc.team2471.robot.commands.DriveLoop;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Subsystem {
 	
-	private static CANTalon left1;
-	private static CANTalon left2;
-	private static CANTalon right1;
-	private static CANTalon right2;
+	private CANTalon left1;
+	private CANTalon left2;
+	private CANTalon right1;
+	private CANTalon right2;
+	
+	private Solenoid aimDropCylinder;
 	
 	private boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);  // should read from prefs and save to prefs on disabled, find TMMSmartDashboard from 2015 Robot code.
 	
@@ -32,6 +35,8 @@ public class Drive extends Subsystem {
 		left2 = RobotMap.left2;
 		right1 = RobotMap.right1;
 		right2 = RobotMap.right2;
+		
+		aimDropCylinder = RobotMap.aimDropCylinder;
 		
 	
 		SmartDashboard.putBoolean("Speed Control", bSpeedControl);

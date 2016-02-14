@@ -5,7 +5,6 @@ import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2471.robot.subsystems.AimDropper;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
-import org.usfirst.frc.team2471.robot.subsystems.DrivePIDTalon;
 import org.usfirst.frc.team2471.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
 import org.usfirst.frc.team2471.robot.subsystems.Shooter;
@@ -32,7 +31,7 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static Intake intake;
 	//public static Drive drive;
-	public static DrivePIDTalon drivePreTalon;
+	public static Drive drive;
 	public static AimDropper aimdrop;
 	public static DefenseArm defenseArm;
 	
@@ -48,7 +47,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	RobotMap.init();
         //drive = new Drive();
-        drivePreTalon = new DrivePIDTalon();
+        drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
         aimdrop = new AimDropper();

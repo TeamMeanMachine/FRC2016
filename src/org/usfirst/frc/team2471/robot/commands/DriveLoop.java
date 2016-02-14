@@ -10,7 +10,7 @@ public class DriveLoop extends Command{
 	double x, y;
 	
 	public DriveLoop(){
-		requires(Robot.drivePreTalon);
+		requires(Robot.drive);
 		
 
 		SmartDashboard.putNumber("Top", x);
@@ -33,7 +33,7 @@ public class DriveLoop extends Command{
 		
 		
 		//For now we have to make sure not to break it while testing		
-		Robot.drivePreTalon.SetSpeed(x, y);
+		Robot.drive.SetSpeed(x, y);
 		/*Robot.drivePreTalon.SetRightPower(x);
 		Robot.drivePreTalon.SetLeftPower(y);*/
 	}
