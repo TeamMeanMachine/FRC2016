@@ -10,16 +10,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Subsystem {
 	
-	public static CANTalon left1;
-	public static CANTalon left2;
-	public static CANTalon right1;
-	public static CANTalon right2;
+	private static CANTalon left1;
+	private static CANTalon left2;
+	private static CANTalon right1;
+	private static CANTalon right2;
 	
-	boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);  // should read from prefs and save to prefs on disabled, find TMMSmartDashboard from 2015 Robot code.
+	private boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);  // should read from prefs and save to prefs on disabled, find TMMSmartDashboard from 2015 Robot code.
 	
-	public double requestedPowerLeft, requestedPowerRight;
+	private double requestedPowerLeft, requestedPowerRight;
 	
-	public PIDController leftController, rightController;
+	private PIDController leftController, rightController;
 	
 
 	@Override
@@ -51,14 +51,6 @@ public class Drive extends Subsystem {
 		
 		//double speed = Math.abs(RobotMap.leftE.getRate() + RobotMap.rightE.getRate())/2.0;	//Doesn't do anything, will reimplamant when doing testing
 	}
-
-	public void setRightPower(double x) {
-		right1.set(x);
-	}
-	
-	public void setLeftPower(double x){
-		left1.set(x);
-	}
 	
 	public void SetSpeed(double right, double forward){
 		
@@ -80,8 +72,8 @@ public class Drive extends Subsystem {
 		}
 		else
 		{
-			setLeftPower( forward + right );
-			setRightPower( forward - right );
+			right1.set( forward + right );
+			left1.set( forward - right );
 		}
-	}
+//	}
 }
