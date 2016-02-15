@@ -6,10 +6,12 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Aim extends PIDCommand {
-	public static double p, i, d;
+//	private double p, i, d; Unused
 	
 	public Aim() {
-		super(0.02, 0.0, 0.0);
+		super(SmartDashboard.getNumber("Aimer_p", 0.01), // Temporarily receive PID values from smartdashboard.
+			  SmartDashboard.getNumber("Aimer_i", 0.0), 
+			  SmartDashboard.getNumber("Aimer_d", 0.0));
 		Robot.shooter.motor1.set(0.2);
 		// TODO Auto-generated constructor stub
 	}
@@ -44,17 +46,18 @@ public class Aim extends PIDCommand {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(returnPIDInput()) <= 3;
+		//return Math.abs(returnPIDInput()) <= 3;
+		return Robot.oi.driverStick.getRawButton(2);
 	}
 
 	@Override
 	protected void end() {
-		Robot.drive.setAimDrop(false);		
+		Robot.drive.setAimDrop(false);
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public class Shoot extends Command {
 
 	@Override
 	protected void execute() {
-		x = SmartDashboard.getNumber("Top", .4);
+		x = SmartDashboard.getNumber("Top", .6);
 		y = SmartDashboard.getNumber("Bottom", -.4);
 		
 		if(SmartDashboard.getBoolean("Shoot"))

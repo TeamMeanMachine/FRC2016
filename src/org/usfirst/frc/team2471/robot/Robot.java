@@ -67,6 +67,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Top", topShootPower);
 		SmartDashboard.putNumber("Bottom", botShootPower);
 		SmartDashboard.putBoolean("Shoot", shoot);
+		
+		SmartDashboard.putNumber("Aimer_p", 0.01); // Temporarily receive PID values from smartdashboard.
+		SmartDashboard.putNumber("Aimer_i", 0.0);
+		SmartDashboard.putNumber("Aimer_d", 0.0);
     }
 	
 	public void disabledPeriodic() {

@@ -27,21 +27,6 @@ public class Drive extends Subsystem {
 		setDefaultCommand(new DriveLoop());
 	}
 	
-	// This shouldn't be needed
-//	class newPIDOutput implements PIDOutput {
-//		CANTalon motor;
-//		public newPIDOutput(CANTalon motor) {
-//			this.motor = motor;
-//		}
-	
-//		@Override
-//		public void pidWrite(double output) {
-//			SmartDashboard.putNumber("PID_2", output);
-//			motor.set(output);
-//		}
-//		
-//	}
-	
 	public Drive(){
 		left1 = RobotMap.left1;
 		right1 = RobotMap.right1;
@@ -61,8 +46,8 @@ public class Drive extends Subsystem {
 	}
 	
 	
-	public void driveConfig(double x, double y){ // TODO: Figure out what this does
-//		SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate()); TODO: update later
+	public void driveConfig(double x, double y){
+//		SmartDashboard.putNumber("Left Encoder: ", RobotMap.leftE.getRate());
 //		SmartDashboard.putNumber("Right Encoder: ", RobotMap.rightE.getRate());
 		
 		double deadband = 0.05;
