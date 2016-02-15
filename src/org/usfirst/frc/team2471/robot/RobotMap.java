@@ -3,6 +3,7 @@ package org.usfirst.frc.team2471.robot;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -31,6 +32,7 @@ public class RobotMap {
     
 /*_________________________Aimer---------------------------------------*/
     public static CANTalon aimer;
+    public static Encoder aimEncoder;
     
     
     
@@ -62,7 +64,7 @@ public class RobotMap {
     	right2.changeControlMode(TalonControlMode.Follower);
     	right2.set(right1.getDeviceID());
     	
-    	aimDropCylinder = new Solenoid(7);
+    	aimDropCylinder = new Solenoid(4);
     	
     	/*
     	 * no wires

@@ -16,7 +16,7 @@ public class RotateArm extends Command{
 
 	@Override
 	protected void execute() {
-		double upDownValue = Robot.oi.coStick.getRawAxis(5);
+		double upDownValue = -Robot.oi.coStick.getRawAxis(5); // TODO: Temporary inverted value
 		
 		if (Math.abs(upDownValue) < 0.15)
 			upDownValue = 0.0;
