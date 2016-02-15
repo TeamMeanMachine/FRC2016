@@ -25,7 +25,7 @@ public class DriveLoop extends Command{
 	@Override
 	protected void execute() {
 		double x = -Robot.oi.driverStick.getRawAxis(1);
-		double y = -Robot.oi.driverStick.getRawAxis(2);
+		double y = -Robot.oi.driverStick.getRawAxis(3);
 		
 		//No cubic functions for now, but possibly later
 		//x = x * x * x;

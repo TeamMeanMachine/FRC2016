@@ -81,7 +81,11 @@ public class RobotMap {
     	rollerIntake = new CANTalon(9);
     	
     	defenseArmLeft = new CANTalon(8);
+    	
     	defenseArmRight = new CANTalon(7);
+    	defenseArmRight.changeControlMode(TalonControlMode.Follower);
+    	defenseArmRight.set(defenseArmLeft.getDeviceID());
+    	defenseArmRight.reverseOutput(true);
     	
     	intakeActuate = new Solenoid(6);
     	

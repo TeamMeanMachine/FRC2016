@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
-import org.usfirst.frc.team2471.robot.CameraPIDInput;
+import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.DriveLoop;
 
@@ -16,33 +16,31 @@ public class Drive extends Subsystem {
 	private CANTalon left1;
 	private CANTalon right1;
 	
-	public CANTalon aimer; // TODO: temp public
+	public CANTalon aimer;
 	
 	private Solenoid aimDropCylinder;
 	
 	private boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);  // should read from prefs and save to prefs on disabled, find TMMSmartDashboard from 2015 Robot code.
-	
-	private PIDController aimController;
-	
-	private CameraPIDInput shotInTheDark;
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DriveLoop());
 	}
 	
-	class newPIDOutput implements PIDOutput {
-		CANTalon motor;
-		public newPIDOutput(CANTalon motor) {
-			this.motor = motor;
-		}
-		@Override
-		public void pidWrite(double output) {
-			SmartDashboard.putNumber("PID_2", output);
-			motor.set(output);
-		}
-		
-	}
+	// This shouldn't be needed
+//	class newPIDOutput implements PIDOutput {
+//		CANTalon motor;
+//		public newPIDOutput(CANTalon motor) {
+//			this.motor = motor;
+//		}
+	
+//		@Override
+//		public void pidWrite(double output) {
+//			SmartDashboard.putNumber("PID_2", output);
+//			motor.set(output);
+//		}
+//		
+//	}
 	
 	public Drive(){
 		left1 = RobotMap.left1;
@@ -51,23 +49,11 @@ public class Drive extends Subsystem {
 		
 		aimDropCylinder = RobotMap.aimDropCylinder;
 		
-		shotInTheDark = new CameraPIDInput();
-		aimController = new PIDController(0.045, 0, 0, shotInTheDark, new newPIDOutput(aimer)); // TODO: Magic numbers
-//		aimController.setAbsoluteTolerance(3); // TODO: Magic number
 		SmartDashboard.putBoolean("Speed Control", bSpeedControl);
 	}
 	
-	public boolean isFinishedAiming() {
-		return aimController.onTarget();
-	}
-	
-	public void startAim() {
-		aimController.enable();
-		aimController.setSetpoint(0);
-	}
-	
-	public void endAim() {
-		aimController.disable();
+	public void setAimerMotor(double power) {
+		aimer.set(power);
 	}
 	
 	public void setAimDrop(boolean value) {
@@ -92,7 +78,7 @@ public class Drive extends Subsystem {
 	
 	public void SetSpeed(double right, double forward){
 		
-		bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);
+		bSpeedControl = SmartDashboard.getBoolean("Speed Control", false);
 
 //		if (bSpeedControl)
 //		{

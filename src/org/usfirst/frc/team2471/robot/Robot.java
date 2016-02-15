@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team2471.robot;
 
+import java.util.prefs.PreferenceChangeEvent;
+
 import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2471.robot.subsystems.AimDropper;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
@@ -10,6 +12,7 @@ import org.usfirst.frc.team2471.robot.subsystems.Intake;
 import org.usfirst.frc.team2471.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -32,10 +35,10 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	//public static Drive drive;
 	public static Drive drive;
-	public static AimDropper aimdrop;
 	public static DefenseArm defenseArm;
 	
 	public static double topShootPower, botShootPower;
+	public static boolean shoot;
 
 	public static SendableChooser autoChooser;
     Command autonomousCommand;
@@ -50,7 +53,6 @@ public class Robot extends IterativeRobot {
         drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
-        aimdrop = new AimDropper();
 		defenseArm = new DefenseArm();
 		oi = new OI();
         
@@ -61,9 +63,10 @@ public class Robot extends IterativeRobot {
 //        autoChooser.addObject("Name", new Command());
         SmartDashboard.putData("AutoChooser", autoChooser);
         
-
+        shoot = false;
 		SmartDashboard.putNumber("Top", topShootPower);
 		SmartDashboard.putNumber("Bottom", botShootPower);
+		SmartDashboard.putBoolean("Shoot", shoot);
     }
 	
 	public void disabledPeriodic() {
@@ -96,7 +99,6 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
     }
 
     /**

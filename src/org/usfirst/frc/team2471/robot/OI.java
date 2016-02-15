@@ -1,8 +1,6 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.Aim;
-import org.usfirst.frc.team2471.robot.commands.RotateArmDown;
-import org.usfirst.frc.team2471.robot.commands.RotateArmUp;
 import org.usfirst.frc.team2471.robot.commands.SpitOutBall;
 import org.usfirst.frc.team2471.robot.commands.SuckUpBall;
 
@@ -47,6 +45,7 @@ public class OI {
 	public static JoystickButton armRotateDownButton;
 	public static JoystickButton spitOut;
 	public static JoystickButton suckIn;
+	public static JoystickButton toggleWindup;
 	
 	public OI(){
 		driverStick = new Joystick(0);
@@ -57,12 +56,6 @@ public class OI {
 		
 		aimButton = new JoystickButton(driverStick, 1);
 		aimButton.whenPressed(new Aim());
-		
-		armRotateUpButton = new JoystickButton(coStick, 2);
-		armRotateUpButton.whileHeld(new RotateArmUp());
-		
-		armRotateDownButton = new JoystickButton(coStick, 3);
-		armRotateDownButton.whileHeld(new RotateArmDown());
 		
 		spitOut = new JoystickButton(coStick, 1);
 		spitOut.whileHeld(new SpitOutBall());

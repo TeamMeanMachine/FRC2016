@@ -22,9 +22,7 @@ public class DefenseArm extends Subsystem{
 		armLeft = RobotMap.defenseArmLeft;
 		armRight = RobotMap.defenseArmRight;
 		
-		armRight.changeControlMode(TalonControlMode.Follower);
-		armRight.set(armLeft.getDeviceID());
-		armRight.reverseOutput(true);
+		
 		
 /*		armLeft.changeControlMode(TalonControlMode.Current);
 		armLeft.setF(0.025);
@@ -32,28 +30,14 @@ public class DefenseArm extends Subsystem{
 		armLeft.enable();
 */	}
 	
-	public void rotateUp(){
-		if((RobotMap.pdp.getCurrent(8) <= 12)){
-			
-			armLeft.set(0.5);
-			//armLeft.setSetpoint(10000);
-		}
-	}
-	
-	public void rotateDown(){
-		if((RobotMap.pdp.getCurrent(8) <= 12)){
-			armLeft.set(-.5);
-			//armLeft.setSetpoint(-10000);
-		}
-	}
 	
 	public void rotateStop(){
 		armLeft.set(0.0);
 		//armLeft.setSetpoint(0);
 	}
 	
-	public void rotate( double power )
+	public void rotate(double power)
 	{
-		armLeft.set( power );
+		armLeft.set(power);
 	}
 }

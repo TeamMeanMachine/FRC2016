@@ -21,10 +21,16 @@ public class Shoot extends Command {
 
 	@Override
 	protected void execute() {
-		x = SmartDashboard.getNumber("Top");
-		y = SmartDashboard.getNumber("Bottom");
+		x = SmartDashboard.getNumber("Top", .4);
+		y = SmartDashboard.getNumber("Bottom", -.4);
 		
-		Robot.shooter.shoot(x, y);
+		if(SmartDashboard.getBoolean("Shoot"))
+		{
+			Robot.shooter.shoot(x, y);
+		}else
+		{
+			Robot.shooter.shoot(0.0, 0.0);
+		}
 	}
 
 	@Override
