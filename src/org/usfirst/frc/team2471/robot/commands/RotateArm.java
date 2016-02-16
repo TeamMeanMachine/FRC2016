@@ -16,9 +16,9 @@ public class RotateArm extends Command{
 
 	@Override
 	protected void execute() {
-		double upDownValue = -Robot.oi.coStick.getRawAxis(5); // TODO: Temporary inverted value
+		double upDownValue = -Robot.oi.coStick.getRawAxis(5);
 		
-		if (Math.abs(upDownValue) < 0.15)
+		if (Math.abs(upDownValue) < 0.15)  // dead band for xbox
 			upDownValue = 0.0;
 		
 		if (upDownValue > 0.0)  // diminish power

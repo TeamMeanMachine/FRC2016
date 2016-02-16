@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shoot extends Command {
 	
-	public static double x, y;
-	public static boolean lesdoit;
-
 	public Shoot() {
 		requires(Robot.shooter);
 	}
@@ -22,18 +19,7 @@ public class Shoot extends Command {
 
 	@Override
 	protected void execute() {
-		x = SmartDashboard.getNumber("Top", .6);
-		y = SmartDashboard.getNumber("Bottom", -.4);
-		
-		if(SmartDashboard.getBoolean("Shoot"))
-		{
-			Robot.shooter.shoot(x, y);
-		}else
-		{
-			Robot.shooter.stop();
-		}
-		
-		
+		Robot.shooter.shootLogic();
 	}
 
 	@Override

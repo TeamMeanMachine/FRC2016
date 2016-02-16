@@ -4,9 +4,9 @@ import org.usfirst.frc.team2471.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SpitOutBall extends Command{
+public class Fire extends Command{
 
-	public SpitOutBall() {
+	public Fire() {
 		// TODO Auto-generated constructor stub
 		requires(Robot.intake);
 	}

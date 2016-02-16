@@ -21,9 +21,7 @@ public class DefenseArm extends Subsystem{
 	public DefenseArm(){
 		armLeft = RobotMap.defenseArmLeft;
 		armRight = RobotMap.defenseArmRight;
-		
-		
-		
+
 /*		armLeft.changeControlMode(TalonControlMode.Current);
 		armLeft.setF(0.025);
 		armLeft.setPID(0,0,0);
@@ -38,6 +36,11 @@ public class DefenseArm extends Subsystem{
 	
 	public void rotate(double power)
 	{
-		armLeft.set(power);
+//		if((RobotMap.pdp.getCurrent(7) <= 12)){
+			armLeft.set(power);
+//		}
+//		else {
+//			armLeft.set(0.0);
+//		}
 	}
 }

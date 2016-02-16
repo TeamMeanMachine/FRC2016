@@ -12,30 +12,30 @@ public class Aim extends PIDCommand {
 	public static PIDController aimcontroller;
 	
 	public Aim() {
-		super(0.01, 0.0, 0.0);
+		super(0.005, 0.0, 0.01);
+		requires( Robot.shooter );
 		Robot.shooter.motor1.set(0.2);
 		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
 		SmartDashboard.putBoolean("Aim", true);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		double error;
+		double input;
 		double blobCount = SmartDashboard.getNumber("BLOB_COUNT", -1.0d);
-//		if (blobCount == -1.0d) {
-//			System.out.println("Connection to compute stick failed");
-//			error = -100;
-//		}
+		if (blobCount == -1.0d) {
+			System.out.println("Connection to compute stick failed");
+			input = -100;
+		}
 		if (blobCount > 0) {
 			return SmartDashboard.getNumber("AIM_ERROR");
 		}
 		else {
-			error = 0.0;
+			input = getSetpoint();
 		}
-		SmartDashboard.putNumber("Error", error);
-		return error;
+		SmartDashboard.putNumber("Error", input);
+		return input;
 	}
 
 	@Override
@@ -46,32 +46,32 @@ public class Aim extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.setAimDrop(true);
-		Shoot.x = .7;
-		Shoot.y = -.5;
 		aimcontroller.enable();
+		System.out.println("Aim");
 	}
 
 	@Override
 	protected void execute() {
 		setSetpoint(0.0 + SmartDashboard.getNumber("Aim Change"));
+		Robot.shooter.shootLogic();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		//return Math.abs(returnPIDInput()) <= 3;
-		return OI.driverStick.getRawButton(2);
+		//return onTarget();
+		return OI.coStick.getRawButton(3);
 	}
 
 	@Override
 	protected void end() {
 		Robot.drive.setAimDrop(false);
 		aimcontroller.disable();
-		SmartDashboard.putBoolean("Aim", true);
+		//SmartDashboard.putBoolean("Aim", true);
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		end();
 	}
 }

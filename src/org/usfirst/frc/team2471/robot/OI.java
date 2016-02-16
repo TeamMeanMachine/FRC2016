@@ -1,7 +1,10 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commands.Aim;
-import org.usfirst.frc.team2471.robot.commands.SpitOutBall;
+import org.usfirst.frc.team2471.robot.commands.AimAndShootGroup;
+import org.usfirst.frc.team2471.robot.commands.Fire;
+import org.usfirst.frc.team2471.robot.commands.StartShooter;
+import org.usfirst.frc.team2471.robot.commands.StopShooter;
 import org.usfirst.frc.team2471.robot.commands.SuckUpBall;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,9 +47,13 @@ public class OI {
 	public static JoystickButton aimButton;
 	public static JoystickButton armRotateUpButton;
 	public static JoystickButton armRotateDownButton;
-	public static JoystickButton spitOut;
+	public static JoystickButton fireButton;
 	public static JoystickButton suckIn;
 	public static JoystickButton toggleWindup;
+	public static JoystickButton button2;
+	public static JoystickButton button3;
+	public static JoystickButton button4;
+	
 	
 	public OI(){
 		driverStick = new Joystick(0);
@@ -54,17 +61,17 @@ public class OI {
 		
 		/*shootButton = new JoystickButton(coStick, 1);
 		shootButton.whileHeld(new Shoot());*/
+		
 		Aim aimer = new Aim();
 		SmartDashboard.putData("Aim PID", aimer);
 		
-		aimButton = new JoystickButton(driverStick, 1);
-		aimButton.whenPressed(aimer);
+		aimButton = new JoystickButton(coStick, 2);
+		aimButton.whenReleased(new AimAndShootGroup());
 		
+		fireButton = new JoystickButton(coStick, 4);  // want to put this on right trigger, but it is an axis on xbox controller
+		fireButton.whileHeld(new Fire());
 		
-		spitOut = new JoystickButton(coStick, 1);
-		spitOut.whileHeld(new SpitOutBall());
-		
-		suckIn = new JoystickButton(coStick, 4);
+		suckIn = new JoystickButton(coStick, 1);
 		suckIn.whileHeld(new SuckUpBall());
 	}
 }

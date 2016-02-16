@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
+import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends Subsystem{
 	
@@ -43,5 +45,18 @@ public class Shooter extends Subsystem{
 		RobotMap.shootIntake.set(0.0);
 		RobotMap.shootMotorTop.set(0.0);
 		RobotMap.shootMotorBottom.set(0.0);
+	}
+
+	public void shootLogic() {
+		double x = SmartDashboard.getNumber("Top", .6);
+		double y = SmartDashboard.getNumber("Bottom", -.4);
+		
+		if (SmartDashboard.getBoolean("Shoot"))
+		{
+			Robot.shooter.shoot(x, y);
+		} else
+		{
+			Robot.shooter.stop();
+		}		
 	}
 }
