@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shoot extends Command {
 	
-	private double x, y;
+	public static double x, y;
+	public static boolean lesdoit;
 
 	public Shoot() {
 		requires(Robot.shooter);
@@ -29,8 +30,10 @@ public class Shoot extends Command {
 			Robot.shooter.shoot(x, y);
 		}else
 		{
-			Robot.shooter.shoot(0.0, 0.0);
+			Robot.shooter.stop();
 		}
+		
+		
 	}
 
 	@Override

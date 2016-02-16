@@ -1,18 +1,22 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Aim extends PIDCommand {
 //	private double p, i, d; Unused
+	public static PIDController aimcontroller;
 	
 	public Aim() {
-		super(SmartDashboard.getNumber("Aimer_p", 0.01), // Temporarily receive PID values from smartdashboard.
-			  SmartDashboard.getNumber("Aimer_i", 0.0), 
-			  SmartDashboard.getNumber("Aimer_d", 0.0));
+		super(0.01, 0.0, 0.0);
 		Robot.shooter.motor1.set(0.2);
+		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
+		aimcontroller = getPIDController();
+		SmartDashboard.putBoolean("Aim", true);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -30,7 +34,7 @@ public class Aim extends PIDCommand {
 		else {
 			error = 0.0;
 		}
-		SmartDashboard.putNumber("PID", error);
+		SmartDashboard.putNumber("Error", error);
 		return error;
 	}
 
@@ -42,22 +46,27 @@ public class Aim extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.setAimDrop(true);
+		Shoot.x = .7;
+		Shoot.y = -.5;
+		aimcontroller.enable();
 	}
 
 	@Override
 	protected void execute() {
-		
+		setSetpoint(0.0 + SmartDashboard.getNumber("Aim Change"));
 	}
 
 	@Override
 	protected boolean isFinished() {
 		//return Math.abs(returnPIDInput()) <= 3;
-		return Robot.oi.driverStick.getRawButton(2);
+		return OI.driverStick.getRawButton(2);
 	}
 
 	@Override
 	protected void end() {
 		Robot.drive.setAimDrop(false);
+		aimcontroller.disable();
+		SmartDashboard.putBoolean("Aim", true);
 	}
 
 	@Override

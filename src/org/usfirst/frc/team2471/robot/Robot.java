@@ -1,10 +1,8 @@
 
 package org.usfirst.frc.team2471.robot;
 
-import java.util.prefs.PreferenceChangeEvent;
-
+import org.usfirst.frc.team2471.robot.commands.Aim;
 import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
-import org.usfirst.frc.team2471.robot.subsystems.AimDropper;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.ExampleSubsystem;
@@ -37,12 +35,13 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static DefenseArm defenseArm;
 	
-	public static double topShootPower, botShootPower;
 	public static boolean shoot;
 
 	public static SendableChooser autoChooser;
     Command autonomousCommand;
-
+    
+    public static Preferences prefs;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -54,23 +53,24 @@ public class Robot extends IterativeRobot {
         intake = new Intake();
         shooter = new Shooter();
 		defenseArm = new DefenseArm();
+		
+		prefs = Preferences.getInstance();
+		
+		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 0.0));
+		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", 0.0));
+		SmartDashboard.putBoolean("Shoot", prefs.getBoolean("Shoot", false));
+		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 0.0));
+		
 		oi = new OI();
-        
+		
         //Here is the Sendable for the autonomous command
         autoChooser = new SendableChooser();
         autoChooser.addObject("Nothing", new ExampleCommand());
         autoChooser.addDefault("Drive Straight", new ExampleCommand());
 //        autoChooser.addObject("Name", new Command());
         SmartDashboard.putData("AutoChooser", autoChooser);
-        
-        shoot = false;
-		SmartDashboard.putNumber("Top", topShootPower);
-		SmartDashboard.putNumber("Bottom", botShootPower);
-		SmartDashboard.putBoolean("Shoot", shoot);
-		
-		SmartDashboard.putNumber("Aimer_p", 0.01); // Temporarily receive PID values from smartdashboard.
-		SmartDashboard.putNumber("Aimer_i", 0.0);
-		SmartDashboard.putNumber("Aimer_d", 0.0);
+
+        SmartDashboard.putData(new Aim());
     }
 	
 	public void disabledPeriodic() {
@@ -103,6 +103,10 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
+    	prefs.putDouble("Top", SmartDashboard.getNumber("Top", 0.0));
+    	prefs.putDouble("Bottom", SmartDashboard.getNumber("Bottom", 0.0));
+    	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange" , 0.0));
+    	prefs.putBoolean("Shoot", SmartDashboard.getBoolean("Shoot" , false));
     }
 
     /**

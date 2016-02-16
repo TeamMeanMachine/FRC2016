@@ -6,6 +6,7 @@ import org.usfirst.frc.team2471.robot.commands.SuckUpBall;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -53,9 +54,12 @@ public class OI {
 		
 		/*shootButton = new JoystickButton(coStick, 1);
 		shootButton.whileHeld(new Shoot());*/
+		Aim aimer = new Aim();
+		SmartDashboard.putData("Aim PID", aimer);
 		
 		aimButton = new JoystickButton(driverStick, 1);
-		aimButton.whenPressed(new Aim());
+		aimButton.whenPressed(aimer);
+		
 		
 		spitOut = new JoystickButton(coStick, 1);
 		spitOut.whileHeld(new SpitOutBall());

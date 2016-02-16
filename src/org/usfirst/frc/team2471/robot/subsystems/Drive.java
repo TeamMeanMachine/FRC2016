@@ -77,7 +77,8 @@ public class Drive extends Subsystem {
 
 		if (bSpeedControl)
 		{
-			
+			right1.set( forward + right );
+			left1.set( forward - right );
 		}
 		else
 		{
