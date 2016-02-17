@@ -33,7 +33,12 @@ public class DriveLoop extends Command{
 		
 		
 		//For now we have to make sure not to break it while testing		
-		Robot.drive.SetSpeed(x, y);
+		if(!Robot.drive.getAimDropStatus()) {
+			Robot.drive.SetSpeed(x, y);
+		}
+		else if(Robot.DEBUGMODE) {
+			System.out.println("Robot tried to drive when the aim dropper is down! This should never happen!!!"); // This should never happen!
+		}
 		/*Robot.drivePreTalon.SetRightPower(x);
 		Robot.drivePreTalon.SetLeftPower(y);*/
 	}

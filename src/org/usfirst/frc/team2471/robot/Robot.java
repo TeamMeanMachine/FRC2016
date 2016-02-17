@@ -25,6 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	
+	/**
+	 * This variable should be called to test if we should push print statements to the console that are for debugging purposes, so we can easily
+	 * disable debug messages during competition so we can use the console for more important info.
+	 */
+	public static final boolean DEBUGMODE = true;
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;

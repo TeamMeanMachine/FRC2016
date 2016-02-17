@@ -44,6 +44,9 @@ public class Drive extends Subsystem {
 	public void setAimDrop(boolean value) {
 		aimDropCylinder.set(value);
 	}
+	public boolean getAimDropStatus() {
+		return aimDropCylinder.get();
+	}
 	
 	
 	public void driveConfig(double x, double y){
