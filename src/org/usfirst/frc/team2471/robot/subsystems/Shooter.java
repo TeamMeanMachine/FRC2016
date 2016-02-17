@@ -23,6 +23,20 @@ public class Shooter extends Subsystem{
 	public Shooter(){
 		motor1 = RobotMap.shootMotorTop;
 		motor2 = RobotMap.shootMotorBottom;
+		
+		motor1.changeControlMode(CANTalon.TalonControlMode.Speed);
+		motor2.changeControlMode(CANTalon.TalonControlMode.Speed);
+		
+		motor1.configEncoderCodesPerRev(250);
+		motor2.configEncoderCodesPerRev(250);
+		
+		motor1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		motor2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		
+		motor1.setPID(0, 0, 0);
+		motor2.setPID(0, 0, 0);
+		
+		//motor1.setF()
 	}
 	
 

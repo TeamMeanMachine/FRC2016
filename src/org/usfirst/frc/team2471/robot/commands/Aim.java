@@ -14,6 +14,7 @@ public class Aim extends PIDCommand {
 	public Aim() {
 		super(0.005, 0.0, 0.01);
 		requires( Robot.shooter );
+		requires( Robot.drive );
 		Robot.shooter.motor1.set(0.2);
 		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
