@@ -61,6 +61,8 @@ public class Robot extends IterativeRobot {
 		
 		prefs = Preferences.getInstance();
 		
+		SmartDashboard.putData("Shoot PID Config", shooter);
+		
 		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 0.6));
 		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", -0.4));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 50.0));

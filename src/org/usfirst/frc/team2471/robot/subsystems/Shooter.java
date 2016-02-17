@@ -46,19 +46,16 @@ public class Shooter extends Subsystem{
 		RobotMap.shootMotorBottom.set(y);
 		
 		if ((x > 0.0 || x < 0.0) && (y > 0.0 || y < 0.0)){
-			RobotMap.shootIntake.set(-.4);
+			RobotMap.shootIntake.setSetpoint(-.4);
 		}else{
-			RobotMap.shootIntake.set(0.0);
+			RobotMap.shootIntake.setSetpoint(0.0);
 		}
 	}
 
 	public void stop() {
-		// TODO Auto-generated method stub
-//		RobotMap.left2.set(0.0);
-//		RobotMap.left3.set(0.0);
-		RobotMap.shootIntake.set(0.0);
-		RobotMap.shootMotorTop.set(0.0);
-		RobotMap.shootMotorBottom.set(0.0);
+		RobotMap.shootIntake.setSetpoint(0.0);
+		RobotMap.shootMotorTop.setSetpoint(0.0);
+		RobotMap.shootMotorBottom.setSetpoint(0.0);
 	}
 
 	public void shootLogic() {

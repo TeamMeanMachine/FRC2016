@@ -55,11 +55,13 @@ public class RobotMap {
     	//left1 = new CANTalon(0);
     	
     	left1 = new CANTalon(15);
+    	
     	left2 = new CANTalon(14);
     	left2.changeControlMode(TalonControlMode.Follower);
     	left2.set(left1.getDeviceID());
     	
     	right1 = new CANTalon(0);
+    	
     	right2 = new CANTalon(1);
     	right2.changeControlMode(TalonControlMode.Follower);
     	right2.set(right1.getDeviceID());
