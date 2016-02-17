@@ -42,18 +42,18 @@ public class Shooter extends Subsystem{
 
 	public void shoot(double x, double y) {
 		// TODO Auto-generated method stub
-		RobotMap.shootMotorTop.set(x);
-		RobotMap.shootMotorBottom.set(y);
+		RobotMap.shootMotorTop.setSetpoint(x);
+		RobotMap.shootMotorBottom.setSetpoint(y);
 		
 		if ((x > 0.0 || x < 0.0) && (y > 0.0 || y < 0.0)){
-			RobotMap.shootIntake.setSetpoint(-.4);
+			RobotMap.shootIntake.set(-.4);
 		}else{
-			RobotMap.shootIntake.setSetpoint(0.0);
+			RobotMap.shootIntake.set(0.0);
 		}
 	}
 
 	public void stop() {
-		RobotMap.shootIntake.setSetpoint(0.0);
+		RobotMap.shootIntake.set(0.0);
 		RobotMap.shootMotorTop.setSetpoint(0.0);
 		RobotMap.shootMotorBottom.setSetpoint(0.0);
 	}

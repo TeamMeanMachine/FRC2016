@@ -54,6 +54,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	RobotMap.init();
+    	//Soon will change to DriveTalonPID
         drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
