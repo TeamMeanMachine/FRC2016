@@ -15,9 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveTalonPID extends Subsystem {
 	
 	public static CANTalon left1;
-	public static CANTalon left2;
 	public static CANTalon right1;
-	public static CANTalon right2;
 	
 	public double prevScale = 1.0;
 	
@@ -34,18 +32,9 @@ public class DriveTalonPID extends Subsystem {
 		left1 = RobotMap.left1;
 		right1 = RobotMap.right1;
 		
-		//leftController = new PIDController( 0.01, 0.0, 0.03, new WCDLeftPIDSource(), wcdLeftPIDOutput);
-		//rightController = new PIDController( 0.01, 0.0, 0.03, new WCDRightPIDSource(), wcdRightPIDOutput);
-		
-		//leftController = new PIDController(left1.getP(), Ki, Kd, source, output)
 		left1.setPID(0.01, 0.0, 0.03);
 		right1.setPID(0.01, 0.0, 0.03);
-		
-		
-		
-			
-		//SmartDashboard.putData("PID Left: ", leftController);
-		//SmartDashboard.putData("PID Right: ", rightController);
+	
 		SmartDashboard.putBoolean("Speed Control", bSpeedControl);
 	}
 	
@@ -64,12 +53,10 @@ public class DriveTalonPID extends Subsystem {
 
 	public void SetRightPower(double x) {
 		right1.set(x);
-		right2.set(x);
 	}
 	
 	public void SetLeftPower(double x){
 		left1.set(x);
-		left2.set(x);
 	}
 	
 	public void SetSpeed(double right, double forward){
