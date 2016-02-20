@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 0.6));
 		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", -0.4));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 50.0));
+		SmartDashboard.putBoolean("Shoot", false);
 		
 		SmartDashboard.putData(shooter);
 		

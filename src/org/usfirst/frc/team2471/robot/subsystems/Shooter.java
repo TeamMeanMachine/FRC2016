@@ -22,7 +22,7 @@ public class Shooter extends Subsystem{
 
 	public Shooter(){
 		motor1 = RobotMap.shootMotorTop;
-		motor2 = RobotMap.shootMotorBottom;
+		motor2 = RobotMap.shootMotorBottom;/*
 		
 		motor1.changeControlMode(CANTalon.TalonControlMode.Speed);
 		motor2.changeControlMode(CANTalon.TalonControlMode.Speed);
@@ -33,8 +33,8 @@ public class Shooter extends Subsystem{
 		motor1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		motor2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		
-		motor1.setPID(0, 0, 0);
-		motor2.setPID(0, 0, 0);
+		motor1.setPID(0.1, 0, 0);
+		motor2.setPID(0.1, 0, 0);*/
 		
 		//motor1.setF()
 	}
@@ -42,8 +42,8 @@ public class Shooter extends Subsystem{
 
 	public void shoot(double x, double y) {
 		// TODO Auto-generated method stub
-		RobotMap.shootMotorTop.setSetpoint(x);
-		RobotMap.shootMotorBottom.setSetpoint(y);
+		RobotMap.shootMotorTop.set(x);
+		RobotMap.shootMotorBottom.set(y);
 		
 		if ((x > 0.0 || x < 0.0) && (y > 0.0 || y < 0.0)){
 			RobotMap.shootIntake.set(-.4);
@@ -54,8 +54,8 @@ public class Shooter extends Subsystem{
 
 	public void stop() {
 		RobotMap.shootIntake.set(0.0);
-		RobotMap.shootMotorTop.setSetpoint(0.0);
-		RobotMap.shootMotorBottom.setSetpoint(0.0);
+		RobotMap.shootMotorTop.set(0.0);
+		RobotMap.shootMotorBottom.set(0.0);
 	}
 
 	public void shootLogic() {

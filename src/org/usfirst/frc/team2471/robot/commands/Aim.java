@@ -23,7 +23,9 @@ public class Aim extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
+		
 		double input;
+		try{
 		double blobCount = SmartDashboard.getNumber("BLOB_COUNT", -1.0d);
 		if (blobCount == -1.0d) {
 			System.out.println("Connection to compute stick failed");
@@ -37,6 +39,12 @@ public class Aim extends PIDCommand {
 		}
 		SmartDashboard.putNumber("Error", input);
 		return input;
+		}catch(Exception e){
+			System.out.println("Could not find Dashboard variable from Intel Stick");
+			return -100;
+		}
+		
+		//return getSetpoint();  // no aiming for now...
 	}
 
 	@Override
@@ -53,7 +61,12 @@ public class Aim extends PIDCommand {
 
 	@Override
 	protected void execute() {
-		setSetpoint(0.0 + SmartDashboard.getNumber("Aim Change"));
+		try{
+			setSetpoint(0.0 + SmartDashboard.getNumber("Aim Change"));
+		}catch(Exception e){
+			setSetpoint(0.0);
+			System.out.println("Could not find Dashboard variable from Intel Stick");
+		}
 		Robot.shooter.shootLogic();
 	}
 
