@@ -3,6 +3,7 @@ package org.usfirst.frc.team2471.robot;
 import org.usfirst.frc.team2471.robot.commands.Aim;
 import org.usfirst.frc.team2471.robot.commands.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commands.Fire;
+import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.StartShooter;
 import org.usfirst.frc.team2471.robot.commands.StopShooter;
 import org.usfirst.frc.team2471.robot.commands.SuckUpBall;
@@ -53,6 +54,7 @@ public class OI {
 	public static JoystickButton button2;
 	public static JoystickButton button3;
 	public static JoystickButton button4;
+	public static JoystickButton sallyPort;
 	
 	
 	public OI(){
@@ -65,14 +67,17 @@ public class OI {
 		Aim aimer = new Aim();
 		SmartDashboard.putData("Aim PID", aimer);
 		
-		aimButton = new JoystickButton(coStick, 2);
+		aimButton = new JoystickButton(coStick, 3);
 		aimButton.whenReleased(new AimAndShootGroup());
 		
-		fireButton = new JoystickButton(coStick, 4);  // want to put this on right trigger, but it is an axis on xbox controller
+		fireButton = new JoystickButton(coStick, 6);  // want to put this on right trigger, but it is an axis on xbox controller
 		fireButton.whileHeld(new Fire());
 		
 		suckIn = new JoystickButton(coStick, 1);
 		suckIn.whileHeld(new SuckUpBall());
+		
+		sallyPort = new JoystickButton(coStick, 5);
+		sallyPort.whenPressed(new SallyPortPreset());
 	}
 }
 

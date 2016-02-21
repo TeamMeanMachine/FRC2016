@@ -7,14 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveLoop extends Command{
 	
-	double x, y;
-	
 	public DriveLoop(){
 		requires(Robot.drive);
-		
-
-		SmartDashboard.putNumber("Top", x);
-		SmartDashboard.putNumber("Bottom", y);
 	}
 	@Override
 	protected void initialize() {
@@ -31,7 +25,6 @@ public class DriveLoop extends Command{
 		//x = x * x * x;
 		//y = y * y * y;
 		
-		
 		//For now we have to make sure not to break it while testing		
 		if(!Robot.drive.getAimDropStatus()) {
 			Robot.drive.SetSpeed(x, y);
@@ -39,8 +32,6 @@ public class DriveLoop extends Command{
 		else if(Robot.DEBUGMODE) {
 			System.out.println("Robot tried to drive when the aim dropper is down! This should never happen!!!"); // This should never happen!
 		}
-		/*Robot.drivePreTalon.SetRightPower(x);
-		Robot.drivePreTalon.SetLeftPower(y);*/
 	}
 
 	@Override

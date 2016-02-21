@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -46,6 +47,9 @@ public class RobotMap {
     public static DigitalInput lowerArmLimit;
     
     public static Solenoid intakeActuate;
+    public static Solenoid ringLight;
+    
+    public static AnalogInput magnepotArm;
     
 
     
@@ -94,6 +98,9 @@ public class RobotMap {
     	defenseArmRight.reverseOutput(true);
     	
     	intakeActuate = new Solenoid(6);
+    	ringLight = new Solenoid(3);
+    	
+    	magnepotArm = new AnalogInput(1);
     	
     	pdp = new PowerDistributionPanel();
     			

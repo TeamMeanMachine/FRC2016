@@ -6,30 +6,45 @@ import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RotateArm extends Command{
-
+	CANTalon defenseArm = RobotMap.defenseArmLeft;
+	
 	public RotateArm() {
 		requires(Robot.defenseArm);
 	}
 	@Override
 	protected void initialize() {
-    	//DefenseArm.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);
+//		defenseArm.changeControlMode( CANTalon.TalonControlMode.Position );
+//    	defenseArm.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogPot); // There is a chance an AnalogEncoder could be correct
+//		defenseArm.reverseSensor(false);
+//		defenseArm.setPID( 100, 0, 0 );
+//		defenseArm.disable();
 	}
 
 	@Override
 	protected void execute() {
 		double upDownValue = -Robot.oi.coStick.getRawAxis(1);
 		
-		if (Math.abs(upDownValue) < 0.15)  // dead band for xbox
+		if (Math.abs(upDownValue) < 0.2)  // dead band for xbox
 			upDownValue = 0.0;
 		
-		if (upDownValue > 0.0)  // diminish power
-			upDownValue *= 0.7;  
-		else
-			upDownValue *= 0.5;
-			
-		Robot.defenseArm.rotate( upDownValue );
+		upDownValue = upDownValue * upDownValue * upDownValue;
+		
+		upDownValue *= 2.0;
+		
+		double armAngle = Robot.defenseArm.getTargetAngle();
+		armAngle += upDownValue;
+		
+		if (armAngle > 72) {
+			armAngle = 72;
+		}
+		else if (armAngle < -16) {
+			armAngle = -16;
+		}
+		
+		Robot.defenseArm.setTargetAngle(armAngle);
 	}
 
 	@Override

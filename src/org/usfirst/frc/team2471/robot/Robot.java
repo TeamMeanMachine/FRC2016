@@ -58,14 +58,14 @@ public class Robot extends IterativeRobot {
         drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
-		defenseArm = new DefenseArm();
+		defenseArm = new DefenseArm(0.05, 0, 0.007);
 		
 		prefs = Preferences.getInstance();
 		
 		SmartDashboard.putData("Shoot PID Config", shooter);
 		
-		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 0.6));
-		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", -0.4));
+		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 2700));
+		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", 2200));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 50.0));
 		SmartDashboard.putBoolean("Shoot", false);
 		SmartDashboard.putBoolean("AutoAim",true);
@@ -114,9 +114,9 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-    	prefs.putDouble("Top", SmartDashboard.getNumber("Top", 0.6));
-    	prefs.putDouble("Bottom", SmartDashboard.getNumber("Bottom", -0.4));
-    	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange" , 40.0));
+    	prefs.putDouble("Top", SmartDashboard.getNumber("Top", 2700));
+    	prefs.putDouble("Bottom", SmartDashboard.getNumber("Bottom", 2200));
+    	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange" , 50.0));
     	System.out.println("Saved prefs.");
     }
 

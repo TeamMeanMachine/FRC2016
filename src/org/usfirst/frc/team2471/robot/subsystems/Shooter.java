@@ -58,7 +58,7 @@ public class Shooter extends Subsystem{
 		topMotor.enable();
 		bottomMotor.enable();
 		if ((x > 0.0 || x < 0.0) && (y > 0.0 || y < 0.0)){
-			RobotMap.shootIntake.set(-.4);
+			RobotMap.shootIntake.set(-0.80);
 		}else{
 			RobotMap.shootIntake.set(0.0);
 		}
@@ -71,20 +71,21 @@ public class Shooter extends Subsystem{
 	}
 
 	public void shootLogic() {
-		double x = SmartDashboard.getNumber("Top", 5000);
-		double y = SmartDashboard.getNumber("Bottom", 3000);
+		double x = SmartDashboard.getNumber("Top", 2700);
+		double y = SmartDashboard.getNumber("Bottom", 2500);
 		
 		if (SmartDashboard.getBoolean("Shoot"))
 		{
 			Robot.shooter.shoot(x, y);
+			RobotMap.ringLight.set(true);
 		}
 		else
 		{
 			Robot.shooter.stop();
+			RobotMap.ringLight.set(false);
 		}
 		
-		SmartDashboard.putNumber("Shooter1Speed", topMotor.getSpeed());
-		SmartDashboard.putNumber("Shooter2Speed", bottomMotor.getSpeed());
-		SmartDashboard.putNumber("ShotPower",topMotor.getOutputVoltage()/topMotor.getBusVoltage());
+		SmartDashboard.putNumber("TopSpeed", topMotor.getSpeed());
+		SmartDashboard.putNumber("BottomSpeed", bottomMotor.getSpeed());
 	}
 }
