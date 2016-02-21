@@ -13,9 +13,9 @@ public class Aim extends PIDCommand {
 	
 	public Aim() {
 		super(0.005, 0.0, 0.01);
-		requires( Robot.shooter );
-		requires( Robot.drive );
-		Robot.shooter.motor1.set(0.2);
+		requires(Robot.shooter);
+		requires(Robot.drive);
+		Robot.shooter.topMotor.set(0.2);
 		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
 		SmartDashboard.putBoolean("Aim", true);
@@ -55,17 +55,28 @@ public class Aim extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.setAimDrop(true);
-		aimcontroller.enable();
 		System.out.println("Aim");
 	}
 
 	@Override
 	protected void execute() {
 		try{
-			setSetpoint(0.0 + SmartDashboard.getNumber("Aim Change"));
-		}catch(Exception e){
+			setSetpoint(SmartDashboard.getNumber("AimChange"));
+		}
+		catch (Exception e) {
 			setSetpoint(0.0);
 			System.out.println("Could not find Dashboard variable from Intel Stick");
+		}
+		
+		if (SmartDashboard.getBoolean("AutoAim"))
+		{
+			aimcontroller.enable();
+		}
+		else
+		{
+			aimcontroller.disable();
+			double leftRightValue = Robot.oi.coStick.getRawAxis(4);
+			Robot.drive.setAimerMotor(leftRightValue);
 		}
 		Robot.shooter.shootLogic();
 	}
@@ -80,7 +91,6 @@ public class Aim extends PIDCommand {
 	protected void end() {
 		Robot.drive.setAimDrop(false);
 		aimcontroller.disable();
-		//SmartDashboard.putBoolean("Aim", true);
 	}
 
 	@Override

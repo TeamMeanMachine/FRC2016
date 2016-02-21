@@ -68,8 +68,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", -0.4));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 50.0));
 		SmartDashboard.putBoolean("Shoot", false);
+		SmartDashboard.putBoolean("AutoAim",true);
 		
-		SmartDashboard.putData(shooter);
+		SmartDashboard.putData(shooter);  // show what command is current for this sub-system
 		
 		oi = new OI();
 		

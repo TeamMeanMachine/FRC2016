@@ -13,38 +13,50 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends Subsystem{
 	
-	public CANTalon motor1;
-	public CANTalon motor2;
+	public CANTalon topMotor;
+	public CANTalon bottomMotor;
 
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Shoot());
 	}
 
-	public Shooter(){
-		motor1 = RobotMap.shootMotorTop;
-		motor2 = RobotMap.shootMotorBottom;/*
+	public Shooter() {
+		topMotor = RobotMap.shootMotorTop;
+		bottomMotor = RobotMap.shootMotorBottom;
 		
-		motor1.changeControlMode(CANTalon.TalonControlMode.Speed);
-		motor2.changeControlMode(CANTalon.TalonControlMode.Speed);
+		topMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
+		bottomMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
 		
-		motor1.configEncoderCodesPerRev(250);
-		motor2.configEncoderCodesPerRev(250);
+		topMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
+		bottomMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
 		
-		motor1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		motor2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		topMotor.reverseSensor(false);
+		bottomMotor.reverseSensor(true);
 		
-		motor1.setPID(0.1, 0, 0);
-		motor2.setPID(0.1, 0, 0);*/
+		bottomMotor.reverseOutput(true);
 		
-		//motor1.setF()
+		topMotor.configEncoderCodesPerRev( 250 );
+		bottomMotor.configEncoderCodesPerRev( 250 );
+		
+		topMotor.configPeakOutputVoltage( 12.0, 0.0 );
+		bottomMotor.configPeakOutputVoltage( 0.0, -12.0 );
+		
+		topMotor.configNominalOutputVoltage( 0.0, 0.0 );
+		bottomMotor.configNominalOutputVoltage( 0.0, 0.0 );
+		
+		topMotor.setPID( 0.03, 0, 0.005 );
+		bottomMotor.setPID( 0.03, 0, 0.005 );
+		
+		topMotor.setF( 0.120 );
+		bottomMotor.setF( 0.140 );
 	}
-	
 
 	public void shoot(double x, double y) {
 		// TODO Auto-generated method stub
-		RobotMap.shootMotorTop.set(x);
-		RobotMap.shootMotorBottom.set(y);
-		
+		RobotMap.shootMotorTop.setSetpoint(x);
+		RobotMap.shootMotorBottom.setSetpoint(y);
+		topMotor.enable();
+		bottomMotor.enable();
 		if ((x > 0.0 || x < 0.0) && (y > 0.0 || y < 0.0)){
 			RobotMap.shootIntake.set(-.4);
 		}else{
@@ -53,21 +65,26 @@ public class Shooter extends Subsystem{
 	}
 
 	public void stop() {
+		topMotor.disable();
+		bottomMotor.disable();
 		RobotMap.shootIntake.set(0.0);
-		RobotMap.shootMotorTop.set(0.0);
-		RobotMap.shootMotorBottom.set(0.0);
 	}
 
 	public void shootLogic() {
-		double x = SmartDashboard.getNumber("Top", .6);
-		double y = SmartDashboard.getNumber("Bottom", -.4);
+		double x = SmartDashboard.getNumber("Top", 5000);
+		double y = SmartDashboard.getNumber("Bottom", 3000);
 		
 		if (SmartDashboard.getBoolean("Shoot"))
 		{
 			Robot.shooter.shoot(x, y);
-		} else
+		}
+		else
 		{
 			Robot.shooter.stop();
-		}		
+		}
+		
+		SmartDashboard.putNumber("Shooter1Speed", topMotor.getSpeed());
+		SmartDashboard.putNumber("Shooter2Speed", bottomMotor.getSpeed());
+		SmartDashboard.putNumber("ShotPower",topMotor.getOutputVoltage()/topMotor.getBusVoltage());
 	}
 }
