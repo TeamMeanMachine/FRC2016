@@ -22,6 +22,7 @@ public class DefenseArm extends PIDSubsystem{
 		armLeft = RobotMap.defenseArmLeft;
 		magnePot = RobotMap.magnepotArm;
 		enable();
+//		disable();
 		
 	}
 
@@ -39,12 +40,12 @@ public class DefenseArm extends PIDSubsystem{
 	
 	public void rotate(double power)
 	{
-		//if((RobotMap.pdp.getCurrent(armLeft.getDeviceID() ) <= 12)){
+		if(RobotMap.pdp.getCurrent(8) <= 20 && RobotMap.pdp.getCurrent(7) <= 20) {
 			armLeft.set(power);
-		//}
-		/*else {
+		}
+		else {
 			armLeft.set(0.0);
-		}*/
+		}
 	}
 
 

@@ -4,10 +4,11 @@ import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,28 +16,40 @@ public class Shooter extends Subsystem{
 	
 	public CANTalon topMotor;
 	public CANTalon bottomMotor;
+	public PIDController topController;
+	public PIDController bottomController;
 
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Shoot());
 	}
 
 	public Shooter() {
+		
 		topMotor = RobotMap.shootMotorTop;
 		bottomMotor = RobotMap.shootMotorBottom;
 		
+		topController = new PIDController(0.00004, 0, 0.00025, 0, new topSource(), new topOutput());
+		bottomController = new PIDController(0.00004, 0, 0.00025, 0, new bottomSource(), new bottomOutput());
+		
+		SmartDashboard.putData("Top PID", topController);
+		SmartDashboard.putData("Bot PID", bottomController);
+		
+		topMotor.reverseSensor(false);
+		bottomMotor.reverseSensor(true);
+
+		topMotor.configEncoderCodesPerRev( 250 );
+		bottomMotor.configEncoderCodesPerRev( 250 );
+		
+		bottomMotor.reverseOutput(true);
+		
+		/*
 		topMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
 		bottomMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
 		
 		topMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
 		bottomMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
 		
-		topMotor.reverseSensor(false);
-		bottomMotor.reverseSensor(true);
 		
-		bottomMotor.reverseOutput(true);
-		
-		topMotor.configEncoderCodesPerRev( 250 );
-		bottomMotor.configEncoderCodesPerRev( 250 );
 		
 		topMotor.configPeakOutputVoltage( 12.0, 0.0 );
 		bottomMotor.configPeakOutputVoltage( 0.0, -12.0 );
@@ -44,20 +57,83 @@ public class Shooter extends Subsystem{
 		topMotor.configNominalOutputVoltage( 0.0, 0.0 );
 		bottomMotor.configNominalOutputVoltage( 0.0, 0.0 );
 		
-		topMotor.setPID( 0.03, 0, 0.005 );
-		bottomMotor.setPID( 0.03, 0, 0.005 );
+		topMotor.setPID( 2000, 0, 0.0);
+		bottomMotor.setPID( 2000, 0, 0.0);
 		
-		topMotor.setF( 0.120 );
-		bottomMotor.setF( 0.140 );
+		topMotor.setF( 0.0 );
+		bottomMotor.setF( 0.0 );*/
 	}
+	
+	
+	class bottomSource implements PIDSource{
 
-	public void shoot(double x, double y) {
-		// TODO Auto-generated method stub
-		RobotMap.shootMotorTop.setSetpoint(x);
-		RobotMap.shootMotorBottom.setSetpoint(y);
-		topMotor.enable();
-		bottomMotor.enable();
-		if ((x > 0.0 || x < 0.0) && (y > 0.0 || y < 0.0)){
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			// TODO Auto-generated method stub
+			return bottomMotor.getPIDSourceType();
+		}
+
+		@Override
+		public double pidGet() {
+			// TODO Auto-generated method stub
+			return bottomMotor.getEncVelocity();
+		}
+		
+	}
+	
+	class topSource implements PIDSource{
+
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			return topMotor.getPIDSourceType();
+		}
+
+		@Override
+		public double pidGet() {
+			return topMotor.getEncVelocity();
+		}
+		
+	}
+	
+	class bottomOutput implements PIDOutput{
+		@Override
+		public void pidWrite(double output) {
+			double motorOut = bottomMotor.get() + output;
+			SmartDashboard.putNumber("Motor Bottom", motorOut);
+			bottomMotor.set(bottomMotor.get() + output);
+		}
+	}
+	
+	class topOutput implements PIDOutput{
+		@Override
+		public void pidWrite(double output) {
+			topMotor.set(topMotor.get() + output);
+		}
+	}
+	
+	public void shoot(double topSpeed, double bottomSpeed) {
+		topController.setSetpoint(topSpeed);
+		bottomController.setSetpoint(bottomSpeed);
+		
+		topController.enable();
+		bottomController.enable();
+
+		topController.setSetpoint(topSpeed);
+		bottomController.setSetpoint(bottomSpeed);
+		
+		if ((topSpeed > 0.0 || topSpeed < 0.0) && (bottomSpeed > 0.0 || bottomSpeed < 0.0)){
 			RobotMap.shootIntake.set(-0.80);
 		}else{
 			RobotMap.shootIntake.set(0.0);
@@ -65,18 +141,18 @@ public class Shooter extends Subsystem{
 	}
 
 	public void stop() {
-		topMotor.disable();
-		bottomMotor.disable();
+		topMotor.set(0.0);
+		bottomMotor.set(0.0);
 		RobotMap.shootIntake.set(0.0);
 	}
 
 	public void shootLogic() {
-		double x = SmartDashboard.getNumber("Top", 2700);
-		double y = SmartDashboard.getNumber("Bottom", 2500);
+		double topSpeed = SmartDashboard.getNumber("Top", 2700);
+		double bottomSpeed = SmartDashboard.getNumber("Bottom", 2500);
 		
 		if (SmartDashboard.getBoolean("Shoot"))
 		{
-			Robot.shooter.shoot(x, y);
+			Robot.shooter.shoot(topSpeed, bottomSpeed);
 			RobotMap.ringLight.set(true);
 		}
 		else
@@ -87,5 +163,7 @@ public class Shooter extends Subsystem{
 		
 		SmartDashboard.putNumber("TopSpeed", topMotor.getSpeed());
 		SmartDashboard.putNumber("BottomSpeed", bottomMotor.getSpeed());
+		SmartDashboard.putNumber("Top Error", topController.getError());
+		SmartDashboard.putNumber("Bottom Error", bottomController.getError());
 	}
 }

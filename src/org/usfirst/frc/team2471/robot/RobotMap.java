@@ -84,8 +84,8 @@ public class RobotMap {
     	rightE.setDistancePerPulse( -Math.PI * 7.5 / 200.0 / 12.0 )  // diameter, ticks per rev, inches per foot
     	*/
     	
-    	shootMotorTop = new CANTalon(3);
-    	shootMotorBottom = new CANTalon(2);
+    	shootMotorTop = new CANTalon(2);
+    	shootMotorBottom = new CANTalon(3);
     	shootIntake = new CANTalon(6);
     	
     	rollerIntake = new CANTalon(9);

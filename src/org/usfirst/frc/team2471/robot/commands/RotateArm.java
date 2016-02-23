@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RotateArm extends Command{
 	CANTalon defenseArm = RobotMap.defenseArmLeft;
+	int testNumber;
 	
 	public RotateArm() {
 		requires(Robot.defenseArm);
@@ -21,6 +22,7 @@ public class RotateArm extends Command{
 //		defenseArm.reverseSensor(false);
 //		defenseArm.setPID( 100, 0, 0 );
 //		defenseArm.disable();
+		testNumber = 0;
 	}
 
 	@Override
@@ -40,11 +42,16 @@ public class RotateArm extends Command{
 		if (armAngle > 72) {
 			armAngle = 72;
 		}
-		else if (armAngle < -16) {
-			armAngle = -16;
+		else if (armAngle < -20) {
+			armAngle = -20;
 		}
 		
 		Robot.defenseArm.setTargetAngle(armAngle);
+		
+		testNumber++;
+		if(testNumber % 20 == 0) {
+			SmartDashboard.putNumber("Defense Arm Position", defenseArm.getAnalogInRaw());			
+		}
 	}
 
 	@Override
