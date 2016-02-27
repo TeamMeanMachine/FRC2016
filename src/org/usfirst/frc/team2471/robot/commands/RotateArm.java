@@ -1,9 +1,8 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
-import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +26,7 @@ public class RotateArm extends Command{
 
 	@Override
 	protected void execute() {
-		double upDownValue = -Robot.oi.coStick.getRawAxis(1);
+		double upDownValue = -OI.coStick.getRawAxis(1);
 		
 		if (Math.abs(upDownValue) < 0.2)  // dead band for xbox
 			upDownValue = 0.0;

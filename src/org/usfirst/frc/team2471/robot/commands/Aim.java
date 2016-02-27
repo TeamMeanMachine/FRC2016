@@ -73,7 +73,7 @@ public class Aim extends PIDCommand {
 		}
 		else {
 			aimcontroller.disable();
-			double leftRightValue = Robot.oi.coStick.getRawAxis(4);
+			double leftRightValue = OI.coStick.getRawAxis(4);
 			if(Math.abs(leftRightValue) <= 0.05) {
 				leftRightValue = 0;
 			}

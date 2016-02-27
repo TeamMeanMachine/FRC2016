@@ -52,7 +52,8 @@ public class Robot extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() {
+    @Override
+	public void robotInit() {
     	RobotMap.init();
     	//Soon will change to DriveTalonPID
         drive = new Drive();
@@ -85,11 +86,13 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData(new Aim());
     }
 	
+	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
-    public void autonomousInit() {
+    @Override
+	public void autonomousInit() {
         // schedule the autonomous command (example)
     	autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
@@ -98,11 +101,13 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during autonomous
      */
-    public void autonomousPeriodic() {
+    @Override
+	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
 
-    public void teleopInit() {
+    @Override
+	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
@@ -116,7 +121,8 @@ public class Robot extends IterativeRobot {
      * This function is called when the disabled button is hit.
      * You can use it to reset subsystems before shutting down.
      */
-    public void disabledInit(){
+    @Override
+	public void disabledInit(){
     	prefs.putDouble("Top", SmartDashboard.getNumber("Top", 2700));
     	prefs.putDouble("Bottom", SmartDashboard.getNumber("Bottom", 2200));
     	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange" , 50.0));
@@ -127,14 +133,16 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
+    @Override
+	public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
     
     /**
      * This function is called periodically during test mode
      */
-    public void testPeriodic() {
+    @Override
+	public void testPeriodic() {
         LiveWindow.run();
     }
 }

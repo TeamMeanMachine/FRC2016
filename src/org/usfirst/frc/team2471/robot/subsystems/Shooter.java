@@ -19,6 +19,7 @@ public class Shooter extends Subsystem{
 	public PIDController topController;
 	public PIDController bottomController;
 
+	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Shoot());
 	}
