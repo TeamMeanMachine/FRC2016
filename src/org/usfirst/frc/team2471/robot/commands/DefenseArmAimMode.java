@@ -5,10 +5,11 @@ import org.usfirst.frc.team2471.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DefenseArmAimMode extends Command {
-	public static final double AIM_ANGLE = 40; // TODO: Get an angle, I don't know if this will work
+	public static final double AIM_ANGLE = 40; // We may want to tweak this angle...
 	
 	public DefenseArmAimMode() {
 		requires(Robot.defenseArm);
+		requires(Robot.drive);
 	}
 	
 	@Override

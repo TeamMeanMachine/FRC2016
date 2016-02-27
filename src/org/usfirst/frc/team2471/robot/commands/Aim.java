@@ -15,11 +15,10 @@ public class Aim extends PIDCommand {
 		super(0.007, 0.0, 0.01);
 		requires(Robot.shooter);
 		requires(Robot.drive);
-		Robot.shooter.topMotor.set(0.2);
+		Robot.shooter.prepAim();
+		
 		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
-		SmartDashboard.putBoolean("Aim", true);
-		new DefenseArmAimMode();
 	}
 
 	@Override
@@ -55,8 +54,7 @@ public class Aim extends PIDCommand {
 
 	@Override
 	protected void initialize() {
-		Robot.drive.setAimDrop(true);
-		System.out.println("Aim");
+		
 	}
 
 	@Override

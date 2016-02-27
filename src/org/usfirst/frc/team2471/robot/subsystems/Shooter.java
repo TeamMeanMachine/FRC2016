@@ -2,6 +2,7 @@ package org.usfirst.frc.team2471.robot.subsystems;
 
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
+import org.usfirst.frc.team2471.robot.commands.DefenseArmAimMode;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -121,6 +122,17 @@ public class Shooter extends Subsystem{
 		public void pidWrite(double output) {
 			topMotor.set(topMotor.get() + output);
 		}
+	}
+	
+	/**
+	 * So we can avoid repeating some of the code.
+	 */
+	public void prepAim() {
+		topMotor.set(0.2);
+		SmartDashboard.putBoolean("Aim", true);
+		new DefenseArmAimMode();
+		Robot.drive.setAimDrop(true);
+		System.out.println("Aim");
 	}
 	
 	public void shoot(double topSpeed, double bottomSpeed) {
