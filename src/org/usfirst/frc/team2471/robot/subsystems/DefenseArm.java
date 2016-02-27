@@ -1,11 +1,14 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
+import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.RotateArm;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DefenseArm extends PIDSubsystem{
@@ -14,7 +17,6 @@ public class DefenseArm extends PIDSubsystem{
 	public CANTalon armRight;
 	public AnalogInput magnePot;
 	double targetAngle;
-	int smartDashboardBuffer = 0;
 	
 	public DefenseArm(double p, double i, double d) {
 		super(p, i, d);
@@ -73,20 +75,8 @@ public class DefenseArm extends PIDSubsystem{
 	}
 
 	public void setTargetAngle(double angle) {
-		if (angle > 62) {
-			angle = 62;
-		}
-		else if (angle < -13) {
-			angle = -13;
-		}
-		setSetpoint(angle);
-		
-
-		smartDashboardBuffer++;
-		if(smartDashboardBuffer % 20 == 0) { // To prevent overloading the network tables
-			SmartDashboard.putNumber("Defense Arm Position", angle);
-			SmartDashboard.putNumber("Defense Arm Error", getPIDController().getError());
-		}
+		targetAngle = angle;
+		setSetpoint( targetAngle );
 	}
 
 	public double getTargetAngle() {

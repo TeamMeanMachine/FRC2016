@@ -1,9 +1,9 @@
 package org.usfirst.frc.team2471.robot.commands;
 
-import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveLoop extends Command{
 	
@@ -18,8 +18,8 @@ public class DriveLoop extends Command{
 
 	@Override
 	protected void execute() {
-		double x = -OI.driverStick.getRawAxis(1);
-		double y = -OI.driverStick.getRawAxis(2);
+		double x = -Robot.oi.driverStick.getRawAxis(1);
+		double y = -Robot.oi.driverStick.getRawAxis(2);
 		
 		//No cubic functions for now, but possibly later
 		//x = x * x * x;

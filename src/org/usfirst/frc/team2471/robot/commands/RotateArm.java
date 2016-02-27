@@ -1,11 +1,12 @@
 package org.usfirst.frc.team2471.robot.commands;
 
-import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
+import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RotateArm extends Command{
 	CANTalon defenseArm = RobotMap.defenseArmLeft;
@@ -26,7 +27,7 @@ public class RotateArm extends Command{
 
 	@Override
 	protected void execute() {
-		double upDownValue = -OI.coStick.getRawAxis(1);
+		double upDownValue = -Robot.oi.coStick.getRawAxis(1);
 		
 		if (Math.abs(upDownValue) < 0.2)  // dead band for xbox
 			upDownValue = 0.0;
@@ -38,8 +39,21 @@ public class RotateArm extends Command{
 		double armAngle = Robot.defenseArm.getTargetAngle();
 		armAngle += upDownValue;
 		
+		
+		if (armAngle > 62) {
+			armAngle = 62;
+		}
+		else if (armAngle < -13) {
+			armAngle = -13;
+		}
+		
 		Robot.defenseArm.setTargetAngle(armAngle);
 		
+		testNumber++;
+		if(testNumber % 20 == 0) {
+			SmartDashboard.putNumber("Defense Arm Position", armAngle);
+			SmartDashboard.putNumber("Defense Arm Error", Robot.defenseArm.getPIDController().getError());
+		}
 	}
 
 	@Override
