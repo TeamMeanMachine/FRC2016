@@ -17,6 +17,7 @@ public class DefenseArm extends PIDSubsystem{
 	public CANTalon armRight;
 	public AnalogInput magnePot;
 	double targetAngle;
+	int smartDashboardBuffer = 0;
 	
 	public DefenseArm(double p, double i, double d) {
 		super(p, i, d);
@@ -75,8 +76,20 @@ public class DefenseArm extends PIDSubsystem{
 	}
 
 	public void setTargetAngle(double angle) {
-		targetAngle = angle;
-		setSetpoint( targetAngle );
+		if (angle > 62) {
+			angle = 62;
+		}
+		else if (angle < -13) {
+			angle = -13;
+		}
+		setSetpoint(angle);
+		
+
+		smartDashboardBuffer++;
+		if(smartDashboardBuffer % 20 == 0) { // To prevent overloading the network tables
+			SmartDashboard.putNumber("Defense Arm Position", angle);
+			SmartDashboard.putNumber("Defense Arm Error", getPIDController().getError());
+		}
 	}
 
 	public double getTargetAngle() {

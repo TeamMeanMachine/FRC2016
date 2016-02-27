@@ -19,6 +19,7 @@ public class Aim extends PIDCommand {
 		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
 		SmartDashboard.putBoolean("Aim", true);
+		new DefenseArmAimMode();
 	}
 
 	@Override

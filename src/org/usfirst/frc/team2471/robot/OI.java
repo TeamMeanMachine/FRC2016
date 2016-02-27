@@ -4,9 +4,7 @@ import org.usfirst.frc.team2471.robot.commands.Aim;
 import org.usfirst.frc.team2471.robot.commands.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commands.Fire;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
-import org.usfirst.frc.team2471.robot.commands.StartShooter;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
-import org.usfirst.frc.team2471.robot.commands.StopShooter;
 import org.usfirst.frc.team2471.robot.commands.SuckUpBall;
 
 import edu.wpi.first.wpilibj.Joystick;
