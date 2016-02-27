@@ -1,6 +1,5 @@
-*.class
-*.jar
 build/*
-*.jar
+bin/*
+dist/*
 sysProps.xml
-dist/FRCUserProgram.jar
+/bin/
