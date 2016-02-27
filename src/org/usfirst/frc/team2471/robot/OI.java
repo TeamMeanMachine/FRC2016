@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commands.Aim;
-import org.usfirst.frc.team2471.robot.commands.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commands.Fire;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;

@@ -1,4 +1,8 @@
-package org.usfirst.frc.team2471.robot.commands;
+package org.usfirst.frc.team2471.commandgroups;
+
+import org.usfirst.frc.team2471.robot.commands.Aim;
+import org.usfirst.frc.team2471.robot.commands.StartShooter;
+import org.usfirst.frc.team2471.robot.commands.StopShooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
