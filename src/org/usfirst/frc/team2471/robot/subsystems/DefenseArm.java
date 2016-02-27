@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
+import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.RotateArm;
 
@@ -21,9 +22,9 @@ public class DefenseArm extends PIDSubsystem{
 		super(p, i, d);
 		armLeft = RobotMap.defenseArmLeft;
 		magnePot = RobotMap.magnepotArm;
-		enable();
-//		disable();
+		setTargetAngle(getPosition());
 		
+		enable();		
 	}
 
 	
@@ -44,6 +45,7 @@ public class DefenseArm extends PIDSubsystem{
 			armLeft.set(power);
 		}
 		else {
+			setSetpoint(getPosition());
 			armLeft.set(0.0);
 		}
 	}
@@ -52,7 +54,6 @@ public class DefenseArm extends PIDSubsystem{
 	@Override
 	protected double returnPIDInput() {
 		double rValue = voltageToAngle( magnePot.getVoltage() );
-		SmartDashboard.putNumber("Defense Arm Position", rValue );
 		return rValue;
 	}
 
@@ -62,12 +63,14 @@ public class DefenseArm extends PIDSubsystem{
 	}
 	
 	static public double angleToVoltage(double angle) {
+		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314);
 		angle /= 82.18;
-		return angle + 2.314;
+		return angle + zeroVolts;
 	}
 
 	static public double voltageToAngle(double voltage) {
-		voltage -= 2.314;
+		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314);
+		voltage -= zeroVolts;
 		return voltage * 82.18;
 	}
 

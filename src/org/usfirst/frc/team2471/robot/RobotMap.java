@@ -51,6 +51,8 @@ public class RobotMap {
     
     public static AnalogInput magnepotArm;
     
+    public static DigitalInput ballInSensor;
+    
 
     
     public static void init(){
@@ -89,6 +91,7 @@ public class RobotMap {
     	shootIntake = new CANTalon(6);
     	
     	rollerIntake = new CANTalon(9);
+    	ballInSensor = new DigitalInput(0);
     	
     	defenseArmLeft = new CANTalon(8);
     	

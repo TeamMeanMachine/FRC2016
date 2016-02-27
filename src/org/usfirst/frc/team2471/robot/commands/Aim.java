@@ -12,7 +12,7 @@ public class Aim extends PIDCommand {
 	public static PIDController aimcontroller;
 	
 	public Aim() {
-		super(0.01, 0.0, 0.01);
+		super(0.007, 0.0, 0.01);
 		requires(Robot.shooter);
 		requires(Robot.drive);
 		Robot.shooter.topMotor.set(0.2);
@@ -80,6 +80,7 @@ public class Aim extends PIDCommand {
 			
 			Robot.drive.setAimerMotor(leftRightValue);
 		}
+		
 		Robot.shooter.shootLogic();
 	}
 

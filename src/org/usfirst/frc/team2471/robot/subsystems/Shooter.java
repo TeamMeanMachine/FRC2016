@@ -141,6 +141,8 @@ public class Shooter extends Subsystem{
 	}
 
 	public void stop() {
+		topController.disable();
+		bottomController.disable();
 		topMotor.set(0.0);
 		bottomMotor.set(0.0);
 		RobotMap.shootIntake.set(0.0);

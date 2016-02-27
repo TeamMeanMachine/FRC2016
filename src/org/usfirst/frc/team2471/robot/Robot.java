@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 2700));
 		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", 2200));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 50.0));
+		SmartDashboard.putNumber("ArmZeroVolts", prefs.getDouble("ArmZeroVolts", 2.314));
 		SmartDashboard.putBoolean("Shoot", false);
 		SmartDashboard.putBoolean("AutoAim",true);
 		
@@ -107,6 +108,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+        defenseArm.setTargetAngle(defenseArm.getPosition());
     }
 
     /**
@@ -117,6 +120,7 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("Top", SmartDashboard.getNumber("Top", 2700));
     	prefs.putDouble("Bottom", SmartDashboard.getNumber("Bottom", 2200));
     	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange" , 50.0));
+    	prefs.putDouble("ArmZeroVolts", SmartDashboard.getNumber("ArmZeroVolts", 2.314));
     	System.out.println("Saved prefs.");
     }
 

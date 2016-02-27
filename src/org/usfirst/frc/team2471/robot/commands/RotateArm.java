@@ -39,18 +39,20 @@ public class RotateArm extends Command{
 		double armAngle = Robot.defenseArm.getTargetAngle();
 		armAngle += upDownValue;
 		
-		if (armAngle > 72) {
-			armAngle = 72;
+		
+		if (armAngle > 62) {
+			armAngle = 62;
 		}
-		else if (armAngle < -20) {
-			armAngle = -20;
+		else if (armAngle < -13) {
+			armAngle = -13;
 		}
 		
 		Robot.defenseArm.setTargetAngle(armAngle);
 		
 		testNumber++;
 		if(testNumber % 20 == 0) {
-			SmartDashboard.putNumber("Defense Arm Position", defenseArm.getAnalogInRaw());			
+			SmartDashboard.putNumber("Defense Arm Position", armAngle);
+			SmartDashboard.putNumber("Defense Arm Error", Robot.defenseArm.getPIDController().getError());
 		}
 	}
 
