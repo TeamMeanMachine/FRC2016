@@ -10,10 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DefenseArm extends PIDSubsystem{
 	
-	public CANTalon armLeft;
-	public CANTalon armRight;
-	public AnalogInput magnePot;
-	double targetAngle;
+	private CANTalon armLeft;
+	private AnalogInput magnePot;
+	private double targetAngle;
 	
 	public DefenseArm(double p, double i, double d) {
 		super(p, i, d);
@@ -72,8 +71,15 @@ public class DefenseArm extends PIDSubsystem{
 	}
 
 	public void setTargetAngle(double angle) {
+		if (angle > 62) {
+			angle = 62;
+		}
+		else if (angle < -13) {
+			angle = -13;
+		}
 		targetAngle = angle;
-		setSetpoint( targetAngle );
+		
+		setSetpoint(targetAngle);
 	}
 
 	public double getTargetAngle() {

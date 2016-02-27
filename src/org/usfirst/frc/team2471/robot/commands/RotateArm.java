@@ -38,14 +38,6 @@ public class RotateArm extends Command{
 		double armAngle = Robot.defenseArm.getTargetAngle();
 		armAngle += upDownValue;
 		
-		
-		if (armAngle > 62) {
-			armAngle = 62;
-		}
-		else if (armAngle < -13) {
-			armAngle = -13;
-		}
-		
 		Robot.defenseArm.setTargetAngle(armAngle);
 		
 		testNumber++;
