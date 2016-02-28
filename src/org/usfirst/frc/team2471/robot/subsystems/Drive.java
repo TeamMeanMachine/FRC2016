@@ -13,7 +13,9 @@ public class Drive extends Subsystem {
 	private CANTalon left1;
 	private CANTalon right1;
 	
-	public CANTalon aimer;
+	private CANTalon aimer;
+	
+	private CANTalon liftExtension;
 	
 	private Solenoid aimDropCylinder;
 	
@@ -28,6 +30,8 @@ public class Drive extends Subsystem {
 		left1 = RobotMap.left1;
 		right1 = RobotMap.right1;
 		aimer = RobotMap.aimer;
+		
+		liftExtension = RobotMap.liftExtension;
 		
 		aimDropCylinder = RobotMap.aimDropCylinder;
 		
@@ -85,5 +89,9 @@ public class Drive extends Subsystem {
 			right1.set( forward + right );
 			left1.set( forward - right );
 		}
+	}
+	
+	public void setLiftExtension(double power) {
+		liftExtension.set(power);
 	}
 }

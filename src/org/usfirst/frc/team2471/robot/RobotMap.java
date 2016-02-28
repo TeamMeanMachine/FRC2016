@@ -24,8 +24,11 @@ public class RobotMap {
     
     public static CANTalon right1;
     public static CANTalon right2;
+
+    public static CANTalon liftExtension;
     
     public static Solenoid aimDropCylinder;
+    
 
     
 /*_____________________________Shooter____________________________________ */

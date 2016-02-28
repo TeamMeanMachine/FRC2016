@@ -30,8 +30,15 @@ public class DriveLoop extends Command{
 			Robot.drive.SetSpeed(x, y);
 		}
 		else if(Robot.DEBUGMODE) {
-			System.out.println("Robot tried to drive when the aim dropper is down! This should never happen!!!"); // This should never happen!
+			System.out.println("Robot tried to drive when the aim dropper is down! This should never happen!"); // This should never happen!
 		}
+		
+		// Climb extension stuff
+		double liftPower = OI.coStick.getRawAxis(2);
+		if(Math.abs(liftPower) < 0.075) {
+			liftPower = 0;
+		}
+		Robot.drive.setLiftExtension(liftPower);
 	}
 
 	@Override
