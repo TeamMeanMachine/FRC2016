@@ -58,13 +58,13 @@ public class DefenseArm extends PIDSubsystem{
 		rotate( output );
 	}
 	
-	static public double angleToVoltage(double angle) {
+	public double angleToVoltage(double angle) {
 		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314);
 		angle /= 82.18;
 		return angle + zeroVolts;
 	}
 
-	static public double voltageToAngle(double voltage) {
+	public double voltageToAngle(double voltage) {
 		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314);
 		voltage -= zeroVolts;
 		return voltage * 82.18;
