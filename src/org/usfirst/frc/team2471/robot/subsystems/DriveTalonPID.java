@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
+import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.DriveLoop;
 
@@ -28,8 +29,8 @@ public class DriveTalonPID extends Subsystem {
 		left1 = RobotMap.left1;
 		right1 = RobotMap.right1;
 		
-		left1.setPID(0.01, 0.0, 0.03);
-		right1.setPID(0.01, 0.0, 0.03);
+		left1.setPID(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D);
+		right1.setPID(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D);
 	
 		SmartDashboard.putBoolean("Speed Control", bSpeedControl);
 	}

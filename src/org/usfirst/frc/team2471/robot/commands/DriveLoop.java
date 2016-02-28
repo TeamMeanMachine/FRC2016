@@ -48,13 +48,12 @@ public class DriveLoop extends Command{
 
 	@Override
 	protected void end() {
-		
+		Robot.drive.SetSpeed(0.0, 0.0);
 	}
 
 	@Override
 	protected void interrupted() {
-		
-		
+		end();
 	}
 	
 }

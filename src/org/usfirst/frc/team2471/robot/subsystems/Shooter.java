@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
+import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
@@ -29,8 +30,8 @@ public class Shooter extends Subsystem{
 		topMotor = RobotMap.shootMotorTop;
 		bottomMotor = RobotMap.shootMotorBottom;
 		
-		topController = new PIDController(0.00004, 0, 0.00025, 0, new topSource(), new topOutput());
-		bottomController = new PIDController(0.00004, 0, 0.00025, 0, new bottomSource(), new bottomOutput());
+		topController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new topSource(), new topOutput());
+		bottomController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new bottomSource(), new bottomOutput());
 		
 		SmartDashboard.putData("Top PID", topController);
 		SmartDashboard.putData("Bot PID", bottomController);
@@ -41,16 +42,16 @@ public class Shooter extends Subsystem{
 		topMotor.configEncoderCodesPerRev( 250 );
 		bottomMotor.configEncoderCodesPerRev( 250 );
 		
-		bottomMotor.reverseOutput(true);
+		bottomMotor.setInverted(true);  // this one is for talon SRX open loop
 		
 		/*
+		bottomMotor.reverseOutput(true);  // talon SRX closed loop
+
 		topMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
 		bottomMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
 		
 		topMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
 		bottomMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
-		
-		
 		
 		topMotor.configPeakOutputVoltage( 12.0, 0.0 );
 		bottomMotor.configPeakOutputVoltage( 0.0, -12.0 );
@@ -83,7 +84,8 @@ public class Shooter extends Subsystem{
 		@Override
 		public double pidGet() {
 			// TODO Auto-generated method stub
-			return bottomMotor.getEncVelocity();
+			SmartDashboard.putNumber("Bottom Enc", -bottomMotor.getEncVelocity());
+			return -bottomMotor.getEncVelocity();
 		}
 		
 	}
@@ -111,16 +113,15 @@ public class Shooter extends Subsystem{
 	class bottomOutput implements PIDOutput{
 		@Override
 		public void pidWrite(double output) {
-			double motorOut = bottomMotor.get() + output;
-			SmartDashboard.putNumber("Motor Bottom", motorOut);
-			bottomMotor.set(bottomMotor.get() + output);
+			bottomMotor.set(-bottomMotor.get()+output);
+			//SmartDashboard.putNumber("Motor Bottom", bottomMotor.get());
 		}
-	}
+	} 
 	
 	class topOutput implements PIDOutput{
 		@Override
 		public void pidWrite(double output) {
-			topMotor.set(topMotor.get() + output);
+			topMotor.set(topMotor.get()+output);
 		}
 	}
 	
@@ -131,9 +132,6 @@ public class Shooter extends Subsystem{
 		topController.enable();
 		bottomController.enable();
 
-		topController.setSetpoint(topSpeed);
-		bottomController.setSetpoint(bottomSpeed);
-		
 		if ((topSpeed > 0.0 || topSpeed < 0.0) && (bottomSpeed > 0.0 || bottomSpeed < 0.0)){
 			RobotMap.shootIntake.set(-0.80);
 		}else{
@@ -164,8 +162,8 @@ public class Shooter extends Subsystem{
 			RobotMap.ringLight.set(false);
 		}
 		
-		SmartDashboard.putNumber("TopSpeed", topMotor.getSpeed());
-		SmartDashboard.putNumber("BottomSpeed", bottomMotor.getSpeed());
+		SmartDashboard.putNumber("TopSpeed", topMotor.getEncVelocity());
+		SmartDashboard.putNumber("BottomSpeed", -bottomMotor.getEncVelocity());
 		SmartDashboard.putNumber("Top Error", topController.getError());
 		SmartDashboard.putNumber("Bottom Error", bottomController.getError());
 	}

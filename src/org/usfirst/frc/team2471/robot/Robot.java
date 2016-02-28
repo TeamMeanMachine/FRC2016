@@ -63,11 +63,15 @@ public class Robot extends IterativeRobot {
 		
 		prefs = Preferences.getInstance();
 		
+//		prefs.putDouble("AimChange", 15); // Temporary for testing without smart dashboard on 2/27/15
+//		prefs.putDouble("Top", 3300);
+//		prefs.putDouble("Bottom", 1920);
+		
 		SmartDashboard.putData("Shoot PID Config", shooter);
 		
-		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 2700));
-		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", 2200));
-		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 50.0));
+		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 3300));
+		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", 1920));
+		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 15.0));
 		SmartDashboard.putNumber("ArmZeroVolts", prefs.getDouble("ArmZeroVolts", 2.290));
 		SmartDashboard.putBoolean("Shoot", false);
 		SmartDashboard.putBoolean("AutoAim",true);

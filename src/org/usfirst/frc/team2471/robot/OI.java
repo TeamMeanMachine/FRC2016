@@ -64,7 +64,6 @@ public class OI {
 		shootButton.whileHeld(new Shoot());*/
 		
 		Aim aimer = new Aim();
-		SmartDashboard.putData("Aim PID", aimer);
 		
 		aimButton = new JoystickButton(coStick, 3);
 		aimButton.whenReleased(new AimAndShootGroup());
@@ -76,7 +75,7 @@ public class OI {
 		suckIn.whenPressed(new SuckUpBall());
 		suckIn.whenReleased(new StopBallIntake());
 		
-		sallyPort = new JoystickButton(coStick, 5);
+		sallyPort = new JoystickButton(coStick, 4);
 		sallyPort.whenPressed(new SallyPortPreset());
 	}
 }

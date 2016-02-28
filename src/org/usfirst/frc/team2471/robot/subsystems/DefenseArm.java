@@ -14,6 +14,7 @@ public class DefenseArm extends PIDSubsystem{
 	private AnalogInput magnePot;
 	private double targetAngle;
 	
+	
 	public DefenseArm(double p, double i, double d) {
 		super(p, i, d);
 		armLeft = RobotMap.defenseArmLeft;
@@ -71,8 +72,8 @@ public class DefenseArm extends PIDSubsystem{
 	}
 
 	public void setTargetAngle(double angle) {
-		if (angle > 62) {
-			angle = 62;
+		if (angle > 77) {
+			angle = 77;
 		}
 		else if (angle < -13) {
 			angle = -13;

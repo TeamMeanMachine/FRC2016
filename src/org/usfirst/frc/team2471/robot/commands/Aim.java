@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 
@@ -12,13 +13,14 @@ public class Aim extends PIDCommand {
 	public static PIDController aimcontroller;
 	
 	public Aim() {
-		super(0.007, 0.0, 0.01);
+		super(Constants.AIM_P, Constants.AIM_I, Constants.AIM_D);
 		requires(Robot.shooter);
 		requires(Robot.drive);
 		Robot.shooter.topMotor.set(0.2);
 		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
 		SmartDashboard.putBoolean("Aim", true);
+		SmartDashboard.putData("Aim PID", aimcontroller);
 	}
 
 	@Override

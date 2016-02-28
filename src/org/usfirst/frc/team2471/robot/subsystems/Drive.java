@@ -69,16 +69,6 @@ public class Drive extends Subsystem {
 		
 		bSpeedControl = SmartDashboard.getBoolean("Speed Control", false);
 
-//		if (bSpeedControl)
-//		{
-//			leftController.enable();
-//			rightController.enable();
-//		}
-//		else {
-//			leftController.disable();
-//			rightController.disable();
-//		}
-
 		if (bSpeedControl)
 		{
 			right1.set( forward + right );
@@ -92,6 +82,6 @@ public class Drive extends Subsystem {
 	}
 	
 	public void setLiftExtension(double power) {
-		liftExtension.set(power);
+//		liftExtension.set(power);
 	}
 }

@@ -55,7 +55,6 @@ public class RobotMap {
     public static AnalogInput magnepotArm;
     
     public static DigitalInput ballInSensor;
-    
 
     
     public static void init(){
