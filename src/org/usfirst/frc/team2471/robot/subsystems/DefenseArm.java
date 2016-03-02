@@ -72,10 +72,10 @@ public class DefenseArm extends PIDSubsystem{
 	}
 
 	public void setTargetAngle(double angle) {
-		if (angle > 77) {
+		if (angle > SmartDashboard.getNumber("DefenseArmMax", 77.0)) {
 			angle = 77;
 		}
-		else if (angle < -13) {
+		else if (angle < SmartDashboard.getNumber("DefenseArmMin", -13.0)) {
 			angle = -13;
 		}
 		targetAngle = angle;

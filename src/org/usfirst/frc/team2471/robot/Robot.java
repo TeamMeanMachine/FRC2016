@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.commandgroups.TerrainAndShotAuto;
 import org.usfirst.frc.team2471.robot.commands.Aim;
 import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
@@ -59,7 +60,7 @@ public class Robot extends IterativeRobot {
         drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
-		defenseArm = new DefenseArm(0.05, 0, 0.007);
+		defenseArm = new DefenseArm(Constants.DEFENSE_P, Constants.DEFENSE_I, Constants.DEFENSE_D);
 		
 		prefs = Preferences.getInstance();
 		
@@ -73,21 +74,22 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", 1920));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 15.0));
 		SmartDashboard.putNumber("ArmZeroVolts", prefs.getDouble("ArmZeroVolts", 2.290));
+		SmartDashboard.putBoolean("UseGyro", prefs.getBoolean("UseGyro", false));
+		SmartDashboard.putNumber("SallyPortPreset", prefs.getDouble("SallyPortPreset", 36.0));
+		SmartDashboard.putNumber("DefenseArmMax", prefs.getDouble("DefenseArmMax", 77.0));
+		SmartDashboard.putNumber("DefenseArmMin", prefs.getDouble("DefenseArmMin", -13.0));
+		
 		SmartDashboard.putBoolean("Shoot", false);
 		SmartDashboard.putBoolean("AutoAim",true);
-		
-		SmartDashboard.putData(shooter);  // show what command is current for this sub-system
 		
 		oi = new OI();
 		
         //Here is the Sendable for the autonomous command
         autoChooser = new SendableChooser();
-        autoChooser.addObject("Nothing", new ExampleCommand());
-        autoChooser.addDefault("Drive Straight", new ExampleCommand());
-//        autoChooser.addObject("Name", new Command());
+        autoChooser.addDefault("Terrain and Shoot", new TerrainAndShotAuto());
         SmartDashboard.putData("AutoChooser", autoChooser);
-
-        SmartDashboard.putData(new Aim());
+        
+        drive.resetEncoders();
     }
 	
 	@Override
@@ -97,6 +99,7 @@ public class Robot extends IterativeRobot {
 
     @Override
 	public void autonomousInit() {
+    	drive.resetEncoders();
         // schedule the autonomous command (example)
     	autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
@@ -108,6 +111,8 @@ public class Robot extends IterativeRobot {
     @Override
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+
+        SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
     }
 
     @Override
@@ -119,6 +124,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         
         defenseArm.setTargetAngle(defenseArm.getPosition());
+        drive.resetEncoders();
     }
 
     /**
@@ -131,6 +137,11 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("Bottom", SmartDashboard.getNumber("Bottom"));
     	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange"));
     	prefs.putDouble("ArmZeroVolts", SmartDashboard.getNumber("ArmZeroVolts"));
+    	prefs.putBoolean("UseGyro", SmartDashboard.getBoolean("UseGyro"));
+    	prefs.putDouble("SallyPortPreset", SmartDashboard.getNumber("SallyPortPreset"));
+    	prefs.putDouble("DefenseArmMax", SmartDashboard.getNumber("DefenseArmMax"));
+    	prefs.putDouble("DefenseArmMin", SmartDashboard.getNumber("DefenseArmMin"));
+    	
     	System.out.println("Saved prefs.");
     }
 
@@ -140,6 +151,8 @@ public class Robot extends IterativeRobot {
     @Override
 	public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
     }
     
     /**

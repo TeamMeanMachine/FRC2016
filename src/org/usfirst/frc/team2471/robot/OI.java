@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.commandgroups.AimAndShootGroup;
+import org.usfirst.frc.team2471.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commands.Aim;
 import org.usfirst.frc.team2471.robot.commands.Fire;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
@@ -72,7 +73,7 @@ public class OI {
 		fireButton.whileHeld(new Fire());
 		
 		suckIn = new JoystickButton(coStick, 5);
-		suckIn.whenPressed(new SuckUpBall());
+		suckIn.whenPressed(new PickupBall());
 		suckIn.whenReleased(new StopBallIntake());
 		
 		sallyPort = new JoystickButton(coStick, 4);

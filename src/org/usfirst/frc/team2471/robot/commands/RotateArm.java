@@ -44,6 +44,7 @@ public class RotateArm extends Command{
 		if(testNumber % 20 == 0) {
 			SmartDashboard.putNumber("Defense Arm Position", armAngle);
 			SmartDashboard.putNumber("Defense Arm Error", Robot.defenseArm.getPIDController().getError());
+			SmartDashboard.putNumber("Defense Arm Voltage", RobotMap.magnepotArm.getVoltage());
 		}
 	}
 

@@ -132,7 +132,7 @@ public class Shooter extends Subsystem{
 		topController.enable();
 		bottomController.enable();
 
-		if ((topSpeed > 0.0 || topSpeed < 0.0) && (bottomSpeed > 0.0 || bottomSpeed < 0.0)){
+		if (Math.abs(topMotor.getEncVelocity()) > 1000 && Math.abs(bottomMotor.getEncVelocity()) > 1000){
 			RobotMap.shootIntake.set(-0.80);
 		}else{
 			RobotMap.shootIntake.set(0.0);

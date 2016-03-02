@@ -14,8 +14,10 @@ public class Aim extends PIDCommand {
 	
 	public Aim() {
 		super(Constants.AIM_P, Constants.AIM_I, Constants.AIM_D);
+
 		requires(Robot.shooter);
 		requires(Robot.drive);
+
 		Robot.shooter.topMotor.set(0.2);
 		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
@@ -72,6 +74,9 @@ public class Aim extends PIDCommand {
 		
 		if (SmartDashboard.getBoolean("AutoAim")) {
 			aimcontroller.enable();
+			if(Math.abs(aimcontroller.getError()) < 6.0) {
+				new RumbleJoystick(0.25, OI.coStick).start();
+			}
 		}
 		else {
 			aimcontroller.disable();

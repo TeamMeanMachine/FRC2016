@@ -3,6 +3,7 @@ package org.usfirst.frc.team2471.robot.commands;
 import org.usfirst.frc.team2471.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -10,6 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SallyPortPreset extends RotateArmToAngle {
 
     public SallyPortPreset() {
-    	super( 36.5);
+    	super(SmartDashboard.getNumber("SallyPortPreset", 36.0));
     }
 }

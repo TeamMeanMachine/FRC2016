@@ -23,7 +23,7 @@ public class Intake extends Subsystem{
 	}
 	
 	public void intakeIN(double x){
-		roller.set(-x);
+		roller.set(x);
 		
 	}
 	

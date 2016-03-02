@@ -2,8 +2,10 @@ package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
+import org.usfirst.frc.team2471.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveLoop extends Command{
 	
@@ -18,27 +20,66 @@ public class DriveLoop extends Command{
 
 	@Override
 	protected void execute() {
-		double x = -OI.driverStick.getRawAxis(1);
-		double y = -OI.driverStick.getRawAxis(2);
+		double forward = -OI.driverStick.getRawAxis(1);    //Forward & Backwards
+		double turn = -OI.driverStick.getRawAxis(2);	 //Left & Right
+		
+		double deadband = 0.05;
+		if (turn <= deadband && turn >= -deadband){
+			turn = 0;
+//			Robot.drive.setTurnResult(0);
+		}
+		if(forward <= deadband && forward >= -deadband){
+			forward = 0;
+		}
 		
 		//No cubic functions for now, but possibly later
 		//x = x * x * x;
 		//y = y * y * y;
 		
+		boolean useGyro = SmartDashboard.getBoolean("UseGyro", false);
+		
+		final double FASTRATE = 350;  // TODO: determine how fast is fast
+		
+		if (useGyro) {
+			Robot.drive.turnRateController.enable();
+			
+			Robot.drive.turnRateController.setSetpoint(turn * FASTRATE);
+			
+			turn = Robot.drive.getTurnResult();
+		}
+		else
+		{
+			Robot.drive.turnRateController.disable();
+		}
+		
+		SmartDashboard.putNumber("DriveDistance", Robot.drive.getEncoderDistance());
+		
 		//For now we have to make sure not to break it while testing		
 		if(!Robot.drive.getAimDropStatus()) {
-			Robot.drive.SetSpeed(x, y);
+			// Climb stuff
+			double liftPower = OI.coStick.getRawAxis(3);
+			if(Math.abs(liftPower) < 0.075) {
+				liftPower = 0;
+				RobotMap.pto.set(false);
+			}
+			else {
+				RobotMap.pto.set(true);
+				turn = 0;
+				forward = 0;
+			}
+		
+			Robot.drive.SetSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
 		}
 		else if(Robot.DEBUGMODE) {
 			System.out.println("Robot tried to drive when the aim dropper is down! This should never happen!"); // This should never happen!
 		}
 		
 		// Climb extension stuff
-		double liftPower = OI.coStick.getRawAxis(2);
-		if(Math.abs(liftPower) < 0.075) {
-			liftPower = 0;
+		double extendPower = -OI.coStick.getRawAxis(2);
+		if(Math.abs(extendPower) < 0.075) {
+			extendPower = 0;
 		}
-		Robot.drive.setLiftExtension(liftPower);
+		Robot.drive.setLiftExtension(extendPower);
 	}
 
 	@Override

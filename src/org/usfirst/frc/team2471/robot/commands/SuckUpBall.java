@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SuckUpBall extends Command {
 	
-	double ballInTime;
-	boolean ballIn;
+	private double ballInTime;
+	private boolean ballIn;
 
 	public SuckUpBall()
 	{
@@ -27,7 +27,7 @@ public class SuckUpBall extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.intake.intakeIN(-1.0);
+		Robot.intake.intakeIN(1.0);
 		if(!ballIn && RobotMap.ballInSensor.get() == false) {
 			ballInTime = Timer.getFPGATimestamp();
 			ballIn = true;
