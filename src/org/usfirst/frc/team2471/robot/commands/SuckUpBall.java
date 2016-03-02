@@ -11,14 +11,12 @@ public class SuckUpBall extends Command {
 	private double ballInTime;
 	private boolean ballIn;
 
-	public SuckUpBall()
-	{
+	public SuckUpBall() {
 		requires(Robot.intake);
 	}
 	
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
 		Robot.intake.intakeDown();
 		ballInTime = 0;
 		ballIn = false;
@@ -26,8 +24,7 @@ public class SuckUpBall extends Command {
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		Robot.intake.intakeIN(1.0);
+		Robot.intake.intakeIn(1.0);
 		if(!ballIn && RobotMap.ballInSensor.get() == false) {
 			ballInTime = Timer.getFPGATimestamp();
 			ballIn = true;
@@ -41,7 +38,7 @@ public class SuckUpBall extends Command {
 
 	@Override
 	protected void end() {
-		Robot.intake.intakeSTOP();
+		Robot.intake.intakeStop();
 		Robot.intake.intakeUp();
 	}
 

@@ -9,13 +9,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveLoop extends Command{
 	
-	public DriveLoop(){
+	public DriveLoop() {
 		requires(Robot.drive);
 	}
+	
 	@Override
 	protected void initialize() {
-		
-		
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class DriveLoop extends Command{
 				forward = 0;
 			}
 		
-			Robot.drive.SetSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
+			Robot.drive.setSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
 		}
 		else if(Robot.DEBUGMODE) {
 			System.out.println("Robot tried to drive when the aim dropper is down! This should never happen!"); // This should never happen!
@@ -89,7 +88,7 @@ public class DriveLoop extends Command{
 
 	@Override
 	protected void end() {
-		Robot.drive.SetSpeed(0.0, 0.0);
+		Robot.drive.setSpeed(0.0, 0.0);
 	}
 
 	@Override

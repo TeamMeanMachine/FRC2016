@@ -2,15 +2,12 @@ package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.commandgroups.PickupBall;
-import org.usfirst.frc.team2471.robot.commands.Aim;
 import org.usfirst.frc.team2471.robot.commands.Fire;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
-import org.usfirst.frc.team2471.robot.commands.SuckUpBall;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -63,8 +60,6 @@ public class OI {
 		
 		/*shootButton = new JoystickButton(coStick, 1);
 		shootButton.whileHeld(new Shoot());*/
-		
-		Aim aimer = new Aim();
 		
 		aimButton = new JoystickButton(coStick, 3);
 		aimButton.whenReleased(new AimAndShootGroup());

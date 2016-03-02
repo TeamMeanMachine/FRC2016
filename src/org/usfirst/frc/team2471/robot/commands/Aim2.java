@@ -37,7 +37,7 @@ public class Aim2 extends PIDCommand {
 				aimController.enable();
 			}
 			if(Math.abs(aimController.getError()) < 6.0) {
-				new RumbleJoystick(0.25, OI.coStick).start();
+				new RumbleJoystick(0.5, OI.coStick).start();
 			}
 		}
 		else {

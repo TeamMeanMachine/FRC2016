@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Aim extends PIDCommand {
-//	private double p, i, d; Unused
-	public static PIDController aimcontroller;
+	private PIDController aimcontroller;
 	
 	public Aim() {
 		super(Constants.AIM_P, Constants.AIM_I, Constants.AIM_D);
@@ -18,32 +17,29 @@ public class Aim extends PIDCommand {
 		requires(Robot.shooter);
 		requires(Robot.drive);
 
-		Robot.shooter.topMotor.set(0.2);
-		setSetpoint(0.0 + SmartDashboard.getNumber("AimChange", 0.0));
+		setSetpoint(SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
-		SmartDashboard.putBoolean("Aim", true);
 		SmartDashboard.putData("Aim PID", aimcontroller);
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		
 		double input;
 		try{
-		double blobCount = SmartDashboard.getNumber("BLOB_COUNT", -1.0d);
-		if (blobCount == -1.0d) {
-			System.out.println("Connection to compute stick failed");
-			input = -100;
-		}
-		if (blobCount > 0) {
-			return SmartDashboard.getNumber("AIM_ERROR");
-		}
-		else {
-			input = getSetpoint();
-		}
-		SmartDashboard.putNumber("Error", input);
-		return input;
-		}catch(Exception e){
+			double blobCount = SmartDashboard.getNumber("BLOB_COUNT", -1.0d);
+			if (blobCount == -1.0d) {
+				System.out.println("Connection to compute stick failed");
+				input = -100;
+			}
+			if (blobCount > 0) {
+				return SmartDashboard.getNumber("AIM_ERROR");
+			}
+			else {
+				input = getSetpoint();
+			}
+			SmartDashboard.putNumber("Error", input);
+			return input;
+		} catch(Exception e){
 			System.out.println("Could not find Dashboard variable from Intel Stick");
 			return -100;
 		}
@@ -66,8 +62,7 @@ public class Aim extends PIDCommand {
 	protected void execute() {
 		try {
 			setSetpoint(SmartDashboard.getNumber("AimChange"));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			setSetpoint(0.0);
 			System.out.println("Could not find Dashboard variable from Intel Stick");
 		}
@@ -105,7 +100,6 @@ public class Aim extends PIDCommand {
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
 		end();
 	}
 }

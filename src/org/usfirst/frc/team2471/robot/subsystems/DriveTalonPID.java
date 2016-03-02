@@ -11,52 +11,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTalonPID extends Subsystem {
 	
-	public static CANTalon left1;
-	public static CANTalon right1;
+	private CANTalon leftDrive;
+	private CANTalon rightDrive;
 	
 	public double prevScale = 1.0;
 	
-	boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);  // should read from prefs and save to prefs on disabled, find TMMSmartDashboard from 2015 Robot code.
+	boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);
 	
 	public double requestedPowerLeft, requestedPowerRight;
+	
+	public DriveTalonPID() {
+		leftDrive = RobotMap.leftDrive;
+		rightDrive = RobotMap.rightDrive;
+		
+		leftDrive.setPID(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D);
+		rightDrive.setPID(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D);
+	
+		SmartDashboard.putBoolean("Speed Control", bSpeedControl);
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DriveLoop());
 	}
-	
-	public DriveTalonPID(){
-		left1 = RobotMap.left1;
-		right1 = RobotMap.right1;
-		
-		left1.setPID(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D);
-		right1.setPID(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D);
-	
-		SmartDashboard.putBoolean("Speed Control", bSpeedControl);
-	}
-	
-	public void driveConfig(double x, double y){
-		
-		double deadband = 0.05;
-		if (x <= deadband && x >= -deadband){
-			x = 0;
-		}
-		if(y <= deadband && y >= -deadband){
-			y = 0;
-		}
-		
-		//double speed = Math.abs(RobotMap.leftE.getRate() + RobotMap.rightE.getRate())/2.0;	//Doesn't do anything, will reimplamant when doing testing
-	}
 
-	public void SetRightPower(double x) {
-		right1.set(x);
+	public void setRightPower(double x) {
+		rightDrive.set(x);
 	}
 	
-	public void SetLeftPower(double x){
-		left1.set(x);
+	public void setLeftPower(double x){
+		leftDrive.set(x);
 	}
 	
-	public void SetSpeed(double right, double forward){
+	public void setSpeed(double right, double forward){
 		
 		bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);
 
@@ -65,19 +52,18 @@ public class DriveTalonPID extends Subsystem {
 		/*	left1.enable();
 			right1.enable();*/
 			
-			left1.changeControlMode(TalonControlMode.Speed);
-			right1.changeControlMode(TalonControlMode.Speed);
+			leftDrive.changeControlMode(TalonControlMode.Speed);
+			rightDrive.changeControlMode(TalonControlMode.Speed);
 		}
 		else {
 			/*left1.disable();
 			right1.disable();*/
 			
-			left1.changeControlMode(TalonControlMode.PercentVbus);
-			right1.changeControlMode(TalonControlMode.PercentVbus);
+			leftDrive.changeControlMode(TalonControlMode.PercentVbus);
+			rightDrive.changeControlMode(TalonControlMode.PercentVbus);
 		}
 
-		if (bSpeedControl)
-		{
+		if (bSpeedControl) {
 			double a = forward + right;
 			double b = forward - right;
 			double maxPower = Math.max( Math.abs(a) , Math.abs(b) );
@@ -96,13 +82,12 @@ public class DriveTalonPID extends Subsystem {
 			requestedPowerLeft = a;
 			requestedPowerRight = b;
 			
-			left1.setSetpoint(20.0 * a);   // Change for FPS rating
-			right1.setSetpoint(20.0 * b);	//Samsies
+			leftDrive.setSetpoint(20.0 * a);   // Change for FPS rating
+			rightDrive.setSetpoint(20.0 * b);	//Samsies
 		}
-		else
-		{
-			SetLeftPower( forward + right );
-			SetRightPower( forward - right );
+		else {
+			setLeftPower( forward + right );
+			setRightPower( forward - right );
 		}
 	}
 }

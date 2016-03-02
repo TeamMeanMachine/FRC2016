@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -22,11 +21,11 @@ public class RobotMap {
 	public static PowerDistributionPanel pdp;
 	
 /*_____________________________________Drive-------------------------------- */
-    public static CANTalon left1;
-    public static CANTalon left2;
+    private static CANTalon leftSlave, leftMaster;
+    public static CANTalon leftDrive;
     
-    public static CANTalon right1;
-    public static CANTalon right2;
+    private static CANTalon rightSlave, rightMaster;
+    public static CANTalon rightDrive;
 
     public static CANTalon liftExtension;
     
@@ -48,9 +47,8 @@ public class RobotMap {
     public static CANTalon rollerIntake;
     
 /*______________________________Defense Arm_________________________________*/
-    public static CANTalon defenseArmLeft, defenseArmRight;
-    public static DigitalInput upperArmLimit;
-    public static DigitalInput lowerArmLimit;
+    private static CANTalon defenseArmLeft, defenseArmRight;
+    public static CANTalon defenseArm;
     
     public static Solenoid intakeActuate;
     public static Solenoid ringLight;
@@ -67,24 +65,26 @@ public class RobotMap {
     	aimer = new CANTalon(13);
     	//left1 = new CANTalon(0);
     	
-    	left1 = new CANTalon(15);
+    	leftMaster = new CANTalon(14);
+    	leftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	leftMaster.configEncoderCodesPerRev(250);
+    	leftDrive = leftMaster;
+    	
+    	leftSlave = new CANTalon(15);
+    	leftSlave.changeControlMode(TalonControlMode.Follower);
+    	leftSlave.set(leftMaster.getDeviceID());
     	//Encoder 2.1 times wheel
     	//24.178 in per wheel rev
     	//0.49 rev per ft
     	
-    	left2 = new CANTalon(14);
-    	left2.changeControlMode(TalonControlMode.Follower);
-    	left2.set(left1.getDeviceID());
-    	left2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	left2.configEncoderCodesPerRev(250);
+    	rightMaster = new CANTalon(1);
+    	rightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+    	rightMaster.configEncoderCodesPerRev(250);
+    	rightDrive = rightMaster;
     	
-    	right1 = new CANTalon(0);
-    	
-    	right2 = new CANTalon(1);
-    	right2.changeControlMode(TalonControlMode.Follower);
-    	right2.set(right1.getDeviceID());
-    	right2.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	right2.configEncoderCodesPerRev(250);
+    	rightSlave = new CANTalon(0);
+    	rightSlave.changeControlMode(TalonControlMode.Follower);
+    	rightSlave.set(rightMaster.getDeviceID());
     	
     	aimDropCylinder = new Solenoid(4);
     	pto = new Solenoid(5);
@@ -107,6 +107,7 @@ public class RobotMap {
     	ballInSensor = new DigitalInput(0);
     	
     	defenseArmLeft = new CANTalon(8);
+    	defenseArm = defenseArmLeft;
     	
     	defenseArmRight = new CANTalon(7);
     	defenseArmRight.changeControlMode(TalonControlMode.Follower);
@@ -124,12 +125,5 @@ public class RobotMap {
 		gyro.initGyro();
 		
     	accelerometer = new BuiltInAccelerometer();
-    			
-    	
-    	/*
-    	 * Do later
-    	upperArmLimit = new DigitalInput(2);
-    	lowerArmLimit = new DigitalInput(3);
-    	 */
     }
 }

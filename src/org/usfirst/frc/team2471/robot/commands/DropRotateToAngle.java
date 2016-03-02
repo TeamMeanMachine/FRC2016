@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 public class DropRotateToAngle extends PIDCommand {
 
     public DropRotateToAngle(double setPoint) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	super(Constants.AIM_ANGLE_P, Constants.AIM_ANGLE_I, Constants.AIM_ANGLE_D);
     	requires(Robot.drive);
     	setSetpoint(setPoint);

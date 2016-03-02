@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class StartShooter extends Command {
 
     public StartShooter() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
 		requires(Robot.shooter);
     }
 

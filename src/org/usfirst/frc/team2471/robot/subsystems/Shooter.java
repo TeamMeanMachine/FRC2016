@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends Subsystem{
 	
-	public CANTalon topMotor;
-	public CANTalon bottomMotor;
-	public PIDController topController;
-	public PIDController bottomController;
+	private CANTalon topMotor;
+	private CANTalon bottomMotor;
+	private CANTalon intakeMotor;
+	private PIDController topController;
+	private PIDController bottomController;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -29,6 +30,7 @@ public class Shooter extends Subsystem{
 		
 		topMotor = RobotMap.shootMotorTop;
 		bottomMotor = RobotMap.shootMotorBottom;
+		intakeMotor = RobotMap.shootIntake;
 		
 		topController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new topSource(), new topOutput());
 		bottomController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new bottomSource(), new bottomOutput());
@@ -67,35 +69,28 @@ public class Shooter extends Subsystem{
 	}
 	
 	
-	class bottomSource implements PIDSource{
+	class bottomSource implements PIDSource {
 
 		@Override
 		public void setPIDSourceType(PIDSourceType pidSource) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public PIDSourceType getPIDSourceType() {
-			// TODO Auto-generated method stub
 			return bottomMotor.getPIDSourceType();
 		}
 
 		@Override
 		public double pidGet() {
-			// TODO Auto-generated method stub
-			SmartDashboard.putNumber("Bottom Enc", -bottomMotor.getEncVelocity());
 			return -bottomMotor.getEncVelocity();
 		}
 		
 	}
 	
-	class topSource implements PIDSource{
+	class topSource implements PIDSource {
 
 		@Override
 		public void setPIDSourceType(PIDSourceType pidSource) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
@@ -114,7 +109,6 @@ public class Shooter extends Subsystem{
 		@Override
 		public void pidWrite(double output) {
 			bottomMotor.set(-bottomMotor.get()+output);
-			//SmartDashboard.putNumber("Motor Bottom", bottomMotor.get());
 		}
 	} 
 	
@@ -132,10 +126,10 @@ public class Shooter extends Subsystem{
 		topController.enable();
 		bottomController.enable();
 
-		if (Math.abs(topMotor.getEncVelocity()) > 1000 && Math.abs(bottomMotor.getEncVelocity()) > 1000){
-			RobotMap.shootIntake.set(-0.80);
-		}else{
-			RobotMap.shootIntake.set(0.0);
+		if (Math.abs(topMotor.getEncVelocity()) > 1000 && Math.abs(bottomMotor.getEncVelocity()) > 1000) {
+			intakeMotor.set(-0.80);
+		}else {
+			intakeMotor.set(0.0);
 		}
 	}
 
@@ -144,14 +138,14 @@ public class Shooter extends Subsystem{
 		bottomController.disable();
 		topMotor.set(0.0);
 		bottomMotor.set(0.0);
-		RobotMap.shootIntake.set(0.0);
+		intakeMotor.set(0.0);
 	}
 
 	public void shootLogic() {
-		double topSpeed = SmartDashboard.getNumber("Top", 2700);
-		double bottomSpeed = SmartDashboard.getNumber("Bottom", 2500);
+		double topSpeed = SmartDashboard.getNumber("TopSetSpeed", 2700);
+		double bottomSpeed = SmartDashboard.getNumber("BottomSetSpeed", 2500);
 		
-		if (SmartDashboard.getBoolean("Shoot"))
+		if (SmartDashboard.getBoolean("ShooterEnable"))
 		{
 			Robot.shooter.shoot(topSpeed, bottomSpeed);
 			RobotMap.ringLight.set(true);

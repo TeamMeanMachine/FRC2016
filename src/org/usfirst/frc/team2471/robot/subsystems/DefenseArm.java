@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.subsystems;
 
+import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.RotateArm;
 
@@ -10,17 +11,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DefenseArm extends PIDSubsystem{
 	
-	private CANTalon armLeft;
+	private CANTalon armMotor;
 	private AnalogInput magnePot;
 	private double targetAngle;
 	
 	
-	public DefenseArm(double p, double i, double d) {
-		super(p, i, d);
-		armLeft = RobotMap.defenseArmLeft;
+	public DefenseArm() {
+		super(Constants.DEFENSE_P, Constants.DEFENSE_I, Constants.DEFENSE_D);
+		armMotor = RobotMap.defenseArm;
 		magnePot = RobotMap.magnepotArm;
-		setTargetAngle(getPosition());
 		
+		setTargetAngle(getPosition());
 		enable();		
 	}
 
@@ -30,23 +31,15 @@ public class DefenseArm extends PIDSubsystem{
 		setDefaultCommand(new RotateArm());
 	}
 	
-	
-	public void rotateStop(){
-		//armLeft.set(0.0);
-		armLeft.setSetpoint(0);
-	}
-	
-	public void rotate(double power)
-	{
+	public void rotate(double power) {
 		if(RobotMap.pdp.getCurrent(8) <= 20 && RobotMap.pdp.getCurrent(7) <= 20) {
-			armLeft.set(power);
+			armMotor.set(power);
 		}
 		else {
 			setSetpoint(getPosition());
-			armLeft.set(0.0);
+			armMotor.set(0.0);
 		}
 	}
-
 
 	@Override
 	protected double returnPIDInput() {
@@ -61,22 +54,32 @@ public class DefenseArm extends PIDSubsystem{
 	
 	public double angleToVoltage(double angle) {
 		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314);
-		angle /= 82.18;
+		angle /= (360.0/4.6);
 		return angle + zeroVolts;
 	}
 
 	public double voltageToAngle(double voltage) {
-		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314);
+		//What I think the conversion should be (according to the MagnePot datasheet)
+		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314) - 0.2;
+		voltage -= 0.2;
 		voltage -= zeroVolts;
-		return voltage * 82.18;
+		double angle = voltage * (360.0/4.6);
+		
+		//What it was
+//		voltage -= zeroVolts;
+//		double angle = voltage * 82.18;
+		return angle;
 	}
 
 	public void setTargetAngle(double angle) {
-		if (angle > SmartDashboard.getNumber("DefenseArmMax", 77.0)) {
-			angle = 77;
+		double maxAngle = SmartDashboard.getNumber("DefenseArmMax", 77.0);
+		double minAngle = SmartDashboard.getNumber("DefenseArmMin", -13.0);
+		
+		if (angle > maxAngle) {
+			angle = maxAngle;
 		}
-		else if (angle < SmartDashboard.getNumber("DefenseArmMin", -13.0)) {
-			angle = -13;
+		else if (angle < minAngle) {
+			angle = minAngle;
 		}
 		targetAngle = angle;
 		

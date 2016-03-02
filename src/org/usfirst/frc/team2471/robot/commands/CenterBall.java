@@ -15,8 +15,6 @@ public class CenterBall extends Command {
 	private boolean ballIn;
 
     public CenterBall() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.intake);
     }
 
@@ -28,7 +26,7 @@ public class CenterBall extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.intakeIN(1.0);
+    	Robot.intake.intakeIn(1.0);
 		if(!ballIn && RobotMap.ballInSensor.get() == false) {
 			ballInTime = Timer.getFPGATimestamp();
 			ballIn = true;
@@ -42,7 +40,7 @@ public class CenterBall extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intake.intakeSTOP();
+    	Robot.intake.intakeStop();
     }
 
     // Called when another command which requires one or more of the same

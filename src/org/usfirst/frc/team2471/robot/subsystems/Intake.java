@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem{
 	
-	public static CANTalon roller;
-	public static Solenoid actuate;
+	private CANTalon roller;
+	private Solenoid actuate;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -22,16 +22,16 @@ public class Intake extends Subsystem{
 		actuate = RobotMap.intakeActuate;
 	}
 	
-	public void intakeIN(double x){
+	public void intakeIn(double x){
 		roller.set(x);
 		
 	}
 	
-	public void intakeOUT(double x){
+	public void intakeOut(double x){
 		roller.set(-x);
 	}
 	
-	public void intakeSTOP(){
+	public void intakeStop(){
 		roller.set(0.0);
 	}
 	

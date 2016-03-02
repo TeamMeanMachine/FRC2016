@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class RotateArmToAngle extends Command {
 	
-	double targetAngle;
+	private double targetAngle;
 
     public RotateArmToAngle( double angle ) {
 		requires(Robot.defenseArm);

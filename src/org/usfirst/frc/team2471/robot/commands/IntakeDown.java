@@ -11,15 +11,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IntakeDown extends Command {
 
     public IntakeDown() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.intake.intakeDown();
-    	Robot.intake.intakeIN(1.0);
+    	Robot.intake.intakeIn(1.0);
     }
 
     // Called repeatedly when this Command is scheduled to run

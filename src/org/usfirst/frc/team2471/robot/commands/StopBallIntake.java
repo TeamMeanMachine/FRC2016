@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StopBallIntake extends Command {
 
     public StopBallIntake() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.intake);
     }
 
@@ -23,7 +21,7 @@ public class StopBallIntake extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-		Robot.intake.intakeSTOP();
+		Robot.intake.intakeStop();
 		Robot.intake.intakeUp();
     }
 

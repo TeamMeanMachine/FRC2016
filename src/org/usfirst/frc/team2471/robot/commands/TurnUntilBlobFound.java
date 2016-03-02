@@ -11,12 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TurnUntilBlobFound extends Command {
 
-    boolean started = false;
-    double speed;
+    private boolean started = false;
+    private double speed;
     
     public TurnUntilBlobFound(double speedZeroToOne) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(Robot.drive);
         speed = speedZeroToOne;
     }
@@ -29,7 +27,7 @@ public class TurnUntilBlobFound extends Command {
     protected void execute() {
         if(!started) {
             started = true;
-            Robot.drive.SetSpeed(speed, 0);
+            Robot.drive.setSpeed(speed, 0);
         }
     }
 
@@ -54,7 +52,7 @@ public class TurnUntilBlobFound extends Command {
     // Called once after isFinished returns true
     protected void end() {
         started = false;
-        Robot.drive.SetSpeed( 0, 0 );
+        Robot.drive.setSpeed( 0, 0 );
     }
 
     // Called when another command which requires one or more of the same

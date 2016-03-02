@@ -2,11 +2,8 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.commandgroups.TerrainAndShotAuto;
-import org.usfirst.frc.team2471.robot.commands.Aim;
-import org.usfirst.frc.team2471.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
-import org.usfirst.frc.team2471.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
 import org.usfirst.frc.team2471.robot.subsystems.Shooter;
 
@@ -33,12 +30,10 @@ public class Robot extends IterativeRobot {
 	 */
 	public static final boolean DEBUGMODE = true;
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 
 	public static Shooter shooter;
 	public static Intake intake;
-	//public static Drive drive;
 	public static Drive drive;
 	public static DefenseArm defenseArm;
 	
@@ -60,7 +55,7 @@ public class Robot extends IterativeRobot {
         drive = new Drive();
         intake = new Intake();
         shooter = new Shooter();
-		defenseArm = new DefenseArm(Constants.DEFENSE_P, Constants.DEFENSE_I, Constants.DEFENSE_D);
+		defenseArm = new DefenseArm();
 		
 		prefs = Preferences.getInstance();
 		
@@ -68,10 +63,8 @@ public class Robot extends IterativeRobot {
 //		prefs.putDouble("Top", 3300);
 //		prefs.putDouble("Bottom", 1920);
 		
-		SmartDashboard.putData("Shoot PID Config", shooter);
-		
-		SmartDashboard.putNumber("Top", prefs.getDouble("Top", 3300));
-		SmartDashboard.putNumber("Bottom", prefs.getDouble("Bottom", 1920));
+		SmartDashboard.putNumber("TopSetSpeed", prefs.getDouble("TopSetSpeed", 3300));
+		SmartDashboard.putNumber("BottomSetSpeed", prefs.getDouble("BottomSetSpeed", 1920));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 15.0));
 		SmartDashboard.putNumber("ArmZeroVolts", prefs.getDouble("ArmZeroVolts", 2.290));
 		SmartDashboard.putBoolean("UseGyro", prefs.getBoolean("UseGyro", false));
@@ -79,7 +72,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("DefenseArmMax", prefs.getDouble("DefenseArmMax", 77.0));
 		SmartDashboard.putNumber("DefenseArmMin", prefs.getDouble("DefenseArmMin", -13.0));
 		
-		SmartDashboard.putBoolean("Shoot", false);
+		SmartDashboard.putBoolean("ShooterEnable", false);
 		SmartDashboard.putBoolean("AutoAim",true);
 		
 		oi = new OI();
@@ -133,8 +126,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
 	public void disabledInit(){
-    	prefs.putDouble("Top", SmartDashboard.getNumber("Top"));
-    	prefs.putDouble("Bottom", SmartDashboard.getNumber("Bottom"));
+    	prefs.putDouble("TopSetSpeed", SmartDashboard.getNumber("TopSetSpeed"));
+    	prefs.putDouble("BottomSetSpeed", SmartDashboard.getNumber("BottomSetSpeed"));
     	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange"));
     	prefs.putDouble("ArmZeroVolts", SmartDashboard.getNumber("ArmZeroVolts"));
     	prefs.putBoolean("UseGyro", SmartDashboard.getBoolean("UseGyro"));

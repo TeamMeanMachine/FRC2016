@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Subsystem {
 	
-	private CANTalon left1;
-	private CANTalon right1;
+	private CANTalon leftDrive;
+	private CANTalon rightDrive;
 	
 	private CANTalon aimer;
 	
@@ -36,8 +36,8 @@ public class Drive extends Subsystem {
 	}
 	
 	public Drive(){
-		left1 = RobotMap.left1;
-		right1 = RobotMap.right1;
+		leftDrive = RobotMap.leftDrive;
+		rightDrive = RobotMap.rightDrive;
 		aimer = RobotMap.aimer;
 		
 		liftExtension = RobotMap.liftExtension;
@@ -52,9 +52,7 @@ public class Drive extends Subsystem {
 		SmartDashboard.putData("TurnPID", turnRateController);
 	}
 	
-	class turnRatePIDSource implements PIDSource
-	{
-
+	class turnRatePIDSource implements PIDSource {
 		@Override
 		public void setPIDSourceType(PIDSourceType pidSource) {
 		}
@@ -70,9 +68,7 @@ public class Drive extends Subsystem {
 		}
 	}
 	
-	class turnRatePIDOutput implements PIDOutput
-	{
-
+	class turnRatePIDOutput implements PIDOutput {
 		@Override
 		public void pidWrite(double output) {
 			turnResult += output;
@@ -96,19 +92,19 @@ public class Drive extends Subsystem {
 		return aimDropCylinder.get();
 	}
 	
-	public void SetSpeed(double right, double forward){
+	public void setSpeed(double right, double forward){
 		
 		bSpeedControl = SmartDashboard.getBoolean("Speed Control", false);
 
 		if (bSpeedControl)
 		{
-			right1.set( forward + right );
-			left1.set( -(forward - right) );
+			rightDrive.set( forward + right );
+			leftDrive.set( -(forward - right) );
 		}
 		else
 		{
-			right1.set( forward + right );
-			left1.set( -(forward - right) );
+			rightDrive.set( forward + right );
+			leftDrive.set( -(forward - right) );
 		}
 		
 //		SmartDashboard.putNumber("Accel X", RobotMap.accelerometer.getX());
@@ -129,11 +125,11 @@ public class Drive extends Subsystem {
 	}
 	
 	public double getEncoderDistance() {
-		return ( Math.abs( RobotMap.left2.getEncPosition() ) + Math.abs( RobotMap.right2.getEncPosition() ) ) / 2.0;
+		return ( Math.abs( leftDrive.getEncPosition() ) + Math.abs( rightDrive.getEncPosition() ) ) / 2.0;
 	}
 	
 	public void resetEncoders() {
-		RobotMap.left2.setEncPosition(0);
-		RobotMap.right2.setEncPosition(0);
+		leftDrive.setEncPosition(0);
+		rightDrive.setEncPosition(0);
 	}
 }

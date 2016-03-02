@@ -13,8 +13,6 @@ public class RumbleJoystick extends Command {
 	private Joystick joystick;
 	
     public RumbleJoystick(double _rumbleTime, Joystick _joystick) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	rumbleTime = _rumbleTime;
     	joystick = _joystick;
     }
