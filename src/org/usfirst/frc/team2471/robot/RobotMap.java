@@ -35,6 +35,7 @@ public class RobotMap {
     
 /*_____________________________Shooter____________________________________ */
     public static CANTalon shootMotorTop, shootMotorBottom, shootIntake;
+    public static DigitalInput ballSensorShooter;
     
 /*_________________________Aimer---------------------------------------*/
     public static CANTalon aimer;
@@ -63,11 +64,10 @@ public class RobotMap {
     public static void init(){
     	
     	aimer = new CANTalon(13);
-    	//left1 = new CANTalon(0);
     	
     	leftMaster = new CANTalon(14);
     	leftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	leftMaster.configEncoderCodesPerRev(250);
+    	leftMaster.configEncoderCodesPerRev(845);
     	leftDrive = leftMaster;
     	
     	leftSlave = new CANTalon(15);
@@ -79,7 +79,7 @@ public class RobotMap {
     	
     	rightMaster = new CANTalon(1);
     	rightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	rightMaster.configEncoderCodesPerRev(250);
+    	rightMaster.configEncoderCodesPerRev(845);
     	rightDrive = rightMaster;
     	
     	rightSlave = new CANTalon(0);
@@ -102,6 +102,7 @@ public class RobotMap {
     	shootMotorTop = new CANTalon(2);
     	shootMotorBottom = new CANTalon(3);
     	shootIntake = new CANTalon(6);
+    	ballSensorShooter = new DigitalInput(1);
     	
     	rollerIntake = new CANTalon(9);
     	ballInSensor = new DigitalInput(0);

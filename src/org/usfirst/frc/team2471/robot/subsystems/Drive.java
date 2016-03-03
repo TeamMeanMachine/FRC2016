@@ -125,11 +125,13 @@ public class Drive extends Subsystem {
 	}
 	
 	public double getEncoderDistance() {
-		return ( Math.abs( leftDrive.getEncPosition() ) + Math.abs( rightDrive.getEncPosition() ) ) / 2.0;
+		return ( Math.abs( leftDrive.getPosition() ) + Math.abs( rightDrive.getPosition() ) ) / 2.0;
 	}
 	
 	public void resetEncoders() {
 		leftDrive.setEncPosition(0);
 		rightDrive.setEncPosition(0);
+		leftDrive.setPosition(0);
+		rightDrive.setPosition(0);
 	}
 }

@@ -28,15 +28,28 @@ public class RotateToAngle extends Command {
     protected void execute() {
         if(!started) {
             started = true;
-            Robot.drive.setSpeed( speed, 0 );
         }
+        
+    	double gyroAngle = RobotMap.gyro.getAngle();
+    	while (gyroAngle > 180.0)
+    		gyroAngle -= 360.0; 
+    	while (gyroAngle < -180.0)
+    		gyroAngle += 360.0; 
+    	
+    	double direction = Math.signum(gyroAngle - targetAngle); 
+
+        Robot.drive.setSpeed( direction * -speed, 0 );
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	double gyroAngle = RobotMap.gyro.getAngle();
+    	double gyroAngle = (RobotMap.gyro.getAngle() - 360.0) % 360.0;
+    	while (gyroAngle > 180.0)
+    		gyroAngle -= 360.0; 
+    	while (gyroAngle < -180.0)
+    		gyroAngle += 360.0; 
     	
-    	if (Math.abs(gyroAngle - targetAngle) < 2.0)  //  fudge factor tolerance for heading 
+    	if (Math.abs(gyroAngle - targetAngle) < 5.0)  //  fudge factor tolerance for heading 
     		return true;
     	
     	if (isTimedOut())

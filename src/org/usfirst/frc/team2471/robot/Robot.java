@@ -93,6 +93,7 @@ public class Robot extends IterativeRobot {
     @Override
 	public void autonomousInit() {
     	drive.resetEncoders();
+    	RobotMap.gyro.reset();
         // schedule the autonomous command (example)
     	autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();

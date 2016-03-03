@@ -20,10 +20,11 @@ public class Shooter extends Subsystem{
 	private CANTalon intakeMotor;
 	private PIDController topController;
 	private PIDController bottomController;
+	private boolean shooterOn = false;
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new Shoot());
+//		setDefaultCommand(new Shoot());
 	}
 
 	public Shooter() {
@@ -139,26 +140,39 @@ public class Shooter extends Subsystem{
 		topMotor.set(0.0);
 		bottomMotor.set(0.0);
 		intakeMotor.set(0.0);
+		shooterOn = false;
+		RobotMap.ringLight.set(false);
+	}
+	
+	public void start() {
+		shooterOn = true;
 	}
 
 	public void shootLogic() {
 		double topSpeed = SmartDashboard.getNumber("TopSetSpeed", 2700);
 		double bottomSpeed = SmartDashboard.getNumber("BottomSetSpeed", 2500);
 		
-		if (SmartDashboard.getBoolean("ShooterEnable"))
+		if (shooterOn)
 		{
-			Robot.shooter.shoot(topSpeed, bottomSpeed);
+			shoot(topSpeed, bottomSpeed);
 			RobotMap.ringLight.set(true);
 		}
 		else
 		{
-			Robot.shooter.stop();
-			RobotMap.ringLight.set(false);
+			stop();
 		}
 		
 		SmartDashboard.putNumber("TopSpeed", topMotor.getEncVelocity());
 		SmartDashboard.putNumber("BottomSpeed", -bottomMotor.getEncVelocity());
 		SmartDashboard.putNumber("Top Error", topController.getError());
 		SmartDashboard.putNumber("Bottom Error", bottomController.getError());
+	}
+	
+	public void shooterIntakeOn() {
+		intakeMotor.set(-0.8);
+	}
+	
+	public void shooterIntakeOff() {
+		intakeMotor.set(0.0);
 	}
 }

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AimAndShootGroup extends CommandGroup {
     
-    public  AimAndShootGroup() {
+    public  AimAndShootGroup(boolean finishOnTarget) {
         // Add Commands here:
         // e.g. adddSequential(new Command1());
         //      addSequential(new Command2());
@@ -33,7 +33,7 @@ public class AimAndShootGroup extends CommandGroup {
     	addSequential( new StartShooter() );
     	addSequential( new RotateArmToAngle(22.5));
     	
-    	addSequential( new Aim());
+    	addSequential( new Aim(finishOnTarget));
     	
     	addSequential( new RotateArmToAngle(62.0));
     	addSequential( new StopShooter() );    	

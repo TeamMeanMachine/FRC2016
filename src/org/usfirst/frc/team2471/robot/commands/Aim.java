@@ -10,8 +10,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Aim extends PIDCommand {
 	private PIDController aimcontroller;
+	private boolean finishOnTarget;
+	private int onTargetCount;
 	
-	public Aim() {
+	public Aim(boolean _finishOnTarget) {
 		super(Constants.AIM_P, Constants.AIM_I, Constants.AIM_D);
 
 		requires(Robot.shooter);
@@ -20,6 +22,7 @@ public class Aim extends PIDCommand {
 		setSetpoint(SmartDashboard.getNumber("AimChange", 0.0));
 		aimcontroller = getPIDController();
 		SmartDashboard.putData("Aim PID", aimcontroller);
+		finishOnTarget = _finishOnTarget;
 	}
 
 	@Override
@@ -56,6 +59,7 @@ public class Aim extends PIDCommand {
 	protected void initialize() {
 		Robot.drive.setAimDrop(true);
 		System.out.println("Aim");
+		onTargetCount = 0;
 	}
 
 	@Override
@@ -88,8 +92,20 @@ public class Aim extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		//return onTarget();
-		return OI.coStick.getRawButton(2);
+		if(finishOnTarget) {
+			if(aimcontroller.getError() < 6.0) {
+				onTargetCount++;
+			}
+			if(onTargetCount > 10) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return OI.coStick.getRawButton(2);
+		}
 	}
 
 	@Override

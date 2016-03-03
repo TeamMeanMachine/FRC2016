@@ -1,9 +1,19 @@
 package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.Robot;
+import org.usfirst.frc.team2471.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Shoot extends Command {
+	
+	private enum BallState {
+		ballInShooter,
+		shot,
+	};
+	
+	private BallState state;
+	private boolean done = false;
 	
 	public Shoot() {
 		requires(Robot.shooter);
@@ -11,17 +21,29 @@ public class Shoot extends Command {
 
 	@Override
 	protected void initialize() {
-		
+		state = BallState.ballInShooter;
 	}
 
 	@Override
 	protected void execute() {
-		Robot.shooter.shootLogic();
+		switch(state) {
+		case ballInShooter:
+			Robot.shooter.shootLogic();
+			if(RobotMap.ballSensorShooter.get() == true) {
+				state = BallState.shot;
+			}
+			break;
+		case shot:
+			Robot.shooter.stop();
+			done = true;
+			break;
+		}
+			
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return done;
 	}
 
 	@Override

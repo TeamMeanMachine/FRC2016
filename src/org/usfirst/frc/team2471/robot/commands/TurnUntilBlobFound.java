@@ -21,14 +21,15 @@ public class TurnUntilBlobFound extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	RobotMap.ringLight.set(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         if(!started) {
             started = true;
-            Robot.drive.setSpeed(speed, 0);
         }
+        Robot.drive.setSpeed(-speed, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -53,6 +54,7 @@ public class TurnUntilBlobFound extends Command {
     protected void end() {
         started = false;
         Robot.drive.setSpeed( 0, 0 );
+    	RobotMap.ringLight.set(false);
     }
 
     // Called when another command which requires one or more of the same

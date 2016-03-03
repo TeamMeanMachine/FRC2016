@@ -62,7 +62,7 @@ public class OI {
 		shootButton.whileHeld(new Shoot());*/
 		
 		aimButton = new JoystickButton(coStick, 3);
-		aimButton.whenReleased(new AimAndShootGroup());
+		aimButton.whenReleased(new AimAndShootGroup(false));
 		
 		fireButton = new JoystickButton(coStick, 6);  // want to put this on right trigger, but it is an axis on xbox controller
 		fireButton.whileHeld(new Fire());
