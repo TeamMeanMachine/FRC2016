@@ -22,7 +22,7 @@ public class StopBallIntake extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	if(Robot.intake.getBallState() == true) {
+    	if(Robot.intake.getBallState() == false) {
 			new CancelIntake().start();
     	}
     }

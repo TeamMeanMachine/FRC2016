@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Aim extends PIDCommand {
 	private PIDController aimController;
 	private boolean finishOnTarget;
+	private int onTargetCount;
 	
 	public Aim(boolean _finishOnTarget) {
 		super(Constants.AIM_P, Constants.AIM_I, Constants.AIM_D);
@@ -20,8 +21,6 @@ public class Aim extends PIDCommand {
 
 		setSetpoint(SmartDashboard.getNumber("AimChange", 0.0));
 		aimController = getPIDController();
-		aimController.setAbsoluteTolerance(6.0);
-		aimController.setToleranceBuffer(10);
 		SmartDashboard.putData("Aim PID", aimController);
 		finishOnTarget = _finishOnTarget;
 	}
@@ -60,6 +59,7 @@ public class Aim extends PIDCommand {
 	protected void initialize() {
 		Robot.drive.setAimDrop(true);
 		System.out.println("Aim");
+		onTargetCount = 0;
 	}
 
 	@Override
@@ -74,6 +74,7 @@ public class Aim extends PIDCommand {
 		if (SmartDashboard.getBoolean("AutoAim")) {
 			aimController.enable();
 			if(Math.abs(aimController.getError()) < 6.0) {
+				onTargetCount++;
 				new RumbleJoystick(0.25, OI.coStick).start();
 			}
 		}
@@ -93,7 +94,7 @@ public class Aim extends PIDCommand {
 	@Override
 	protected boolean isFinished() {
 		if(finishOnTarget) {
-			return aimController.onTarget();
+			return onTargetCount > 50.0;
 		}
 		else {
 			return OI.coStick.getRawButton(2);

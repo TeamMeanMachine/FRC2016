@@ -2,9 +2,9 @@ package org.usfirst.frc.team2471.robot;
 
 public final class Constants {
 	//Auto aimer
-    public static final double AIM_P = 0.01;
+    public static final double AIM_P = 0.0125;
     public static final double AIM_I = 0.0;
-    public static final double AIM_D = 0.0;
+    public static final double AIM_D = 0.00001;
 
     public static final double AIM_ANGLE_P = 0.01;
     public static final double AIM_ANGLE_I = 0.0;
