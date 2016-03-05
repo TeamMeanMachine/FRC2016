@@ -126,12 +126,6 @@ public class Shooter extends Subsystem{
 		
 		topController.enable();
 		bottomController.enable();
-
-		if (Math.abs(topMotor.getEncVelocity()) > 1000 && Math.abs(bottomMotor.getEncVelocity()) > 1000) {
-			intakeMotor.set(-0.80);
-		}else {
-			intakeMotor.set(0.0);
-		}
 	}
 
 	public void stop() {
@@ -142,10 +136,15 @@ public class Shooter extends Subsystem{
 		intakeMotor.set(0.0);
 		shooterOn = false;
 		RobotMap.ringLight.set(false);
+		Robot.drive.setAimDrop(false);
 	}
 	
 	public void start() {
 		shooterOn = true;
+	}
+	
+	public boolean getShooterState() {
+		return shooterOn;
 	}
 
 	public void shootLogic() {
@@ -169,10 +168,12 @@ public class Shooter extends Subsystem{
 	}
 	
 	public void shooterIntakeOn() {
-		intakeMotor.set(-0.8);
+		if(Math.abs(topController.getError()) < 500 && Math.abs(bottomController.getError()) < 500)
+			intakeMotor.set(-0.8);
 	}
 	
 	public void shooterIntakeOff() {
+		System.out.println("Intake Off2");
 		intakeMotor.set(0.0);
 	}
 }

@@ -2,8 +2,8 @@ package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.commandgroups.PickupBall;
-import org.usfirst.frc.team2471.robot.commands.Fire;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
+import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -65,7 +65,7 @@ public class OI {
 		aimButton.whenReleased(new AimAndShootGroup(false));
 		
 		fireButton = new JoystickButton(coStick, 6);  // want to put this on right trigger, but it is an axis on xbox controller
-		fireButton.whileHeld(new Fire());
+		fireButton.whenPressed(new Shoot());
 		
 		suckIn = new JoystickButton(coStick, 5);
 		suckIn.whenPressed(new PickupBall());

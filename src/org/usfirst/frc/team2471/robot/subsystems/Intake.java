@@ -10,6 +10,7 @@ public class Intake extends Subsystem{
 	
 	private CANTalon roller;
 	private Solenoid actuate;
+	private boolean ballIn;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -41,5 +42,13 @@ public class Intake extends Subsystem{
 	
 	public void intakeUp(){
 		actuate.set(false);
+	}
+	
+	public boolean getBallState() {
+		return ballIn;
+	}
+	
+	public void setBallState(boolean _ballIn) {
+		ballIn = _ballIn;
 	}
 }

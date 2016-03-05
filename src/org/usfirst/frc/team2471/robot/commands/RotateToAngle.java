@@ -12,7 +12,7 @@ public class RotateToAngle extends Command {
 
 	private double targetAngle;
     private boolean started = false;
-    private double speed;
+    private double speed, direction;
     
     public RotateToAngle(double angle, double speedZeroToOne ) {
         requires(Robot.drive);
@@ -22,6 +22,13 @@ public class RotateToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	double gyroAngle = RobotMap.gyro.getAngle();
+		while (gyroAngle > 180.0)
+			gyroAngle -= 360.0; 
+		while (gyroAngle < -180.0)
+			gyroAngle += 360.0; 
+		
+    	direction = Math.signum(targetAngle - gyroAngle); 
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -30,14 +37,6 @@ public class RotateToAngle extends Command {
             started = true;
         }
         
-    	double gyroAngle = RobotMap.gyro.getAngle();
-    	while (gyroAngle > 180.0)
-    		gyroAngle -= 360.0; 
-    	while (gyroAngle < -180.0)
-    		gyroAngle += 360.0; 
-    	
-    	double direction = Math.signum(gyroAngle - targetAngle); 
-
         Robot.drive.setSpeed( direction * -speed, 0 );
     }
 

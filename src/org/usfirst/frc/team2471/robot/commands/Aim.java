@@ -9,9 +9,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Aim extends PIDCommand {
-	private PIDController aimcontroller;
+	private PIDController aimController;
 	private boolean finishOnTarget;
-	private int onTargetCount;
 	
 	public Aim(boolean _finishOnTarget) {
 		super(Constants.AIM_P, Constants.AIM_I, Constants.AIM_D);
@@ -20,8 +19,10 @@ public class Aim extends PIDCommand {
 		requires(Robot.drive);
 
 		setSetpoint(SmartDashboard.getNumber("AimChange", 0.0));
-		aimcontroller = getPIDController();
-		SmartDashboard.putData("Aim PID", aimcontroller);
+		aimController = getPIDController();
+		aimController.setAbsoluteTolerance(6.0);
+		aimController.setToleranceBuffer(10);
+		SmartDashboard.putData("Aim PID", aimController);
 		finishOnTarget = _finishOnTarget;
 	}
 
@@ -59,7 +60,6 @@ public class Aim extends PIDCommand {
 	protected void initialize() {
 		Robot.drive.setAimDrop(true);
 		System.out.println("Aim");
-		onTargetCount = 0;
 	}
 
 	@Override
@@ -72,13 +72,13 @@ public class Aim extends PIDCommand {
 		}
 		
 		if (SmartDashboard.getBoolean("AutoAim")) {
-			aimcontroller.enable();
-			if(Math.abs(aimcontroller.getError()) < 6.0) {
+			aimController.enable();
+			if(Math.abs(aimController.getError()) < 6.0) {
 				new RumbleJoystick(0.25, OI.coStick).start();
 			}
 		}
 		else {
-			aimcontroller.disable();
+			aimController.disable();
 			double leftRightValue = OI.coStick.getRawAxis(4);
 			if(Math.abs(leftRightValue) <= 0.05) {
 				leftRightValue = 0;
@@ -93,15 +93,7 @@ public class Aim extends PIDCommand {
 	@Override
 	protected boolean isFinished() {
 		if(finishOnTarget) {
-			if(aimcontroller.getError() < 6.0) {
-				onTargetCount++;
-			}
-			if(onTargetCount > 10) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return aimController.onTarget();
 		}
 		else {
 			return OI.coStick.getRawButton(2);
@@ -111,7 +103,7 @@ public class Aim extends PIDCommand {
 	@Override
 	protected void end() {
 		Robot.drive.setAimDrop(false);
-		aimcontroller.disable();
+		aimController.disable();
 	}
 
 	@Override
