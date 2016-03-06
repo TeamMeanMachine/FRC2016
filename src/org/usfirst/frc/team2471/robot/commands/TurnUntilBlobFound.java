@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TurnUntilBlobFound extends Command {
 
-    private boolean started = false;
     private double speed;
     
     public TurnUntilBlobFound(double speedZeroToOne) {
@@ -22,14 +21,13 @@ public class TurnUntilBlobFound extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	RobotMap.ringLight.set(true);
+    	if(!isFinished()) {
+            Robot.drive.setSpeed(-speed, 0);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!started) {
-            started = true;
-        }
-        Robot.drive.setSpeed(-speed, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -52,7 +50,6 @@ public class TurnUntilBlobFound extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-        started = false;
         Robot.drive.setSpeed( 0, 0 );
     	RobotMap.ringLight.set(false);
     }

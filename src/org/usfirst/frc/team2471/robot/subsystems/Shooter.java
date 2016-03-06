@@ -151,13 +151,11 @@ public class Shooter extends Subsystem{
 		double topSpeed = SmartDashboard.getNumber("TopSetSpeed", 2700);
 		double bottomSpeed = SmartDashboard.getNumber("BottomSetSpeed", 2500);
 		
-		if (shooterOn)
-		{
+		if (shooterOn) {
 			shoot(topSpeed, bottomSpeed);
 			RobotMap.ringLight.set(true);
 		}
-		else
-		{
+		else {
 			stop();
 		}
 		
@@ -170,6 +168,10 @@ public class Shooter extends Subsystem{
 	public void shooterIntakeOn() {
 		if(Math.abs(topController.getError()) < 500 && Math.abs(bottomController.getError()) < 500)
 			intakeMotor.set(-0.8);
+	}
+	
+	public void queueIntake() {
+		intakeMotor.set(-0.8);
 	}
 	
 	public void shooterIntakeOff() {

@@ -73,6 +73,7 @@ public class OI {
 		
 		sallyPort = new JoystickButton(coStick, 4);
 		sallyPort.whenPressed(new SallyPortPreset());
+		
 	}
 }
 

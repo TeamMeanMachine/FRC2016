@@ -65,9 +65,6 @@ public class DefenseArm extends PIDSubsystem{
 		voltage -= zeroVolts;
 		double angle = voltage * (360.0/4.6);
 		
-		//What it was
-//		voltage -= zeroVolts;
-//		double angle = voltage * 82.18;
 		return angle;
 	}
 

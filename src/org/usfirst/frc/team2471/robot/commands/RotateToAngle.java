@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class RotateToAngle extends Command {
 
 	private double targetAngle;
-    private boolean started = false;
     private double speed, direction;
     
     public RotateToAngle(double angle, double speedZeroToOne ) {
@@ -29,15 +28,11 @@ public class RotateToAngle extends Command {
 			gyroAngle += 360.0; 
 		
     	direction = Math.signum(targetAngle - gyroAngle); 
+        Robot.drive.setSpeed( direction * -speed, 0 );
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!started) {
-            started = true;
-        }
-        
-        Robot.drive.setSpeed( direction * -speed, 0 );
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -59,7 +54,6 @@ public class RotateToAngle extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-        started = false;
         Robot.drive.setSpeed( 0, 0 );
     }
 

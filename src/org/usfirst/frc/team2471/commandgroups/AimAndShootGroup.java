@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2471.commandgroups;
 
-import org.usfirst.frc.team2471.robot.commands.Aim;
+import org.usfirst.frc.team2471.robot.commands.Aim2;
 import org.usfirst.frc.team2471.robot.commands.RotateArmToAngle;
 import org.usfirst.frc.team2471.robot.commands.StartShooter;
 import org.usfirst.frc.team2471.robot.commands.StopShooter;
@@ -33,7 +33,7 @@ public class AimAndShootGroup extends CommandGroup {
     	addSequential( new StartShooter() );
     	addSequential( new RotateArmToAngle(22.5));
     	
-    	addSequential( new Aim(finishOnTarget));
+    	addSequential( new Aim2(finishOnTarget));
     	
     	addSequential( new RotateArmToAngle(62.0));
     	addSequential( new StopShooter() );    	

@@ -62,7 +62,7 @@ public class Robot extends IterativeRobot {
 //		prefs.putDouble("AimChange", 15); // Temporary for testing without smart dashboard on 2/27/15
 //		prefs.putDouble("Top", 3300);
 //		prefs.putDouble("Bottom", 1920);
-		
+		SmartDashboard.putBoolean("LightON", false);
 		SmartDashboard.putNumber("TopSetSpeed", prefs.getDouble("TopSetSpeed", 3300));
 		SmartDashboard.putNumber("BottomSetSpeed", prefs.getDouble("BottomSetSpeed", 1920));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 15.0));
@@ -88,6 +88,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putNumber("Defense Arm Voltage", RobotMap.magnepotArm.getVoltage());
+		SmartDashboard.putNumber("Defense Arm Position", Robot.defenseArm.voltageToAngle(RobotMap.magnepotArm.getVoltage()));
 	}
 
     @Override
@@ -145,7 +148,9 @@ public class Robot extends IterativeRobot {
     @Override
 	public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
+        if(SmartDashboard.getBoolean("LightON")) {
+        	RobotMap.ringLight.set(true);
+        }
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
     }
     

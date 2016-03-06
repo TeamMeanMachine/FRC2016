@@ -21,7 +21,7 @@ public class Aim extends PIDCommand {
 
 		setSetpoint(SmartDashboard.getNumber("AimChange", 0.0));
 		aimController = getPIDController();
-		SmartDashboard.putData("Aim PID", aimController);
+//		SmartDashboard.putData("Aim PID", aimController);
 		finishOnTarget = _finishOnTarget;
 	}
 

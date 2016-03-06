@@ -22,10 +22,7 @@ public class QueueShot extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.intake.intakeOut(1.0);
-    	Robot.shooter.shooterIntakeOn();
-    	if(RobotMap.ballInSensor.get() == true) {
-    		Robot.intake.setBallState(false);
-    	}
+    	Robot.shooter.queueIntake();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,6 +32,7 @@ public class QueueShot extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+		Robot.intake.setBallState(false);
     	Robot.intake.intakeStop();
     	Robot.shooter.shooterIntakeOff();
     }

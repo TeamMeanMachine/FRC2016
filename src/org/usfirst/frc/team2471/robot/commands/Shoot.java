@@ -61,7 +61,7 @@ public class Shoot extends Command {
 
 	@Override
 	protected void end() {
-		Robot.shooter.stop();
+		new StopShooter().start();
 	}
 
 	@Override

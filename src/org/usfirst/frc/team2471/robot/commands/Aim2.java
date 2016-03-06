@@ -12,32 +12,38 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Aim2 extends PIDCommand {
 	private PIDController aimController;
 	private boolean targetFound;
+	private int onTargetCount;
+	private boolean finishOnTarget;
 	
-	public Aim2() {
+	public Aim2(boolean _finishOnTarget) {
 		super(Constants.AIM_ANGLE_P, Constants.AIM_ANGLE_I, Constants.AIM_ANGLE_D);
 		requires(Robot.drive);
 		requires(Robot.shooter);
 		
 		aimController = getPIDController();
+		SmartDashboard.putData("Aim2 PID", aimController);
+		finishOnTarget = _finishOnTarget;
 	}
 
 	@Override
 	protected void initialize() {
 		targetFound = false;
 		aimController.disable();
+		onTargetCount = 0;
 	}
 
 	@Override
 	protected void execute() {		
 		if (SmartDashboard.getBoolean("AutoAim")) {
-			if(!targetFound && SmartDashboard.getBoolean("TARGET_FOUND")) {
+			if(!targetFound && SmartDashboard.getNumber("BLOB_COUNT") > 0) {
 				targetFound = true;
-				setSetpoint(SmartDashboard.getNumber("AIM_ANGLE"));
+				setSetpoint(SmartDashboard.getNumber("GYRO_TARGET"));
 				Robot.drive.setAimDrop(true);
 				aimController.enable();
 			}
-			if(Math.abs(aimController.getError()) < 6.0) {
+			if(Math.abs(aimController.getError()) < 0.5) {
 				new RumbleJoystick(0.5, OI.coStick).start();
+				onTargetCount++;
 			}
 		}
 		else {
@@ -54,7 +60,12 @@ public class Aim2 extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return OI.coStick.getRawButton(2);
+		if(finishOnTarget) {
+			return onTargetCount > 50.0;
+		}
+		else {
+			return OI.coStick.getRawButton(2);
+		}
 	}
 
 	@Override
