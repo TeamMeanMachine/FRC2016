@@ -45,6 +45,7 @@ public class Aim2 extends PIDCommand {
 				new RumbleJoystick(0.5, OI.coStick).start();
 				onTargetCount++;
 			}
+			SmartDashboard.putNumber("Aim Error", aimController.getError());
 		}
 		else {
 			aimController.disable();

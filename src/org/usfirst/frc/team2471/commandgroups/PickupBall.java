@@ -33,6 +33,7 @@ public class PickupBall extends CommandGroup {
         // arm.
     	addSequential(new IntakeDown());
     	addParallel(new RumbleJoystick(0.5, OI.coStick));
+    	addParallel(new RumbleJoystick(0.5, OI.driverStick));
     	addSequential(new CenterBall());
     	addSequential(new Delay(0.5));
     	addSequential(new QueueShot());

@@ -25,7 +25,6 @@ public class DriveLoop extends Command{
 		double deadband = 0.05;
 		if (turn <= deadband && turn >= -deadband){
 			turn = 0;
-//			Robot.drive.setTurnResult(0);
 		}
 		if(forward <= deadband && forward >= -deadband){
 			forward = 0;
