@@ -178,4 +178,8 @@ public class Shooter extends Subsystem{
 		System.out.println("Intake Off2");
 		intakeMotor.set(0.0);
 	}
+	
+	public void shooterIntakeReverse(){
+		intakeMotor.set(.8);
+	}
 }

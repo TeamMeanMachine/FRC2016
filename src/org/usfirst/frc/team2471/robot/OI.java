@@ -4,6 +4,7 @@ import org.usfirst.frc.team2471.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
+import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -47,11 +48,8 @@ public class OI {
 	public static JoystickButton armRotateDownButton;
 	public static JoystickButton fireButton;
 	public static JoystickButton suckIn;
-	public static JoystickButton toggleWindup;
-	public static JoystickButton button2;
-	public static JoystickButton button3;
-	public static JoystickButton button4;
 	public static JoystickButton sallyPort;
+	public static JoystickButton emergencySpit;
 	
 	
 	public OI(){
@@ -73,6 +71,9 @@ public class OI {
 		
 		sallyPort = new JoystickButton(coStick, 4);
 		sallyPort.whenPressed(new SallyPortPreset());
+		
+		emergencySpit = new JoystickButton(coStick, 8);
+		emergencySpit.whileHeld(new SpitOutEmergency());
 		
 	}
 }

@@ -60,7 +60,7 @@ public class DefenseArm extends PIDSubsystem{
 
 	public double voltageToAngle(double voltage) {
 		//What I think the conversion should be (according to the MagnePot datasheet)
-		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314) - 0.2;
+		double zeroVolts = SmartDashboard.getNumber("ArmZeroVolts", 2.314) - 0.2; //Comp bot is 2.339 || Practice is 2.22
 		voltage -= 0.2;
 		voltage -= zeroVolts;
 		double angle = voltage * (360.0/4.6);

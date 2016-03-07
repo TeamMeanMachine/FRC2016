@@ -20,9 +20,9 @@ public class DriveLoop extends Command{
 	@Override
 	protected void execute() {
 		double forward = -OI.driverStick.getRawAxis(1);    //Forward & Backwards
-		double turn = -OI.driverStick.getRawAxis(2);	 //Left & Right
+		double turn = -OI.driverStick.getRawAxis(4);	 //Left & Right
 		
-		double deadband = 0.05;
+		double deadband = 0.20;
 		if (turn <= deadband && turn >= -deadband){
 			turn = 0;
 		}
