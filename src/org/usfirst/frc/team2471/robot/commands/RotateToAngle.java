@@ -27,8 +27,9 @@ public class RotateToAngle extends Command {
 		while (gyroAngle < -180.0)
 			gyroAngle += 360.0; 
 		
-    	direction = Math.signum(targetAngle - gyroAngle); 
-        Robot.drive.setSpeed( direction * -speed, 0 );
+    	direction = Math.signum(targetAngle - gyroAngle);
+    	if (!isFinished())  // don't turn if we are already there
+    		Robot.drive.setSpeed( direction * -speed, 0 );
     }
 
     // Called repeatedly when this Command is scheduled to run
