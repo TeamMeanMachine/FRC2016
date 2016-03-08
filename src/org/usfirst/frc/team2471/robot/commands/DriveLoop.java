@@ -26,8 +26,15 @@ public class DriveLoop extends Command{
 		if (turn <= deadband && turn >= -deadband){
 			turn = 0;
 		}
+		else {
+			turn = (turn - Math.signum(turn)*deadband) / (1.0-deadband);
+		}
+		
 		if(forward <= deadband && forward >= -deadband){
 			forward = 0;
+		}
+		else {
+			forward = (forward - Math.signum(forward)*deadband) / (1.0-deadband);
 		}
 		
 		//No cubic functions for now, but possibly later
