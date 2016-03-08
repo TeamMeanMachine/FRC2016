@@ -61,6 +61,8 @@ public class RobotMap {
     public static AnalogGyro gyro; 
     public static BuiltInAccelerometer accelerometer;
     
+    public static double accelDownX, accelDownY, accelDownZ;
+    
     public static void init(){
     	
     	aimer = new CANTalon(13);
@@ -126,5 +128,16 @@ public class RobotMap {
 		gyro.initGyro();
 		
     	accelerometer = new BuiltInAccelerometer();
+        accelDownX = accelerometer.getX();  // robot needs to be flat when this runs
+        accelDownY = accelerometer.getY();
+        accelDownZ = accelerometer.getZ();
+        
+        // normalize
+        double length = Math.sqrt(accelDownX*accelDownX + accelDownY*accelDownY + accelDownZ*accelDownZ);
+        if (length>0.0) {
+	        accelDownX /= length;
+	        accelDownY /= length;
+	        accelDownZ /= length;
+        }
     }
 }
