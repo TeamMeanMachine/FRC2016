@@ -27,8 +27,11 @@ public class RotateArm extends Command {
 	protected void execute() {
 		double upDownValue = -OI.coStick.getRawAxis(1);
 		
-		if (Math.abs(upDownValue) < 0.2)  // dead band for xbox
+		double deadband = 0.2;
+		if (Math.abs(upDownValue) < deadband)  // dead band for xbox
 			upDownValue = 0.0;
+		else
+			upDownValue = (upDownValue - Math.signum(upDownValue)*deadband) / (1.0-deadband);
 		
 		upDownValue = upDownValue * upDownValue * upDownValue;
 		
