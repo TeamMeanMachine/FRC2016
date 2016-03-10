@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
-import org.usfirst.frc.team2471.commandgroups.AimAndShootGroup;
-import org.usfirst.frc.team2471.commandgroups.PickupBall;
+import org.usfirst.frc.team2471.robot.commandgroups.AimAndShootGroup;
+import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;

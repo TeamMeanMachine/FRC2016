@@ -6,6 +6,7 @@ import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -20,6 +21,7 @@ public class Shooter extends Subsystem{
 	private CANTalon intakeMotor;
 	private PIDController topController;
 	private PIDController bottomController;
+	private DigitalInput ballSensor;
 	private boolean shooterOn = false;
 
 	@Override
@@ -32,6 +34,7 @@ public class Shooter extends Subsystem{
 		topMotor = RobotMap.shootMotorTop;
 		bottomMotor = RobotMap.shootMotorBottom;
 		intakeMotor = RobotMap.shootIntake;
+		ballSensor = RobotMap.ballInSensor;
 		
 		topController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new topSource(), new topOutput());
 		bottomController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new bottomSource(), new bottomOutput());
@@ -181,5 +184,9 @@ public class Shooter extends Subsystem{
 	
 	public void shooterIntakeReverse(){
 		intakeMotor.set(.8);
+	}
+	
+	public boolean hasBall() {
+		return ballSensor.get();
 	}
 }

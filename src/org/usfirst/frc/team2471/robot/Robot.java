@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team2471.robot;
 
-import org.usfirst.frc.team2471.commandgroups.TerrainAndShotAuto;
+import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShotAuto;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;

@@ -38,7 +38,6 @@ public class Aim2 extends PIDCommand {
 			if(!targetFound && SmartDashboard.getNumber("BLOB_COUNT") > 0) {
 				targetFound = true;
 				setSetpoint(SmartDashboard.getNumber("GYRO_TARGET"));
-				Robot.drive.setAimDrop(true);
 				aimController.enable();
 			}
 			if(Math.abs(aimController.getError()) < 0.5) {
@@ -50,12 +49,15 @@ public class Aim2 extends PIDCommand {
 		else {
 			aimController.disable();
 			double leftRightValue = OI.coStick.getRawAxis(4);
-			if(Math.abs(leftRightValue) <= 0.05) {
-				leftRightValue = 0;
-			}
+			double deadband = 0.2;
+			if (Math.abs(leftRightValue) < deadband)  // dead band for xbox
+				leftRightValue = 0.0;
+			else
+				leftRightValue = (leftRightValue - Math.signum(leftRightValue)*deadband) / (1.0-deadband);
 			Robot.drive.setAimerMotor(leftRightValue);
 		}
-		
+
+		Robot.drive.setAimDrop(true);
 		Robot.shooter.shootLogic();
 	}
 

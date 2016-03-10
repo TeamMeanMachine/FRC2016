@@ -1,13 +1,10 @@
-package org.usfirst.frc.team2471.commandgroups;
+package org.usfirst.frc.team2471.robot.commandgroups;
 
 import org.usfirst.frc.team2471.robot.commands.DriveUntilFlat;
 import org.usfirst.frc.team2471.robot.commands.DriveUntilTilted;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
 public class BackUntilOuterWorks extends CommandGroup {
     
     public  BackUntilOuterWorks() {
