@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -60,6 +61,8 @@ public class RobotMap {
     public static DigitalInput ballInSensor;
     public static AnalogGyro gyro; 
     public static BuiltInAccelerometer accelerometer;
+    
+    public static Compressor compressor;
     
     public static double accelDownX, accelDownY, accelDownZ;
     
@@ -139,5 +142,7 @@ public class RobotMap {
 	        accelDownY /= length;
 	        accelDownZ /= length;
         }
+        
+        compressor = new Compressor();
     }
 }

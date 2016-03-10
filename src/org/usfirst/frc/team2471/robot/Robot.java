@@ -152,6 +152,8 @@ public class Robot extends IterativeRobot {
         	RobotMap.ringLight.set(true);
         }
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
+        
+        SmartDashboard.putNumber("CompressorCurrent", RobotMap.compressor.getCompressorCurrent());
     }
     
     /**
