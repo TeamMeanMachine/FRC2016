@@ -109,7 +109,13 @@ public class Drive extends Subsystem {
 		
 //		SmartDashboard.putNumber("Accel X", RobotMap.accelerometer.getX());
 //		SmartDashboard.putNumber("Accel Y", RobotMap.accelerometer.getY());
-//		SmartDashboard.putNumber("Accel Z", RobotMap.accelerometer.getZ());z
+//		SmartDashboard.putNumber("Accel Z", RobotMap.accelerometer.getZ());
+		
+		SmartDashboard.putNumber( "RightRear", RobotMap.pdp.getCurrent(0) );
+		SmartDashboard.putNumber( "RightFront", RobotMap.pdp.getCurrent(1) );
+		SmartDashboard.putNumber( "LeftFront", RobotMap.pdp.getCurrent(14) );
+		SmartDashboard.putNumber( "LeftRear", RobotMap.pdp.getCurrent(15) );
+		SmartDashboard.putNumber( "TotalCurrent", RobotMap.pdp.getCurrent(0)+RobotMap.pdp.getCurrent(1)+RobotMap.pdp.getCurrent(14)+RobotMap.pdp.getCurrent(15));
 	}
 	
 	public void setLiftExtension(double power) {
