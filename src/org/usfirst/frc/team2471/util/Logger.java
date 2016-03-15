@@ -12,11 +12,11 @@ import java.util.Date;
 public class Logger implements Closeable {
 	private File logFile;
 	private PrintWriter logWriter;
-	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
+	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-hh.mm.ss");
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("hh.mm.ss");
 
 	public Logger(){
-		StringBuilder logFileNameBuilder = new StringBuilder("LOG_");
+		StringBuilder logFileNameBuilder = new StringBuilder("logs/LOG_");
 	    logFileNameBuilder.append(getTimestamp(true));
 	    logFileNameBuilder.append(".txt");
 	    String fileName = logFileNameBuilder.toString();
@@ -32,7 +32,7 @@ public class Logger implements Closeable {
 		
 		// Open print writer
 		try {
-			this.logWriter = new PrintWriter(this.logFile);
+			logWriter = new PrintWriter(logFile);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -84,6 +84,6 @@ public class Logger implements Closeable {
 	@Override
 	public void close() throws IOException {
 		logWriter.flush();
-		this.logWriter.close();
+		logWriter.close();
 	}
 }
