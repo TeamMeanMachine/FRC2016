@@ -4,3 +4,4 @@ build/*
 *.jar
 sysProps.xml
 dist/FRCUserProgram.jar
+/bin/

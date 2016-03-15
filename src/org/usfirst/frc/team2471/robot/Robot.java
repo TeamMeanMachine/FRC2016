@@ -6,6 +6,7 @@ import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
 import org.usfirst.frc.team2471.robot.subsystems.Shooter;
+import org.usfirst.frc.team2471.util.Logger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
@@ -44,6 +45,8 @@ public class Robot extends IterativeRobot {
     
     public static Preferences prefs;
     
+    public static Logger logger;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -58,6 +61,7 @@ public class Robot extends IterativeRobot {
 		defenseArm = new DefenseArm();
 		
 		prefs = Preferences.getInstance();
+		logger = new Logger();
 		
 //		prefs.putDouble("AimChange", 15); // Temporary for testing without smart dashboard on 2/27/15
 //		prefs.putDouble("Top", 3300);

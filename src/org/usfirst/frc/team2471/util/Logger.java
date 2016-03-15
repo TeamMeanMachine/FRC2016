@@ -35,7 +35,8 @@ public class Logger implements Closeable {
 			this.logWriter = new PrintWriter(this.logFile);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}	    
+		}
+		logInfo("Logger initialized!");
 	}
 	
 	private String getTimestamp(boolean includeDate) {
@@ -50,19 +51,19 @@ public class Logger implements Closeable {
 	}
 	
 	public void logDebug(String message) {
-		logInfo("DEBUG", message);
+		logInfo("DEBUG", message, true, false);
 	}
 	public void logInfo(String message) {
-		logInfo("INFO", message);
+		logInfo("INFO", message, true, true);
 	}
 	public void logWarning(String message) {
-		logInfo("WARNING", message);
+		logInfo("WARNING", message, true, true);
 	}
 	public void logSevere(String message) {
-		logInfo("SEVERE", message);
+		logInfo("SEVERE", message, true, true);
 	}
 	
-	private void logInfo(String level, String message) {
+	private void logInfo(String level, String message, boolean printToConsole, boolean writeToFile) {
 		StringBuilder messageBuilder = new StringBuilder("[");
 		messageBuilder.append(level);
 		messageBuilder.append("] (");
@@ -72,8 +73,12 @@ public class Logger implements Closeable {
 		messageBuilder.append("\n");
 		String finalMessage = messageBuilder.toString();
 		
-		System.out.println(finalMessage);
-		logWriter.write(message);
+		if(printToConsole) {
+			System.out.println(finalMessage);
+		}
+		if(writeToFile) {
+			logWriter.write(finalMessage);
+		}
 	}
 
 	@Override
