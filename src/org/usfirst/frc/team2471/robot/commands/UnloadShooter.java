@@ -9,23 +9,21 @@ public class UnloadShooter extends Command {
 	
 
 	public UnloadShooter() {
-		// TODO Auto-generated constructor stub
-
 		requires(Robot.shooter);
 		requires(Robot.intake);		
 	}
 	@Override
 	protected void initialize() {
-		boolean ballInShooter = Robot.shooter.hasBall();
-		boolean ballInIntake = Robot.intake.getIntakeSensor();
-		if(!ballInShooter && ballInIntake) {
-			return;
-		}
-		else if(ballInShooter) {
+		Robot.logger.logInfo("Unloading shooter");
+		if(Robot.shooter.hasBall()) {
 			Robot.shooter.shooterIntakeReverse();
-		}		
-		Robot.intake.intakeUp();		
-		Robot.intake.intakeIn(1);
+			Robot.intake.intakeUp();		
+			Robot.intake.intakeIn(1);
+			Robot.logger.logInfo("Ball found in robot. Proceeding");
+		}
+		else {
+			Robot.logger.logInfo("Ball not found in robot. Proceeding");
+		}
 	}
 
 	@Override
@@ -35,7 +33,7 @@ public class UnloadShooter extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return !Robot.shooter.hasBall() && Robot.intake.getIntakeSensor();
+		return Robot.intake.getIntakeSensor();
 	}
 
 	@Override

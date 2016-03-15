@@ -5,25 +5,33 @@ import org.usfirst.frc.team2471.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SpitBall extends Command {
+	long endTime;
 
 	@Override
 	protected void initialize() {
+		Robot.logger.logInfo("Spitting ball");
 		requires(Robot.intake);		
-		if(Robot.intake.getIntakeSensor()) {
+		Robot.intake.intakeStop();
+		if(Robot.intake.getBallState()) {
 			Robot.intake.intakeDown();	
+			Robot.logger.logInfo("Ball found in intake. Spitting out ball");
+		}
+		else {
+			Robot.logger.logWarning("Ball not found in intake!");
+		}
+		this.endTime = System.currentTimeMillis() + 500; // Run intake after .5 seconds
+	}
+
+	@Override
+	protected void execute() {
+		if(System.currentTimeMillis() > endTime) {
 			Robot.intake.intakeOut(0.8);
 		}
 	}
 
 	@Override
-	protected void execute() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected boolean isFinished() {
-		return false;
+		return Robot.intake.getBallState();
 	}
 
 	@Override
