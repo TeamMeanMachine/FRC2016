@@ -125,7 +125,7 @@ public class RobotMap {
     	
     	magnepotArm = new AnalogInput(1);
     	
-    	pdp = new PowerDistributionPanel(17);
+    	pdp = new PowerDistributionPanel(0);
     	
     	gyro = new AnalogGyro(0);
 		gyro.initGyro();

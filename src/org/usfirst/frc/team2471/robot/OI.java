@@ -2,6 +2,7 @@ package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
+import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
@@ -73,7 +74,7 @@ public class OI {
 		sallyPort.whenPressed(new SallyPortPreset());
 		
 		emergencySpit = new JoystickButton(coStick, 8);
-		emergencySpit.whileHeld(new SpitOutEmergency());
+		emergencySpit.whileHeld(new ReleaseBall());
 		
 	}
 }

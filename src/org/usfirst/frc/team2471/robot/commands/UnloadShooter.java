@@ -8,13 +8,17 @@ import edu.wpi.first.wpilibj.command.Command;
 public class UnloadShooter extends Command {
 	
 
-	@Override
-	protected void initialize() {
+	public UnloadShooter() {
+		// TODO Auto-generated constructor stub
+
 		requires(Robot.shooter);
 		requires(Robot.intake);		
+	}
+	@Override
+	protected void initialize() {
 		boolean ballInShooter = Robot.shooter.hasBall();
-		boolean ballInIntake = Robot.intake.getBallState();
-		if(!ballInShooter && !ballInIntake) {
+		boolean ballInIntake = Robot.intake.getIntakeSensor();
+		if(!ballInShooter && ballInIntake) {
 			return;
 		}
 		else if(ballInShooter) {
@@ -31,7 +35,7 @@ public class UnloadShooter extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return !Robot.shooter.hasBall() && !Robot.intake.getBallState();
+		return !Robot.shooter.hasBall() && Robot.intake.getIntakeSensor();
 	}
 
 	@Override
@@ -42,8 +46,7 @@ public class UnloadShooter extends Command {
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
+		end();
 	}
 
 }

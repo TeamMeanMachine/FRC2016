@@ -35,9 +35,9 @@ public class Aim2 extends PIDCommand {
 	@Override
 	protected void execute() {		
 		if (SmartDashboard.getBoolean("AutoAim")) {
-			if(!targetFound && SmartDashboard.getNumber("BLOB_COUNT") > 0) {
+			if(!targetFound && SmartDashboard.getNumber("BLOB_COUNT",0) > 0) {
 				targetFound = true;
-				setSetpoint(SmartDashboard.getNumber("GYRO_TARGET"));
+				setSetpoint(SmartDashboard.getNumber("GYRO_TARGET",0));
 				aimController.enable();
 			}
 			if(Math.abs(aimController.getError()) < 0.5) {
@@ -73,7 +73,7 @@ public class Aim2 extends PIDCommand {
 
 	@Override
 	protected void end() {
-		Robot.drive.setAimDrop(false);
+//		Robot.drive.setAimDrop(false);
 		aimController.disable();
 	}
 

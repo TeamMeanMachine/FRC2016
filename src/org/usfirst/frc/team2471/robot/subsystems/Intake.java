@@ -44,6 +44,10 @@ public class Intake extends Subsystem{
 		actuate.set(false);
 	}
 	
+	public boolean getIntakeSensor() {
+		return !RobotMap.ballInSensor.get();
+	}
+	
 	public boolean getBallState() {
 		return ballIn;
 	}

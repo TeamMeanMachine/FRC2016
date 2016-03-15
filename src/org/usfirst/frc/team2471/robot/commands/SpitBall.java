@@ -9,7 +9,7 @@ public class SpitBall extends Command {
 	@Override
 	protected void initialize() {
 		requires(Robot.intake);		
-		if(Robot.intake.getBallState()) {
+		if(Robot.intake.getIntakeSensor()) {
 			Robot.intake.intakeDown();	
 			Robot.intake.intakeOut(0.8);
 		}
@@ -23,7 +23,7 @@ public class SpitBall extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.getBallState();
+		return false;
 	}
 
 	@Override
@@ -34,8 +34,7 @@ public class SpitBall extends Command {
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
+		end();
 	}
 
 }

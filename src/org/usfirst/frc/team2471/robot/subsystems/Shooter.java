@@ -34,7 +34,7 @@ public class Shooter extends Subsystem{
 		topMotor = RobotMap.shootMotorTop;
 		bottomMotor = RobotMap.shootMotorBottom;
 		intakeMotor = RobotMap.shootIntake;
-		ballSensor = RobotMap.ballInSensor;
+		ballSensor = RobotMap.ballSensorShooter;
 		
 		topController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new topSource(), new topOutput());
 		bottomController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new bottomSource(), new bottomOutput());
@@ -187,6 +187,6 @@ public class Shooter extends Subsystem{
 	}
 	
 	public boolean hasBall() {
-		return ballSensor.get();
+		return !ballSensor.get();
 	}
 }

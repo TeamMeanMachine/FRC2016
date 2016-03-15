@@ -32,7 +32,7 @@ public class TurnUntilBlobFound extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	double blobCount = SmartDashboard.getNumber("BLOB_COUNT");
+    	double blobCount = SmartDashboard.getNumber("BLOB_COUNT",0);
     	
     	if (blobCount == 1)
     		return true;

@@ -21,9 +21,9 @@ public class TerrainAndShotAuto extends CommandGroup {
 
     	addParallel(new RotateArmToAngle(30.0));
     	addParallel(new QueueShot());
-    	addSequential(new DriveDistanceCommand(10, 0, 0.9));
-    	addSequential(new DriveDistanceCommand(2, 0, 0.4));
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new DriveDistanceCommand(12, 0, 0.9)); //Changed from 
+    	addSequential(new DriveDistanceCommand(4, 0, 0.4));
+    	addSequential(new WaitCommand(1.0));	
     	addSequential(new RotateToAngle(0, 0.5));
     	addSequential(new TurnUntilBlobFound(0.5), 2.0);
     	addSequential(new StartShooter());

@@ -18,7 +18,7 @@ public class Shoot extends Command {
 	private double shotTime;
 	
 	public Shoot() {
-//		requires(Robot.shooter);
+		requires(Robot.shooter);
 	}
 
 	@Override
