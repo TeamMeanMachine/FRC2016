@@ -66,6 +66,8 @@ public class RobotMap {
     
     public static double accelDownX, accelDownY, accelDownZ;
     
+    public static ColorSensor colorSensor;
+    
     public static void init(){
     	
     	aimer = new CANTalon(13);
@@ -144,5 +146,7 @@ public class RobotMap {
         }
         
         compressor = new Compressor();
+        
+        colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_4X);
     }
 }
