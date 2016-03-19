@@ -83,6 +83,8 @@ public class DriveLoop extends Command{
 		double extendPower = -OI.coStick.getRawAxis(2);
 		if(Math.abs(extendPower) < 0.075) {
 			extendPower = 0;
+		}else{
+			new RotateArmToAngleOverride(90).start();
 		}
 		Robot.drive.setLiftExtension(extendPower);
 	}

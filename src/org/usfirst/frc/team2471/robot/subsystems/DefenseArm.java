@@ -82,6 +82,12 @@ public class DefenseArm extends PIDSubsystem{
 		
 		setSetpoint(targetAngle);
 	}
+	
+	public void overrideSetTargetAngle(double angle){
+		targetAngle = angle;
+		
+		setSetpoint(targetAngle);
+	}
 
 	public double getTargetAngle() {
 		return targetAngle;
