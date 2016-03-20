@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team2471.robot;
 
+import org.opencv.core.Core;
 import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShotAuto;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
@@ -39,6 +40,7 @@ public class Robot extends IterativeRobot {
 	public static DefenseArm defenseArm;
 	
 	public static boolean shoot;
+    public static boolean climbing;
 
 	public static SendableChooser autoChooser;
     Command autonomousCommand;
@@ -62,11 +64,16 @@ public class Robot extends IterativeRobot {
 		
 		prefs = Preferences.getInstance();
 		logger = new Logger();
+		climbing = false;
 		
 //		prefs.putDouble("AimChange", 15); // Temporary for testing without smart dashboard on 2/27/15
 //		prefs.putDouble("Top", 3300);
 //		prefs.putDouble("Bottom", 1920);
 		SmartDashboard.putBoolean("LightON", false);
+		SmartDashboard.putBoolean("ShooterEnable", false);
+		SmartDashboard.putBoolean("AutoAim",true);
+		
+		// read prefs, put on dashboard
 		SmartDashboard.putNumber("TopSetSpeed", prefs.getDouble("TopSetSpeed", 3300));
 		SmartDashboard.putNumber("BottomSetSpeed", prefs.getDouble("BottomSetSpeed", 1920));
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 15.0));
@@ -75,9 +82,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("SallyPortPreset", prefs.getDouble("SallyPortPreset", 36.0));
 		SmartDashboard.putNumber("DefenseArmMax", prefs.getDouble("DefenseArmMax", 77.0));
 		SmartDashboard.putNumber("DefenseArmMin", prefs.getDouble("DefenseArmMin", -13.0));
+		SmartDashboard.putNumber("DefenseArmClimb", prefs.getDouble("DefenseArmClimb", 107.0));
 		
-		SmartDashboard.putBoolean("ShooterEnable", false);
-		SmartDashboard.putBoolean("AutoAim",true);
+		
 		
 		oi = new OI();
 		
@@ -134,6 +141,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
 	public void disabledInit(){
+    	// write smartboard stuff to prefs
     	prefs.putDouble("TopSetSpeed", SmartDashboard.getNumber("TopSetSpeed"));
     	prefs.putDouble("BottomSetSpeed", SmartDashboard.getNumber("BottomSetSpeed"));
     	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange"));
@@ -142,6 +150,7 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("SallyPortPreset", SmartDashboard.getNumber("SallyPortPreset"));
     	prefs.putDouble("DefenseArmMax", SmartDashboard.getNumber("DefenseArmMax"));
     	prefs.putDouble("DefenseArmMin", SmartDashboard.getNumber("DefenseArmMin"));
+    	prefs.putDouble("DefenseArmClimb", SmartDashboard.getNumber("DefenseArmClimb"));
     	
     	System.out.println("Saved prefs.");
     }

@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Logger implements Closeable {
-	private File logFile;
+//	private File logFile;
 	private PrintWriter logWriter;
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-hh.mm.ss");
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("hh.mm.ss");
@@ -21,21 +21,21 @@ public class Logger implements Closeable {
 	    logFileNameBuilder.append(".txt");
 	    String fileName = logFileNameBuilder.toString();
 
-		this.logFile = new File(fileName);
-		// Create log file
-		try {
-			logFile.createNewFile();
-		} catch (IOException e) {
-			System.out.println("Failed to create logger file!");
-			e.printStackTrace();
-		}
-		
-		// Open print writer
-		try {
-			logWriter = new PrintWriter(logFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		this.logFile = new File(fileName);
+//		// Create log file
+//		try {
+//			logFile.createNewFile();
+//		} catch (IOException e) {
+//			System.out.println("Failed to create logger file!");
+//			e.printStackTrace();
+//		}
+//		
+//		// Open print writer
+//		try {
+//			logWriter = new PrintWriter(logFile);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 		logInfo("Logger initialized!");
 	}
 	
@@ -76,9 +76,9 @@ public class Logger implements Closeable {
 		if(printToConsole) {
 			System.out.println(finalMessage);
 		}
-		if(writeToFile) {
-			logWriter.write(finalMessage);
-		}
+//		if(writeToFile) {
+//			logWriter.write(finalMessage);
+//		}
 	}
 
 	@Override

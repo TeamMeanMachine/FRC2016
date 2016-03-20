@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.team2471.vision.VisionProcessor;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -32,6 +34,7 @@ public class RobotMap {
     
     public static Solenoid aimDropCylinder;
     public static Solenoid pto;
+    public static Solenoid ratchet;
 
     
 /*_____________________________Shooter____________________________________ */
@@ -67,6 +70,8 @@ public class RobotMap {
     public static double accelDownX, accelDownY, accelDownZ;
     
     public static ColorSensor colorSensor;
+    
+    public static VisionProcessor vision;
     
     public static void init(){
     	
@@ -147,6 +152,11 @@ public class RobotMap {
         
         compressor = new Compressor();
         
-        colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_4X);
+        ratchet = new Solenoid(7);
+        ratchet.set(true);
+        
+//        colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_4X);
+        
+//        vision = new VisionProcessor();
     }
 }

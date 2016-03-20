@@ -28,6 +28,8 @@ public class DriveLoop extends Command{
 		}
 		else {
 			turn = (turn - Math.signum(turn)*deadband) / (1.0-deadband);
+			Robot.climbing = false;
+			RobotMap.ratchet.set(true);
 		}
 		
 		if(forward <= deadband && forward >= -deadband){
@@ -35,6 +37,8 @@ public class DriveLoop extends Command{
 		}
 		else {
 			forward = (forward - Math.signum(forward)*deadband) / (1.0-deadband);
+			Robot.climbing = false;
+			RobotMap.ratchet.set(true);
 		}
 		
 		//No cubic functions for now, but possibly later
@@ -69,8 +73,10 @@ public class DriveLoop extends Command{
 			}
 			else {
 				RobotMap.pto.set(true);
+				RobotMap.ratchet.set(false);
 				turn = 0;
 				forward = 0;
+				Robot.climbing = true;
 			}
 		
 			Robot.drive.setSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
@@ -83,8 +89,10 @@ public class DriveLoop extends Command{
 		double extendPower = -OI.coStick.getRawAxis(2);
 		if(Math.abs(extendPower) < 0.075) {
 			extendPower = 0;
-		}else{
-			new RotateArmToAngleOverride(90).start();
+		}
+		else {
+			Robot.climbing = true;
+			
 		}
 		Robot.drive.setLiftExtension(extendPower);
 	}

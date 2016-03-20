@@ -1,6 +1,7 @@
  package org.usfirst.frc.team2471.robot.subsystems;
 
 import org.usfirst.frc.team2471.robot.Constants;
+import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.RotateArm;
 
@@ -69,26 +70,24 @@ public class DefenseArm extends PIDSubsystem{
 	}
 
 	public void setTargetAngle(double angle) {
-		double maxAngle = SmartDashboard.getNumber("DefenseArmMax", 77.0);
-		double minAngle = SmartDashboard.getNumber("DefenseArmMin", -13.0);
-		
-		if (angle > maxAngle) {
-			angle = maxAngle;
+		if (Robot.climbing) {
+			targetAngle = SmartDashboard.getNumber("DefenseArmClimb", 107.0);
 		}
-		else if (angle < minAngle) {
-			angle = minAngle;
-		}
-		targetAngle = angle;
-		
+		else {
+			double maxAngle = SmartDashboard.getNumber("DefenseArmMax", 77.0);
+			double minAngle = SmartDashboard.getNumber("DefenseArmMin", -13.0);
+			
+			if (angle > maxAngle) {
+				angle = maxAngle;
+			}
+			else if (angle < minAngle) {
+				angle = minAngle;
+			}
+			targetAngle = angle;
+		}		
 		setSetpoint(targetAngle);
 	}
 	
-	public void overrideSetTargetAngle(double angle){
-		targetAngle = angle;
-		
-		setSetpoint(targetAngle);
-	}
-
 	public double getTargetAngle() {
 		return targetAngle;
 	}

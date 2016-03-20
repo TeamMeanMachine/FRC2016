@@ -66,7 +66,7 @@ public class OI {
 		fireButton = new JoystickButton(coStick, 6);  // want to put this on right trigger, but it is an axis on xbox controller
 		fireButton.whenPressed(new Shoot());
 		
-		suckIn = new JoystickButton(coStick, 5);
+		suckIn = new JoystickButton(driverStick, 6);
 		suckIn.whenPressed(new PickupBall());
 		suckIn.whenReleased(new StopBallIntake());
 		

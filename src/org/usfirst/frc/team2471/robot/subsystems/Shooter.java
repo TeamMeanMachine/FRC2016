@@ -43,7 +43,7 @@ public class Shooter extends Subsystem{
 		SmartDashboard.putData("Bot PID", bottomController);
 		
 		topMotor.reverseSensor(false);
-		bottomMotor.reverseSensor(true);
+		bottomMotor.reverseSensor(false);
 
 		topMotor.configEncoderCodesPerRev( 250 );
 		bottomMotor.configEncoderCodesPerRev( 250 );
@@ -86,7 +86,7 @@ public class Shooter extends Subsystem{
 
 		@Override
 		public double pidGet() {
-			return -bottomMotor.getEncVelocity();
+			return bottomMotor.getEncVelocity();
 		}
 		
 	}
@@ -129,6 +129,7 @@ public class Shooter extends Subsystem{
 		
 		topController.enable();
 		bottomController.enable();
+		//bottomMotor.set(.5);
 	}
 
 	public void stop() {
@@ -163,7 +164,7 @@ public class Shooter extends Subsystem{
 		}
 		
 		SmartDashboard.putNumber("TopSpeed", topMotor.getEncVelocity());
-		SmartDashboard.putNumber("BottomSpeed", -bottomMotor.getEncVelocity());
+		SmartDashboard.putNumber("BottomSpeed", bottomMotor.getEncVelocity());
 		SmartDashboard.putNumber("Top Error", topController.getError());
 		SmartDashboard.putNumber("Bottom Error", bottomController.getError());
 	}
