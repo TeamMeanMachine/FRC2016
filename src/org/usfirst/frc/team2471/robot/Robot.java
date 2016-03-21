@@ -102,6 +102,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putNumber("Defense Arm Voltage", RobotMap.magnepotArm.getVoltage());
 		SmartDashboard.putNumber("Defense Arm Position", Robot.defenseArm.voltageToAngle(RobotMap.magnepotArm.getVoltage()));
+		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 	}
 
     @Override
@@ -133,6 +134,7 @@ public class Robot extends IterativeRobot {
         
         defenseArm.setTargetAngle(defenseArm.getPosition());
         drive.resetEncoders();
+		Robot.climbing = false;
     }
 
     /**
@@ -167,6 +169,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
         
         SmartDashboard.putNumber("CompressorCurrent", RobotMap.compressor.getCompressorCurrent());
+        
+        double pressure = RobotMap.pressureSensor.getPressure();
+        SmartDashboard.putBoolean("At Pressure", pressure > 55.0);
+		SmartDashboard.putNumber("Pressure", pressure);
     }
     
     /**

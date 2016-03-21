@@ -28,7 +28,6 @@ public class DriveLoop extends Command{
 		}
 		else {
 			turn = (turn - Math.signum(turn)*deadband) / (1.0-deadband);
-			Robot.climbing = false;
 			RobotMap.ratchet.set(true);
 		}
 		
@@ -37,7 +36,6 @@ public class DriveLoop extends Command{
 		}
 		else {
 			forward = (forward - Math.signum(forward)*deadband) / (1.0-deadband);
-			Robot.climbing = false;
 			RobotMap.ratchet.set(true);
 		}
 		

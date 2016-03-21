@@ -13,9 +13,9 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.highgui.Highgui;
-import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
+import org.opencv.videoio.Videoio;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,7 +36,7 @@ public class VisionProcessor extends Thread {
 	ArrayList<Point[]> hullContourPoints;	
 
 	public VisionProcessor() {
-    	System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
+    	System.load("/usr/local/lib/opencv/libopencv_java310.so");
 		
 		//Create Axis Camera instance
 		aCam = new AxisCamera("10.24.71.11");
@@ -86,15 +86,15 @@ public class VisionProcessor extends Thread {
 		//Start MJPG server
 //		server = new MjpgServer();
 		
-		frameWidth = (int) camera.get(Highgui.CV_CAP_PROP_FRAME_WIDTH);
-		frameHeight = (int) camera.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
+		frameWidth = (int) camera.get(Videoio.CV_CAP_PROP_FRAME_WIDTH);
+		frameHeight = (int) camera.get(Videoio.CV_CAP_PROP_FRAME_HEIGHT);
 		
 		rawImage = new Mat();
 		filteredImage = new Mat();
 		dilatededImage = new Mat();
 		element = new Mat();
 		
-		start();
+//		start();
 	}
 	
 	

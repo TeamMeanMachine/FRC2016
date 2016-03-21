@@ -112,7 +112,7 @@ public class Shooter extends Subsystem{
 	class bottomOutput implements PIDOutput{
 		@Override
 		public void pidWrite(double output) {
-			bottomMotor.set(-bottomMotor.get()+output);
+			bottomMotor.set(-bottomMotor.get()+output);  // bottomMotor is negated because despite the fact that the talon is reversed, retrieving power doesn't observe this fact
 		}
 	} 
 	
@@ -184,7 +184,7 @@ public class Shooter extends Subsystem{
 	}
 	
 	public void shooterIntakeReverse(){
-		intakeMotor.set(.8);
+		intakeMotor.set(0.5);
 	}
 	
 	public boolean hasBall() {

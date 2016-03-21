@@ -70,6 +70,7 @@ public class RobotMap {
     public static double accelDownX, accelDownY, accelDownZ;
     
     public static ColorSensor colorSensor;
+    public static PressureSensor pressureSensor;
     
     public static VisionProcessor vision;
     
@@ -154,6 +155,8 @@ public class RobotMap {
         
         ratchet = new Solenoid(7);
         ratchet.set(true);
+        
+        pressureSensor = new PressureSensor(2);
         
 //        colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_4X);
         

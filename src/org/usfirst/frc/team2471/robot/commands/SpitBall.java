@@ -6,13 +6,16 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SpitBall extends Command {
 	long endTime;
+	
+	public SpitBall() {
+		requires(Robot.intake);		
+	}
 
 	@Override
 	protected void initialize() {
 		Robot.logger.logInfo("Spitting ball");
-		requires(Robot.intake);		
 		Robot.intake.intakeStop();
-		if(Robot.intake.getBallState()) {
+		if(Robot.intake.getIntakeSensor()) {
 			Robot.intake.intakeDown();	
 			Robot.logger.logInfo("Ball found in intake. Spitting out ball");
 		}
@@ -25,7 +28,7 @@ public class SpitBall extends Command {
 	@Override
 	protected void execute() {
 		if(System.currentTimeMillis() > endTime) {
-			Robot.intake.intakeOut(0.8);
+			Robot.intake.intakeOut(1.0);
 		}
 	}
 
