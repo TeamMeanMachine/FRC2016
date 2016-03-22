@@ -4,6 +4,7 @@ import org.usfirst.frc.team2471.robot.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.BackUntilOuterWorks;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
+import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
@@ -53,6 +54,8 @@ public class OI {
 	public static JoystickButton sallyPort;
 	public static JoystickButton emergencySpit;
 	public static JoystickButton backUntilTilted;
+	public static JoystickButton helperSequence;
+	public static JoystickButton sallyPortInit;
 	
 	
 	public OI(){
@@ -80,6 +83,12 @@ public class OI {
 		
 		backUntilTilted = new JoystickButton(driverStick, 7);
 		backUntilTilted.whenPressed(new BackUntilOuterWorks());
+		
+		helperSequence = new JoystickButton(driverStick, 2);
+		
+		sallyPortInit = new JoystickButton(driverStick, 3);
+		sallyPortInit.whenPressed(new SallyPortHelper());
+		
 	}
 }
 

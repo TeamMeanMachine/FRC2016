@@ -21,78 +21,7 @@ public class DriveLoop extends Command{
 	protected void execute() {
 		double forward = -OI.driverStick.getRawAxis(1);    //Forward & Backwards
 		double turn = -OI.driverStick.getRawAxis(4);	 //Left & Right
-		
-		double deadband = 0.20;
-		if (turn <= deadband && turn >= -deadband){
-			turn = 0;
-		}
-		else {
-			turn = (turn - Math.signum(turn)*deadband) / (1.0-deadband);
-			RobotMap.ratchet.set(true);
-		}
-		
-		if(forward <= deadband && forward >= -deadband){
-			forward = 0;
-		}
-		else {
-			forward = (forward - Math.signum(forward)*deadband) / (1.0-deadband);
-			RobotMap.ratchet.set(true);
-		}
-		
-		//No cubic functions for now, but possibly later
-		//x = x * x * x;
-		//y = y * y * y;
-		
-		boolean useGyro = SmartDashboard.getBoolean("UseGyro", false);
-		
-		final double FASTRATE = 350;  // TODO: determine how fast is fast
-		
-		if (useGyro) {
-			Robot.drive.turnRateController.enable();
-			
-			Robot.drive.turnRateController.setSetpoint(turn * FASTRATE);
-			
-			turn = Robot.drive.getTurnResult();
-		}
-		else
-		{
-			Robot.drive.turnRateController.disable();
-		}
-		
-		SmartDashboard.putNumber("DriveDistance", Robot.drive.getEncoderDistance());
-		
-		//For now we have to make sure not to break it while testing		
-		if(!Robot.drive.getAimDropStatus()) {
-			// Climb stuff
-			double liftPower = OI.coStick.getRawAxis(3);
-			if(Math.abs(liftPower) < 0.075) {
-				liftPower = 0;
-				RobotMap.pto.set(false);
-			}
-			else {
-				RobotMap.pto.set(true);
-				RobotMap.ratchet.set(false);
-				turn = 0;
-				forward = 0;
-				Robot.climbing = true;
-			}
-		
-			Robot.drive.setSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
-		}
-		else if(Robot.DEBUGMODE) {
-			System.out.println("Robot tried to drive when the aim dropper is down! This should never happen!"); // This should never happen!
-		}
-		
-		// Climb extension stuff
-		double extendPower = -OI.coStick.getRawAxis(2);
-		if(Math.abs(extendPower) < 0.075) {
-			extendPower = 0;
-		}
-		else {
-			Robot.climbing = true;
-			
-		}
-		Robot.drive.setLiftExtension(extendPower);
+		Robot.drive.setPower(forward, turn);
 	}
 
 	@Override

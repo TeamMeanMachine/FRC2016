@@ -88,6 +88,10 @@ public class DefenseArm extends PIDSubsystem{
 		setSetpoint(targetAngle);
 	}
 	
+	public double getTargetError() {
+		return targetAngle - getPosition();
+	}
+	
 	public double getTargetAngle() {
 		return targetAngle;
 	}
