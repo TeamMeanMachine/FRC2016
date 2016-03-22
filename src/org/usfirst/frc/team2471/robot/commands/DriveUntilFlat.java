@@ -38,7 +38,7 @@ public class DriveUntilFlat extends Command {
         
     	double dotproduct = RobotMap.accelDownX * accelX + RobotMap.accelDownY * accelY + RobotMap.accelDownZ * accelZ;
     	
-    	double angle = Math.acos(dotproduct);
+    	double angle = Math.acos(dotproduct) / Math.PI * 180.0;
     	
     	return angle < 5.0;
     }

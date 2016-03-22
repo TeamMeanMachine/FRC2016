@@ -83,6 +83,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("DefenseArmMax", prefs.getDouble("DefenseArmMax", 77.0));
 		SmartDashboard.putNumber("DefenseArmMin", prefs.getDouble("DefenseArmMin", -13.0));
 		SmartDashboard.putNumber("DefenseArmClimb", prefs.getDouble("DefenseArmClimb", 107.0));
+		SmartDashboard.putBoolean("IntelVision", prefs.getBoolean("IntelVision", true));
 		
 		
 		
@@ -153,6 +154,7 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("DefenseArmMax", SmartDashboard.getNumber("DefenseArmMax"));
     	prefs.putDouble("DefenseArmMin", SmartDashboard.getNumber("DefenseArmMin"));
     	prefs.putDouble("DefenseArmClimb", SmartDashboard.getNumber("DefenseArmClimb"));
+    	prefs.putBoolean("IntelVision", SmartDashboard.getBoolean("IntelVision"));
     	
     	System.out.println("Saved prefs.");
     }
@@ -173,6 +175,11 @@ public class Robot extends IterativeRobot {
         double pressure = RobotMap.pressureSensor.getPressure();
         SmartDashboard.putBoolean("At Pressure", pressure > 55.0);
 		SmartDashboard.putNumber("Pressure", pressure);
+		
+		ColorSensor.ColorData color = RobotMap.colorSensor.getRawData();
+		SmartDashboard.putNumber("Red", color.r);
+		SmartDashboard.putNumber("Green", color.g);
+		SmartDashboard.putNumber("Blue", color.b);
     }
     
     /**

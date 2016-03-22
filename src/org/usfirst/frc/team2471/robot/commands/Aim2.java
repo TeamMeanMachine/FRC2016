@@ -30,23 +30,43 @@ public class Aim2 extends PIDCommand {
 		targetFound = false;
 		aimController.disable();
 		onTargetCount = 0;
+		
+		if (SmartDashboard.getBoolean("AutoAim") && !SmartDashboard.getBoolean("IntelVision")) {
+			RobotMap.vision.startVision();
+		}
 	}
 
 	@Override
 	protected void execute() {		
 		if (SmartDashboard.getBoolean("AutoAim")) {
-			if(!targetFound && SmartDashboard.getNumber("BLOB_COUNT",0) > 0) {
-				targetFound = true;
-				aimController.enable();
+			if(SmartDashboard.getBoolean("IntelVision")) {
+				if(!targetFound && SmartDashboard.getNumber("BLOB_COUNT",0) > 0) {
+					targetFound = true;
+					aimController.enable();
+				}
+				if(targetFound) {
+					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET",0));
+				}
+				if(Math.abs(aimController.getError()) < 0.5) {// && RobotMap.pressureSensor.getPressure() > 55.0) {
+					new RumbleJoystick(0.5, OI.coStick).start();
+					onTargetCount++;
+				}
+				SmartDashboard.putNumber("Aim Error", aimController.getError());
 			}
-			if(targetFound) {
-				setSetpoint(SmartDashboard.getNumber("GYRO_TARGET",0));
+			else {
+				if(!targetFound && RobotMap.vision.getBlobCount() > 0) {
+					targetFound = true;
+					aimController.enable();
+				}
+				if(targetFound) {
+					setSetpoint(RobotMap.vision.getGyroTarget());
+				}
+				if(Math.abs(aimController.getError()) < 0.5) {// && RobotMap.pressureSensor.getPressure() > 55.0) {
+					new RumbleJoystick(0.5, OI.coStick).start();
+					onTargetCount++;
+				}
+				SmartDashboard.putNumber("Aim Error", aimController.getError());
 			}
-			if(Math.abs(aimController.getError()) < 0.5 && RobotMap.pressureSensor.getPressure() > 55.0) {
-				new RumbleJoystick(0.5, OI.coStick).start();
-				onTargetCount++;
-			}
-			SmartDashboard.putNumber("Aim Error", aimController.getError());
 		}
 		else {
 			aimController.disable();
@@ -77,6 +97,7 @@ public class Aim2 extends PIDCommand {
 	protected void end() {
 //		Robot.drive.setAimDrop(false);
 		aimController.disable();
+		RobotMap.vision.stopVision();
 	}
 
 	@Override
@@ -92,5 +113,6 @@ public class Aim2 extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		Robot.drive.setAimerMotor(output);
+		//Robot.drive.setSpeed(-output, 0.0);  // run the drivetrain instead
 	}
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commandgroups.AimAndShootGroup;
+import org.usfirst.frc.team2471.robot.commandgroups.BackUntilOuterWorks;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
@@ -51,6 +52,7 @@ public class OI {
 	public static JoystickButton suckIn;
 	public static JoystickButton sallyPort;
 	public static JoystickButton emergencySpit;
+	public static JoystickButton backUntilTilted;
 	
 	
 	public OI(){
@@ -76,6 +78,8 @@ public class OI {
 		emergencySpit = new JoystickButton(coStick, 8);
 		emergencySpit.whileHeld(new ReleaseBall());
 		
+		backUntilTilted = new JoystickButton(driverStick, 7);
+		backUntilTilted.whenPressed(new BackUntilOuterWorks());
 	}
 }
 

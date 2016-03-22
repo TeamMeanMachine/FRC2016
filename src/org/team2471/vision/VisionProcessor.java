@@ -3,6 +3,7 @@ package org.team2471.vision;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -13,9 +14,10 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.highgui.Highgui;
+import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.videoio.VideoCapture;
-import org.opencv.videoio.Videoio;
+import org.usfirst.frc.team2471.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,6 +31,11 @@ public class VisionProcessor extends Thread {
 	private VideoCapture camera;
 	private MjpgServer server;
 	private int frameWidth, frameHeight;
+	private boolean running;
+	
+	private int blobCount;
+	private double gyroTarget;
+	private double targetPos;
 	
 	private Mat rawImage, filteredImage, dilatededImage, element;
 	ArrayList<MatOfPoint> contourMOP, hullsMOP, targets;
@@ -36,7 +43,7 @@ public class VisionProcessor extends Thread {
 	ArrayList<Point[]> hullContourPoints;	
 
 	public VisionProcessor() {
-    	System.load("/usr/local/lib/opencv/libopencv_java310.so");
+    	System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
 		
 		//Create Axis Camera instance
 		aCam = new AxisCamera("10.24.71.11");
@@ -86,29 +93,28 @@ public class VisionProcessor extends Thread {
 		//Start MJPG server
 //		server = new MjpgServer();
 		
-		frameWidth = (int) camera.get(Videoio.CV_CAP_PROP_FRAME_WIDTH);
-		frameHeight = (int) camera.get(Videoio.CV_CAP_PROP_FRAME_HEIGHT);
+		frameWidth = (int) camera.get(Highgui.CV_CAP_PROP_FRAME_WIDTH);
+		frameHeight = (int) camera.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
 		
 		rawImage = new Mat();
 		filteredImage = new Mat();
 		dilatededImage = new Mat();
 		element = new Mat();
-		
-//		start();
 	}
 	
 	
 	@Override
 	public void run() {
 		//Processing loop
-		while(true) {		
-			System.out.println("Vision loop running");
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		while(running) {		
+//			System.out.println("Vision loop running");
+//			try {
+//				Thread.sleep(0);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			double tempGyro = RobotMap.gyro.getAngle();
 			
 			//Grab frame from camera
 			if(!camera.read(rawImage)) {
@@ -117,7 +123,7 @@ public class VisionProcessor extends Thread {
 			}
 			
 			// Filter image
-			Core.inRange(rawImage, new Scalar(0, 125, 0), new Scalar(200, 255, 200), filteredImage);
+			Core.inRange(rawImage, new Scalar(0, 59, 0), new Scalar(92, 255, 181), filteredImage);
 				
 			// Dilate monochrome
 			element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
@@ -177,7 +183,8 @@ public class VisionProcessor extends Thread {
 //			Imgproc.drawContours(rawImage, contourMOP, -1, new Scalar(0, 0, 255), 2);
 //			Imgproc.drawContours(rawImage, hullsMOP, -1, new Scalar(255, 0, 0), 2);
 			
-			int targetCount = 0;
+			blobCount = 0;
+			ArrayList<Integer> blobs = new ArrayList<Integer>();
 			
 			for(MatOfPoint mop : targets) {
 				MatOfPoint2f curve = new MatOfPoint2f();
@@ -186,21 +193,34 @@ public class VisionProcessor extends Thread {
 				Imgproc.approxPolyDP(curve, approxCurve, Imgproc.arcLength(curve, true) * 0.01, true);
 				approxCurve.convertTo(mop, CvType.CV_32S);
 				if(mop.rows() == 8) {
-					targetCount++;
+					blobCount++;
 					int centerX = 0;
 					for(int i = 0; i < mop.rows(); i++) {
 						centerX += mop.get(i, 0)[0];
 					}
 					centerX /= mop.rows();
-					int pixelOffset = Math.abs(centerX - (frameWidth / 2));
-					if(targetCount == 1) {
-						SmartDashboard.putNumber("PixelOffset", pixelOffset);
-					}
+					blobs.add(centerX);
+//					pixelOffset = Math.abs(centerX - (frameWidth / 2));
 //					Imgproc.arrowedLine(rawImage, new Point(frameWidth / 2, frameHeight / 2), new Point(centerX, frameHeight / 2), new Scalar(0, 0, 255), 10, 8, 0, 20.0 / pixelOffset);
-//							Imgproc.line(rawImage, new Point(centerX - 50, centerY), new Point(centerX + 50, centerY), new Scalar(0, 0, 255), 2);
+//					Imgproc.line(rawImage, new Point(centerX - 50, centerY), new Point(centerX + 50, centerY), new Scalar(0, 0, 255), 2);
 				}
 			}
-			SmartDashboard.putNumber("TargetCount", targetCount);
+			
+			if(blobCount > 0) {
+				double gyroAngle = tempGyro;
+				double aimChange = SmartDashboard.getNumber("AimChange");
+				int halfWidth = frameWidth / 2;
+				double crossHairPos = halfWidth - aimChange;
+				double pixelOffset, angleOffset;
+				if(blobCount == 1) {
+					targetPos = blobs.get(0);
+				}
+				
+				pixelOffset = targetPos - crossHairPos;
+				angleOffset = pixelOffset * 33.5 / halfWidth;
+				gyroTarget = gyroAngle + angleOffset;
+			}
+			
 			
 			rawImage.release();
 			filteredImage.release();
@@ -209,6 +229,29 @@ public class VisionProcessor extends Thread {
 //	        
 //			//Send output to MJPG server
 //			server.sendFrame(toBufferedImage(rawImage));
+		}
+	}
+	
+	public int getBlobCount() {
+		return blobCount;
+	}
+	
+	public double getGyroTarget() {
+		return gyroTarget;
+	}
+	
+	public double getTargetPos() {
+		return targetPos;
+	}
+	
+	public void stopVision() {
+		running = false;
+	}
+	
+	public void startVision() {
+		if(!running) {
+			running = true;
+			start();
 		}
 	}
 	
