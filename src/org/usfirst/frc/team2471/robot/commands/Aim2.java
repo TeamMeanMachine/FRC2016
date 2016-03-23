@@ -107,8 +107,7 @@ public class Aim2 extends PIDCommand {
 	
 	@Override
 	protected double returnPIDInput() {
-		//return RobotMap.gyro.getAngle();
-		return RobotMap.navx.getAngle();
+		return RobotMap.gyro.getAngle();
 	}
 
 	@Override

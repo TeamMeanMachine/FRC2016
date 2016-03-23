@@ -44,8 +44,8 @@ public class DropRotateToAngle extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		//return RobotMap.gyro.getAngle();
-		return RobotMap.navx.getAngle();
+		// TODO Auto-generated method stub
+		return RobotMap.gyro.getAngle();
 	}
 
 	@Override

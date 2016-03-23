@@ -40,13 +40,9 @@ public class TurnUntilBlobFound extends Command {
     	if (isTimedOut())
     		return true;
     	
-//    	if (RobotMap.gyro.getAngle() > 45.0) 
-//    		speed = -speed;
-//    	else if (RobotMap.gyro.getAngle() < -25)
-//    		return true;
-    	if (RobotMap.navx.getAngle() > 45.0) 
+    	if (RobotMap.gyro.getAngle() > 45.0) 
     		speed = -speed;
-    	else if (RobotMap.navx.getAngle() < -25)
+    	else if (RobotMap.gyro.getAngle() < -25)
     		return true;
     	
         return false;

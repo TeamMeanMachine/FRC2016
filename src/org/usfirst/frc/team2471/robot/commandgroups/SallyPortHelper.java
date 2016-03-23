@@ -20,7 +20,7 @@ public class SallyPortHelper extends CommandGroup {
 		// pull door back to safe position to flick
 		addSequential(new DriveDistanceCommand(1.5, 0.0, -0.5));
 		// Flick door left
-		double currentGyro = RobotMap.navx.getAngle();
+		double currentGyro = RobotMap.gyro.getAngle();
 		addSequential(new RotateToAngle(currentGyro - 20, 0.5));
 		// flick back
 		addSequential(new RotateToAngle(currentGyro, 0.5));
