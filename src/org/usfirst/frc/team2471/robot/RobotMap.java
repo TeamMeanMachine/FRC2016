@@ -2,6 +2,8 @@ package org.usfirst.frc.team2471.robot;
 
 import org.team2471.vision.VisionProcessor;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -11,6 +13,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -73,6 +76,8 @@ public class RobotMap {
     public static PressureSensor pressureSensor;
     
     public static VisionProcessor vision;
+    
+    public static AHRS navx;
     
     public static void init(){
     	
@@ -161,5 +166,7 @@ public class RobotMap {
         colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_16X);
         
         vision = new VisionProcessor();
+        
+        navx = new AHRS(SerialPort.Port.kUSB);
     }
 }

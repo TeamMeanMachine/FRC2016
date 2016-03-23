@@ -21,7 +21,8 @@ public class RotateToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	double gyroAngle = RobotMap.gyro.getAngle();
+    	//double gyroAngle = RobotMap.gyro.getAngle();
+    	double gyroAngle = RobotMap.navx.getAngle();
 		while (gyroAngle > 180.0)
 			gyroAngle -= 360.0; 
 		while (gyroAngle < -180.0)
@@ -38,7 +39,8 @@ public class RotateToAngle extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	double gyroAngle = (RobotMap.gyro.getAngle() - 360.0) % 360.0;
+    	//double gyroAngle = (RobotMap.gyro.getAngle() - 360.0) % 360.0;
+    	double gyroAngle = (RobotMap.navx.getAngle() - 360.0) % 360.0;
     	while (gyroAngle > 180.0)
     		gyroAngle -= 360.0; 
     	while (gyroAngle < -180.0)

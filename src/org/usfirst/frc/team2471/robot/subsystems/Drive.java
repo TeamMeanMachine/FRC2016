@@ -66,7 +66,8 @@ public class Drive extends Subsystem {
 
 		@Override
 		public double pidGet() {
-			return -RobotMap.gyro.getRate();
+//			return -RobotMap.gyro.getRate();
+			return -RobotMap.navx.getRate();
 		}
 	}
 	

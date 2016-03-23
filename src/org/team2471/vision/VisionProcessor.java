@@ -114,7 +114,8 @@ public class VisionProcessor extends Thread {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-			double tempGyro = RobotMap.gyro.getAngle();
+			//double tempGyro = RobotMap.gyro.getAngle();
+			double tempGyro = RobotMap.navx.getAngle();
 			
 			//Grab frame from camera
 			if(!camera.read(rawImage)) {

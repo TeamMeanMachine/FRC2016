@@ -110,6 +110,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
     	drive.resetEncoders();
     	RobotMap.gyro.reset();
+    	RobotMap.navx.reset();
         // schedule the autonomous command (example)
     	autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
@@ -122,7 +123,8 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
 
-        SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
+        //SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
+        SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.navx.getAngle());
     }
 
     @Override
@@ -168,7 +170,8 @@ public class Robot extends IterativeRobot {
         if(SmartDashboard.getBoolean("LightON")) {
         	RobotMap.ringLight.set(true);
         }
-        SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
+        //SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
+        SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.navx.getAngle());
         
         SmartDashboard.putNumber("CompressorCurrent", RobotMap.compressor.getCompressorCurrent());
         

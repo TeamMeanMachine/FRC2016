@@ -48,6 +48,7 @@ public class Aim2 extends PIDCommand {
 					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET",0));
 				}
 				if(Math.abs(aimController.getError()) < 0.5) {// && RobotMap.pressureSensor.getPressure() > 55.0) {
+				if(Math.abs(aimController.getError()) < 0.5 && RobotMap.pressureSensor.getPressure() > 55.0) {
 					new RumbleJoystick(0.5, OI.coStick).start();
 					onTargetCount++;
 				}
@@ -107,7 +108,7 @@ public class Aim2 extends PIDCommand {
 	
 	@Override
 	protected double returnPIDInput() {
-		return RobotMap.gyro.getAngle();
+		return RobotMap.navx.getAngle();
 	}
 
 	@Override
