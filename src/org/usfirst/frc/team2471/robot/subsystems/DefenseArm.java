@@ -21,7 +21,7 @@ public class DefenseArm extends PIDSubsystem{
 		super(Constants.DEFENSE_P, Constants.DEFENSE_I, Constants.DEFENSE_D);
 		armMotor = RobotMap.defenseArm;
 		magnePot = RobotMap.magnepotArm;
-		armMotor.setVoltageRampRate(3.0);  // 3.0 volts per second
+//		armMotor.setVoltageRampRate(13.0);  // 13.0 volts per second
 		setTargetAngle(getPosition());
 		enable();		
 	}

@@ -168,5 +168,6 @@ public class RobotMap {
         vision = new VisionProcessor();
         
         navx = new AHRS(SerialPort.Port.kUSB);
+        System.out.println("navx connected: " + navx.isConnected());
     }
 }
