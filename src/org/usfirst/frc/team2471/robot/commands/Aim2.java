@@ -32,7 +32,8 @@ public class Aim2 extends PIDCommand {
 		onTargetCount = 0;
 		
 		if (SmartDashboard.getBoolean("AutoAim") && !SmartDashboard.getBoolean("IntelVision")) {
-			RobotMap.vision.startVision();
+			RobotMap.vision.resume();
+			System.out.println("Vision Resumed");
 		}
 	}
 
@@ -97,7 +98,7 @@ public class Aim2 extends PIDCommand {
 	protected void end() {
 //		Robot.drive.setAimDrop(false);
 		aimController.disable();
-		RobotMap.vision.stopVision();
+		RobotMap.vision.suspend();
 	}
 
 	@Override

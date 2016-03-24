@@ -161,6 +161,8 @@ public class RobotMap {
         colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_16X);
         
         vision = new VisionProcessor();
+        vision.start();
+        vision.suspend();
 
     }
 }

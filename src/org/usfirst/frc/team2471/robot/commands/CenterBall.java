@@ -35,7 +35,7 @@ public class CenterBall extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (ballIn && (Timer.getFPGATimestamp() - ballInTime) > 0.5);
+        return (ballIn && (Timer.getFPGATimestamp() - ballInTime) > 1.0);
     }
 
     // Called once after isFinished returns true
