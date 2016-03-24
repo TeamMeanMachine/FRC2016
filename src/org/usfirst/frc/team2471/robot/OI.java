@@ -2,9 +2,11 @@ package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.BackUntilOuterWorks;
+import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
+import org.usfirst.frc.team2471.robot.commands.CancelAuto;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
@@ -56,6 +58,7 @@ public class OI {
 	public static JoystickButton backUntilTilted;
 	public static JoystickButton helperSequence;
 	public static JoystickButton sallyPortInit;
+	public static JoystickButton drawbridgeHelper;
 	
 	
 	public OI(){
@@ -89,6 +92,11 @@ public class OI {
 		sallyPortInit = new JoystickButton(driverStick, 3);
 		sallyPortInit.whenPressed(new SallyPortHelper());
 		
+		drawbridgeHelper = new JoystickButton(driverStick, 4);
+		drawbridgeHelper.whenPressed(new DrawBridgeHelper());
+		
+		drawbridgeHelper = new JoystickButton(driverStick, 2);
+		drawbridgeHelper.whenPressed(new CancelAuto());
 	}
 }
 

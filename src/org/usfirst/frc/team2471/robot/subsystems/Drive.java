@@ -133,7 +133,7 @@ public class Drive extends Subsystem {
 	}
 	
 	public double getEncoderDistance() {
-		return ( Math.abs( leftDrive.getPosition() ) + Math.abs( rightDrive.getPosition() ) ) / 2.0;
+		return ( rightDrive.getPosition() - leftDrive.getPosition() ) / 2.0;
 	}
 	
 	// Note: I moved all of the stuff here from DriveLoop so I didn't have to copy and paste when I made the DriveFrontBackOnly command

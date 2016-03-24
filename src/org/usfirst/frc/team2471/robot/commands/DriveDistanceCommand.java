@@ -37,7 +37,7 @@ public class DriveDistanceCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (Robot.drive.getEncoderDistance() - startDistance) > distance || isTimedOut();
+    	return (Math.abs(Robot.drive.getEncoderDistance() - startDistance)) > distance || isTimedOut();
     }
 
     // Called once after isFinished returns true
