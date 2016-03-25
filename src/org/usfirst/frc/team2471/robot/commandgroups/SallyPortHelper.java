@@ -18,11 +18,11 @@ public class SallyPortHelper extends CommandGroup {
 		// pull door back to safe position to flick
 		addSequential(new DriveDistanceCommand(3.5, 0.0, -0.4));
 		// Flick door left
-		addSequential(new RotateRelative(-45.0, 0.80));
+		addSequential(new RotateRelative(-45.0, 0.80, 3.0));
 		// raise arm
 		addParallel(new RotateArmToAngle(sallyPortAngle + 10));
 		// flick back
-		addSequential(new RotateRelative(30.0, 0.80));
+		addSequential(new RotateRelative(30.0, 0.80, 3.0));
 		// drive forward
 		addSequential(new DriveDistanceCommand(1.0, 0.0, 0.4));
 	}

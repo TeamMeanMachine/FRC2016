@@ -81,7 +81,7 @@ public class OI {
 		sallyPort = new JoystickButton(coStick, 4);
 		sallyPort.whenPressed(new SallyPortPreset());
 		
-		emergencySpit = new JoystickButton(coStick, 8);
+		emergencySpit = new JoystickButton(driverStick, 8);
 		emergencySpit.whileHeld(new ReleaseBall());
 		
 		backUntilTilted = new JoystickButton(driverStick, 7);

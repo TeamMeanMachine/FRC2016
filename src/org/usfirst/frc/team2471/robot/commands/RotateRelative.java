@@ -12,11 +12,13 @@ public class RotateRelative extends Command {
 
 	private double angleOffset, targetAngle;
     private double speed, direction;
+    private double tolerance;
     
-    public RotateRelative(double angle, double speedZeroToOne ) {
+    public RotateRelative(double angle, double speedZeroToOne, double _tolerance ) {
         requires(Robot.drive);
         speed = speedZeroToOne;
         angleOffset = angle;
+        tolerance = _tolerance;
     }
 
     // Called just before this Command runs the first time
@@ -46,7 +48,7 @@ public class RotateRelative extends Command {
     	while (gyroAngle < -180.0)
     		gyroAngle += 360.0; 
     	
-    	if (Math.abs(gyroAngle - targetAngle) < 5.0)  //  fudge factor tolerance for heading 
+    	if (Math.abs(gyroAngle - targetAngle) < tolerance)  //  fudge factor tolerance for heading 
     		return true;
     	
     	if (isTimedOut())

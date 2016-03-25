@@ -177,7 +177,6 @@ public class Drive extends Subsystem {
 		
 		SmartDashboard.putNumber("DriveDistance", Robot.drive.getEncoderDistance());
 		
-		//For now we have to make sure not to break it while testing		
 		if(!Robot.drive.getAimDropStatus()) {
 			// Climb stuff
 			double liftPower = OI.coStick.getRawAxis(3);
@@ -206,7 +205,6 @@ public class Drive extends Subsystem {
 		}
 		else {
 			Robot.climbing = true;
-			
 		}
 		Robot.drive.setLiftExtension(extendPower);
 	}
