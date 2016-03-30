@@ -7,6 +7,7 @@ import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
 import org.usfirst.frc.team2471.robot.commands.CancelAuto;
+import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
@@ -59,6 +60,7 @@ public class OI {
 	public static JoystickButton helperSequence;
 	public static JoystickButton sallyPortInit;
 	public static JoystickButton drawbridgeHelper;
+	public static JoystickButton driverLight;
 	
 	
 	public OI(){
@@ -84,8 +86,8 @@ public class OI {
 		emergencySpit = new JoystickButton(driverStick, 8);
 		emergencySpit.whileHeld(new ReleaseBall());
 		
-		backUntilTilted = new JoystickButton(driverStick, 7);
-		backUntilTilted.whenPressed(new BackUntilOuterWorks());
+/*		backUntilTilted = new JoystickButton(driverStick, 7);
+		backUntilTilted.whenPressed(new BackUntilOuterWorks());*/
 		
 		helperSequence = new JoystickButton(driverStick, 2);
 		
@@ -97,6 +99,9 @@ public class OI {
 		
 		drawbridgeHelper = new JoystickButton(driverStick, 2);
 		drawbridgeHelper.whenPressed(new CancelAuto());
+		
+		driverLight = new JoystickButton(driverStick, 7);
+		driverLight.whenPressed(new LightAction());
 	}
 }
 

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 public class DropRotateToAngle extends PIDCommand {
 
     public DropRotateToAngle(double setPoint) {
-    	super(Constants.AIM_ANGLE_P, Constants.AIM_ANGLE_I, Constants.AIM_ANGLE_D);
+    	super(Constants.AIM_2_P, Constants.AIM_2_I, Constants.AIM_2_D);
     	requires(Robot.drive);
     	setSetpoint(setPoint);
     }

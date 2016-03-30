@@ -23,16 +23,16 @@ public class SallyPortAuto extends CommandGroup {
     	addSequential(new ResetGyroCommand());
     	addParallel(new RotateArmToAngle(50.0));
     	addParallel(new QueueShot());
-    	addSequential(new DriveDistanceCommand(4, 0, 0.7));
-    	addSequential(new DriveDistanceCommand(1, 0, 0.4));
+    	addSequential(new DriveDistanceCommand(3, 0, 0.7));
+    	addSequential(new DriveDistanceCommand(3, 0, 0.25), 1.0);
 
     	addSequential(new SallyPortHelper());
 
     	addSequential(new WaitCommand(0.5));
     	addSequential(new RotateToAngle( -5.0, 0.5, 2.0 ));
-    	addSequential(new DriveDistanceCommand(2, 0, 0.4));
+    	addSequential(new DriveDistanceCommand(2, 0, 0.8));
     	addSequential(new RotateToAngle( 0.0, 0.5, 2.0 ));
-    	addSequential(new DriveDistanceCommand(6, 0, 0.5));
+    	addSequential(new DriveDistanceCommand(6, 0, 0.8));
 
     	addSequential(new WaitCommand(0.5));
     	//addSequential(new RingLightCommand(true));

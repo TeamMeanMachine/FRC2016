@@ -82,6 +82,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("ArmZeroVolts", prefs.getDouble("ArmZeroVolts", 2.290));
 		SmartDashboard.putBoolean("UseGyro", prefs.getBoolean("UseGyro", false));
 		SmartDashboard.putNumber("SallyPortPreset", prefs.getDouble("SallyPortPreset", 36.0));
+		SmartDashboard.putNumber("DrawBridgePreset", prefs.getDouble("DrawBridgePreset", 65.0));
 		SmartDashboard.putNumber("DefenseArmMax", prefs.getDouble("DefenseArmMax", 77.0));
 		SmartDashboard.putNumber("DefenseArmMin", prefs.getDouble("DefenseArmMin", -13.0));
 		SmartDashboard.putNumber("DefenseArmClimb", prefs.getDouble("DefenseArmClimb", 107.0));
@@ -155,6 +156,7 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("ArmZeroVolts", SmartDashboard.getNumber("ArmZeroVolts"));
     	prefs.putBoolean("UseGyro", SmartDashboard.getBoolean("UseGyro"));
     	prefs.putDouble("SallyPortPreset", SmartDashboard.getNumber("SallyPortPreset"));
+    	prefs.putDouble("DrawBridgePreset", SmartDashboard.getNumber("DrawBridgePreset"));
     	prefs.putDouble("DefenseArmMax", SmartDashboard.getNumber("DefenseArmMax"));
     	prefs.putDouble("DefenseArmMin", SmartDashboard.getNumber("DefenseArmMin"));
     	prefs.putDouble("DefenseArmClimb", SmartDashboard.getNumber("DefenseArmClimb"));

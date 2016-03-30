@@ -36,7 +36,6 @@ public class PickupBall extends CommandGroup {
     	addSequential(new CenterBall());
     	addSequential(new MicroBallHelper());
     	addSequential(new MicroBallHelper());
-    	addSequential(new Delay(0.5));
     	addSequential(new QueueShot());
     }
 }

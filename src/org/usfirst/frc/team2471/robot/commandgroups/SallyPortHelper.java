@@ -12,11 +12,11 @@ public class SallyPortHelper extends CommandGroup {
 	 * This command should be executed when the driver is within range of the sally port
 	 */
 	public SallyPortHelper() {
-		double sallyPortAngle = SmartDashboard.getNumber("SallyPortPreset", 36.0);
+		double sallyPortAngle = SmartDashboard.getNumber("SallyPortPreset", 30.0);
 		// Grab sally port door
 		addSequential(new RotateArmToAngle(sallyPortAngle));
 		// pull door back to safe position to flick
-		addSequential(new DriveDistanceCommand(3.5, 0.0, -0.4));
+		addSequential(new DriveDistanceCommand(3.25, 0.0, -0.4));
 		// Flick door left
 		addSequential(new RotateRelative(-45.0, 0.80, 3.0));
 		// raise arm

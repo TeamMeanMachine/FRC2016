@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DrawBridgeHelper extends CommandGroup {
     
     public  DrawBridgeHelper() {
-    	double drawBridgeAngle = 75;
+    	double drawBridgeAngle = SmartDashboard.getNumber("DrawBridgePreset", 65.0);
     	addSequential(new RotateArmToAngle(drawBridgeAngle));
     	addSequential(new DriveCommand(0, 1.0), 0.25);
     	addSequential(new WaitCommand(0.25));

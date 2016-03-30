@@ -15,7 +15,7 @@ public class AimAndShootGroup extends CommandGroup {
     	
 //    	addSequential( new BackUntilOuterWorks() );
     	addSequential( new StartShooter() );
-    	addSequential( new RotateArmToAngle(22.5));
+    	addSequential( new RotateArmToAngle(-5.0));
     	
     	addSequential( new Aim2(finishOnTarget));
     	

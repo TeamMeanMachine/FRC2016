@@ -16,7 +16,7 @@ public class Aim2 extends PIDCommand {
 	private boolean finishOnTarget;
 	
 	public Aim2(boolean _finishOnTarget) {
-		super(Constants.AIM_ANGLE_P, Constants.AIM_ANGLE_I, Constants.AIM_ANGLE_D);
+		super(Constants.AIM_2_P, Constants.AIM_2_I, Constants.AIM_2_D);
 		requires(Robot.drive);
 		requires(Robot.shooter);
 		
@@ -31,10 +31,10 @@ public class Aim2 extends PIDCommand {
 		aimController.disable();
 		onTargetCount = 0;
 		
-		if (SmartDashboard.getBoolean("AutoAim") && !SmartDashboard.getBoolean("IntelVision")) {
-			RobotMap.vision.resume();
-			System.out.println("Vision Resumed");
-		}
+//		if (SmartDashboard.getBoolean("AutoAim") && !SmartDashboard.getBoolean("IntelVision")) {
+//			RobotMap.vision.resume();
+//			System.out.println("Vision Resumed");
+//		}
 	}
 
 	@Override
@@ -49,7 +49,8 @@ public class Aim2 extends PIDCommand {
 					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET",0));
 				}
 				//if(Math.abs(aimController.getError()) < 0.5 && RobotMap.pressureSensor.getPressure() > 55.0) {
-				if(Math.abs(SmartDashboard.getNumber("AIM_ERROR")) < 10.0 && 
+				if(Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 10.0 &&
+						SmartDashboard.getNumber("BLOB_COUNT") > 0.0 &&
 						RobotMap.pressureSensor.getPressure() > 52.0 &&
 						Math.abs(RobotMap.shootMotorBottom.getError()) < 25.0 &&
 						Math.abs(RobotMap.shootMotorTop.getError()) < 25.0 ) {
@@ -58,20 +59,20 @@ public class Aim2 extends PIDCommand {
 				}
 				SmartDashboard.putNumber("Aim Error", aimController.getError());
 			}
-			else {
-				if(!targetFound && RobotMap.vision.getBlobCount() > 0) {
-					targetFound = true;
-					aimController.enable();
-				}
-				if(targetFound) {
-					setSetpoint(RobotMap.vision.getGyroTarget());
-				}
-				if(Math.abs(aimController.getError()) < 0.5) {// && RobotMap.pressureSensor.getPressure() > 55.0) {
-					new RumbleJoystick(0.5, OI.coStick).start();
-					onTargetCount++;
-				}
-				SmartDashboard.putNumber("Aim Error", aimController.getError());
-			}
+//			else {
+//				if(!targetFound && RobotMap.vision.getBlobCount() > 0) {
+//					targetFound = true;
+//					aimController.enable();
+//				}
+//				if(targetFound) {
+//					setSetpoint(RobotMap.vision.getGyroTarget());
+//				}
+//				if(Math.abs(aimController.getError()) < 0.5) {// && RobotMap.pressureSensor.getPressure() > 55.0) {
+//					new RumbleJoystick(0.5, OI.coStick).start();
+//					onTargetCount++;
+//				}
+//				SmartDashboard.putNumber("Aim Error", aimController.getError());
+//			}
 		}
 		else {
 			aimController.disable();
@@ -102,7 +103,7 @@ public class Aim2 extends PIDCommand {
 	protected void end() {
 //		Robot.drive.setAimDrop(false);
 		aimController.disable();
-		RobotMap.vision.suspend();
+//		RobotMap.vision.suspend();
 	}
 
 	@Override
