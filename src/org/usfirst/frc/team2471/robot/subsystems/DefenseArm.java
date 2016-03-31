@@ -24,6 +24,7 @@ public class DefenseArm extends PIDSubsystem{
 //		armMotor.setVoltageRampRate(13.0);  // 13.0 volts per second
 		setTargetAngle(getPosition());
 		enable();		
+		SmartDashboard.putData("DefenseArmPID", getPIDController());
 	}
 
 	
@@ -72,6 +73,7 @@ public class DefenseArm extends PIDSubsystem{
 	public void setTargetAngle(double angle) {
 		if (Robot.climbing) {
 			targetAngle = SmartDashboard.getNumber("DefenseArmClimb", 107.0);
+			//getPIDController().setPID(getPIDController().getP()*0.75, 0, getPIDController().getD());
 		}
 		else {
 			double maxAngle = SmartDashboard.getNumber("DefenseArmMax", 77.0);

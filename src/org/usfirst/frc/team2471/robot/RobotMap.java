@@ -27,6 +27,8 @@ public class RobotMap {
     private static CANTalon leftSlave, leftMaster;
     public static CANTalon leftDrive;
     
+    public static AnalogInput ultrasonicSensor; 
+    
     private static CANTalon rightSlave, rightMaster;
     public static CANTalon rightDrive;
 
@@ -76,6 +78,7 @@ public class RobotMap {
     public static VisionProcessor vision;
     
     public static void init(){
+    	ultrasonicSensor = new AnalogInput(3);
     	
     	aimer = new CANTalon(13);
     	

@@ -6,11 +6,11 @@ import org.usfirst.frc.team2471.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveUntilTilted extends Command {
+public class DriveUntilUltrasonic extends Command {
 
 	double power;
 	
-    public DriveUntilTilted(double _power) {
+    public DriveUntilUltrasonic(double _power) {
         requires(Robot.drive);
         
         power = _power;
@@ -18,8 +18,8 @@ public class DriveUntilTilted extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (!isFinished())
-            Robot.drive.setSpeed(0, power);
+    	if(!isFinished())
+    		Robot.drive.setSpeed(0, -power);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,22 +28,7 @@ public class DriveUntilTilted extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	
-        double accelX = RobotMap.accelerometer.getX();
-        double accelY = RobotMap.accelerometer.getY();
-        double accelZ = RobotMap.accelerometer.getZ();
-
-        // normalize
-        double length = Math.sqrt(accelX*accelX + accelY*accelY + accelZ*accelZ);
-        accelX /= length;
-        accelY /= length;
-        accelZ /= length;
-        
-    	double dotproduct = RobotMap.accelDownX * accelX + RobotMap.accelDownY * accelY + RobotMap.accelDownZ * accelZ;
-    	
-    	double angle = Math.acos(dotproduct) / Math.PI * 180.0;
-    	
-    	return angle > 10.0;
+    	return RobotMap.ultrasonicSensor.getVoltage() <= SmartDashboard.getNumber("UltrasonicLimit",0.1) || Robot.oi.coStick.getRawButton(4);
     }
 
     // Called once after isFinished returns true

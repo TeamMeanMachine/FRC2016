@@ -43,6 +43,7 @@ public class Robot extends IterativeRobot {
 	
 	public static boolean shoot;
     public static boolean climbing;
+    public static double ultrasonicLimit;
 
 	public static SendableChooser autoChooser;
     Command autonomousCommand;
@@ -87,7 +88,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("DefenseArmMin", prefs.getDouble("DefenseArmMin", -13.0));
 		SmartDashboard.putNumber("DefenseArmClimb", prefs.getDouble("DefenseArmClimb", 107.0));
 		SmartDashboard.putBoolean("IntelVision", prefs.getBoolean("IntelVision", true));
-		
+		SmartDashboard.putNumber("UltrasonicLimit", prefs.getDouble("UltrasonicLimit", 0.1));
 		
 		
 		oi = new OI();
@@ -109,6 +110,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Defense Arm Voltage", RobotMap.magnepotArm.getVoltage());
 		SmartDashboard.putNumber("Defense Arm Position", Robot.defenseArm.voltageToAngle(RobotMap.magnepotArm.getVoltage()));
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
+
+		SmartDashboard.putNumber("Ultrasonic", RobotMap.ultrasonicSensor.getVoltage());
 	}
 
     @Override
@@ -161,7 +164,7 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("DefenseArmMin", SmartDashboard.getNumber("DefenseArmMin"));
     	prefs.putDouble("DefenseArmClimb", SmartDashboard.getNumber("DefenseArmClimb"));
     	prefs.putBoolean("IntelVision", SmartDashboard.getBoolean("IntelVision"));
-    	
+    	prefs.putDouble("UltrasonicLimit", SmartDashboard.getNumber("UltrasonicLimit"));
     	System.out.println("Saved prefs.");
     }
 
@@ -186,6 +189,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Red", color.r);
 		SmartDashboard.putNumber("Green", color.g);
 		SmartDashboard.putNumber("Blue", color.b);
+
     }
     
     /**
