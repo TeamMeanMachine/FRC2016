@@ -35,8 +35,9 @@ public class SallyPortAuto extends CommandGroup {
     	addSequential(new DriveDistanceCommand(6, 0, 0.8));
 
     	addSequential(new WaitCommand(0.5));
-    	//addSequential(new RingLightCommand(true));
     	//addSequential(new TurnUntilBlobFound(0.5), 2.0);
+    	addSequential(new RingLightCommand(true));
+    	addSequential(new WaitCommand(0.5));
     	addSequential(new StartShooter());
     	addSequential(new Aim2(true));
     	addSequential(new Shoot());

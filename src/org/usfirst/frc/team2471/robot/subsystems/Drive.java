@@ -5,6 +5,7 @@ import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commands.DriveLoop;
+import org.usfirst.frc.team2471.robot.commands.RumbleJoystick;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
@@ -191,7 +192,6 @@ public class Drive extends Subsystem {
 				forward = 0;
 				Robot.climbing = true;
 			}
-		
 			Robot.drive.setSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
 		}
 		else if(Robot.DEBUGMODE) {
@@ -205,6 +205,17 @@ public class Drive extends Subsystem {
 		}
 		else {
 			Robot.climbing = true;
+			forward = SmartDashboard.getNumber("ClimbForwardPower", 0.15);
+			if (bSpeedControl)
+			{
+				rightDrive.set( forward );
+				leftDrive.set( -(forward) );
+			}
+			else
+			{
+				rightDrive.set( forward );
+				leftDrive.set( -(forward) );
+			}
 		}
 		Robot.drive.setLiftExtension(extendPower);
 	}

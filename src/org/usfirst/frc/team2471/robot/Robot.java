@@ -89,7 +89,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("DefenseArmClimb", prefs.getDouble("DefenseArmClimb", 107.0));
 		SmartDashboard.putBoolean("IntelVision", prefs.getBoolean("IntelVision", true));
 		SmartDashboard.putNumber("UltrasonicLimit", prefs.getDouble("UltrasonicLimit", 0.1));
-		
+		SmartDashboard.putNumber("ClimbForwardPower", prefs.getDouble("ClimbForwardPower", 0.15));
 		
 		oi = new OI();
 		
@@ -165,6 +165,7 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("DefenseArmClimb", SmartDashboard.getNumber("DefenseArmClimb"));
     	prefs.putBoolean("IntelVision", SmartDashboard.getBoolean("IntelVision"));
     	prefs.putDouble("UltrasonicLimit", SmartDashboard.getNumber("UltrasonicLimit"));
+    	prefs.putDouble("ClimbForwardPower", SmartDashboard.getNumber("ClimbForwardPower"));
     	System.out.println("Saved prefs.");
     }
 

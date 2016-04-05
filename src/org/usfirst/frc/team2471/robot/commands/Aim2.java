@@ -50,7 +50,7 @@ public class Aim2 extends PIDCommand {
 				}
 				//if(Math.abs(aimController.getError()) < 0.5 && RobotMap.pressureSensor.getPressure() > 55.0) {
 				if(Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 10.0 &&
-						SmartDashboard.getNumber("BLOB_COUNT") > 0.0 &&
+						SmartDashboard.getNumber("BLOB_COUNT", 0.0) > 0.0 &&
 						RobotMap.pressureSensor.getPressure() > 52.0 &&
 						Math.abs(RobotMap.shootMotorBottom.getError()) < 25.0 &&
 						Math.abs(RobotMap.shootMotorTop.getError()) < 25.0 ) {
@@ -83,6 +83,7 @@ public class Aim2 extends PIDCommand {
 			else
 				leftRightValue = (leftRightValue - Math.signum(leftRightValue)*deadband) / (1.0-deadband);
 			Robot.drive.setAimerMotor(leftRightValue);
+			
 		}
 
 		Robot.drive.setAimDrop(true);
