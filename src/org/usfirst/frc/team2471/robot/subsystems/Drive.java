@@ -27,8 +27,6 @@ public class Drive extends Subsystem {
 	
 	private Solenoid aimDropCylinder;
 	
-	private boolean bSpeedControl = SmartDashboard.getBoolean("Speed Control", true);  // should read from prefs and save to prefs on disabled
-	
 	public PIDController turnRateController;
 	
 	private double turnResult = 0.0;
@@ -46,8 +44,6 @@ public class Drive extends Subsystem {
 		liftExtension = RobotMap.liftExtension;
 		
 		aimDropCylinder = RobotMap.aimDropCylinder;
-		
-		SmartDashboard.putBoolean("Speed Control", bSpeedControl);
 		
 		turnRateController = new PIDController( Constants.TURN_P, Constants.TURN_I, Constants.TURN_D, new turnRatePIDSource(), new turnRatePIDOutput());
 		turnRateController.setOutputRange(-1.0, 1.0);
@@ -97,18 +93,8 @@ public class Drive extends Subsystem {
 	
 	public void setSpeed(double right, double forward){
 		
-		bSpeedControl = SmartDashboard.getBoolean("Speed Control", false);
-
-		if (bSpeedControl)
-		{
-			rightDrive.set( forward + right );
-			leftDrive.set( -(forward - right) );
-		}
-		else
-		{
-			rightDrive.set( forward + right );
-			leftDrive.set( -(forward - right) );
-		}
+		rightDrive.set( forward + right );
+		leftDrive.set( -(forward - right) );
 		
 //		SmartDashboard.putNumber("Accel X", RobotMap.accelerometer.getX());
 //		SmartDashboard.putNumber("Accel Y", RobotMap.accelerometer.getY());
@@ -145,7 +131,6 @@ public class Drive extends Subsystem {
 		}
 		else {
 			turn = (turn - Math.signum(turn)*deadband) / (1.0-deadband);
-			RobotMap.ratchet.set(true);
 		}
 		
 		if(forward <= deadband && forward >= -deadband){
@@ -153,7 +138,6 @@ public class Drive extends Subsystem {
 		}
 		else {
 			forward = (forward - Math.signum(forward)*deadband) / (1.0-deadband);
-			RobotMap.ratchet.set(true);
 		}
 		
 		//No cubic functions for now, but possibly later
@@ -185,7 +169,7 @@ public class Drive extends Subsystem {
 				liftPower = 0;
 				RobotMap.pto.set(false);
 			}
-			else {
+			else { // climbing
 				RobotMap.pto.set(true);
 				RobotMap.ratchet.set(false);
 				turn = 0;
@@ -204,20 +188,14 @@ public class Drive extends Subsystem {
 			extendPower = 0;
 		}
 		else {
+			RobotMap.ratchet.set(true);
 			Robot.climbing = true;
 			forward = SmartDashboard.getNumber("ClimbForwardPower", 0.15);
-			if (bSpeedControl)
-			{
-				rightDrive.set( forward );
-				leftDrive.set( -(forward) );
-			}
-			else
-			{
-				rightDrive.set( forward );
-				leftDrive.set( -(forward) );
-			}
+			rightDrive.set( forward );
+			leftDrive.set( -(forward) );
+			Robot.defenseArm.setTargetAngle(SmartDashboard.getNumber("DefenseArmClimb", 107.0));
 		}
-		Robot.drive.setLiftExtension(extendPower);
+		Robot.drive.setLiftExtension(extendPower * 0.75);
 	}
 	
 	public void resetEncoders() {

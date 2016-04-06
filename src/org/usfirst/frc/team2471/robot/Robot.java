@@ -111,7 +111,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Defense Arm Position", Robot.defenseArm.voltageToAngle(RobotMap.magnepotArm.getVoltage()));
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 
-		SmartDashboard.putNumber("Ultrasonic", RobotMap.ultrasonicSensor.getVoltage());
+	
 	}
 
     @Override
@@ -190,7 +190,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Red", color.r);
 		SmartDashboard.putNumber("Green", color.g);
 		SmartDashboard.putNumber("Blue", color.b);
-
+		SmartDashboard.putNumber("Ultrasonic", RobotMap.ultrasonicSensor.getVoltage());
     }
     
     /**

@@ -2,6 +2,7 @@ package org.usfirst.frc.team2471.robot.commandgroups;
 
 import org.usfirst.frc.team2471.robot.commands.Aim2;
 import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
+import org.usfirst.frc.team2471.robot.commands.DriveUntilUltrasonic;
 import org.usfirst.frc.team2471.robot.commands.QueueShot;
 import org.usfirst.frc.team2471.robot.commands.ResetGyroCommand;
 import org.usfirst.frc.team2471.robot.commands.RingLightCommand;
@@ -32,17 +33,13 @@ public class SallyPortAuto extends CommandGroup {
     	addSequential(new RotateToAngle( -5.0, 0.5, 2.0 ));
     	addSequential(new DriveDistanceCommand(2, 0, 0.8));
     	addSequential(new RotateToAngle( 0.0, 0.5, 2.0 ));
-    	addSequential(new DriveDistanceCommand(6, 0, 0.8));
-
+    	addSequential(new DriveDistanceCommand(8, 0, 0.7));
     	addSequential(new WaitCommand(0.5));
-    	//addSequential(new TurnUntilBlobFound(0.5), 2.0);
-    	addSequential(new RingLightCommand(true));
-    	addSequential(new WaitCommand(0.5));
-    	addSequential(new StartShooter());
-    	addSequential(new Aim2(true));
-    	addSequential(new Shoot());
+    	   	
+    	addSequential(new AimAndShootGroup(true));
     	
+    	addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));
     	addSequential(new RotateToAngle(0, 0.5, 2.0));
-    	// addSequential(new DriveDistanceCommand(10, 0, -0.7));
+    	addSequential(new DriveDistanceCommand(8.0, 0.0, -0.8));
     }
 }

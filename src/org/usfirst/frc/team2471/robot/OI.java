@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2471.robot;
 
-import org.usfirst.frc.team2471.robot.commandgroups.AimAndShootGroup;
-import org.usfirst.frc.team2471.robot.commandgroups.BackUntilOuterWorks;
+import org.usfirst.frc.team2471.robot.commandgroups.AimGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
@@ -10,7 +9,6 @@ import org.usfirst.frc.team2471.robot.commands.CancelAuto;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
-import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -71,7 +69,7 @@ public class OI {
 		shootButton.whileHeld(new Shoot());*/
 		
 		aimButton = new JoystickButton(coStick, 3);
-		aimButton.whenReleased(new AimAndShootGroup(false));
+		aimButton.whenReleased(new AimGroup(false));
 		
 		fireButton = new JoystickButton(coStick, 6);  // want to put this on right trigger, but it is an axis on xbox controller
 		fireButton.whenPressed(new Shoot());

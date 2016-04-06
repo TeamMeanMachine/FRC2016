@@ -25,10 +25,10 @@ public class TerrainAndShotAuto extends CommandGroup {
     	addParallel(new QueueShot());
     	addSequential(new DriveDistanceCommand(12, 0, 0.9)); //Changed from 
     	addSequential(new DriveDistanceCommand(4, 0, 0.4));
-    	addSequential(new WaitCommand(1.0));	
-    	addSequential(new RotateToAngle(0, 0.5, 5.0));
-    	addSequential(new DriveDistanceCommand(2.0, 0.0, -.4));
     	addSequential(new RotateArmToAngle(0.0));
+    	addSequential(new WaitCommand(1.0));
+
+    	/*
     	//addSequential(new TurnUntilBlobFound(0.5), 2.0);
     	addSequential(new RingLightCommand(true));
     	addSequential(new WaitCommand(0.5));
@@ -37,5 +37,12 @@ public class TerrainAndShotAuto extends CommandGroup {
     	addSequential(new Shoot());
     	addSequential(new RotateToAngle(0, 0.5, 5.0));
     	//addSequential(new DriveDistanceCommand(10, 0, -0.7));
+    	 */
+
+    	addSequential(new AimAndShootGroup(true));
+    	
+    	addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));
+    	addSequential(new RotateToAngle(0, 0.5, 2.0));
+    	addSequential(new DriveDistanceCommand(8.0, 0.0, -0.8));
     }
 }

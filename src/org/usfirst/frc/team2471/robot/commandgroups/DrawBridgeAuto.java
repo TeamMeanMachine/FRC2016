@@ -32,11 +32,8 @@ public class DrawBridgeAuto extends CommandGroup {
     	addSequential(new DriveDistanceCommand(6, 0, 0.5));
 
     	addSequential(new WaitCommand(0.5));
-    	//addSequential(new RingLightCommand(true));
-    	//addSequential(new TurnUntilBlobFound(0.5), 2.0);
-    	addSequential(new StartShooter());
-    	addSequential(new Aim2(true));
-    	addSequential(new Shoot());
+    	
+    	addSequential(new AimAndShootGroup(true));
     	
     	addSequential(new RotateToAngle(0, 0.5, 2.0));
     	// addSequential(new DriveDistanceCommand(10, 0, -0.7));

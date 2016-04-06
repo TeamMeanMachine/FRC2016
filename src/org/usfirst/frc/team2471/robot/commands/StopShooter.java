@@ -17,13 +17,13 @@ public class StopShooter extends Command {
     // Called just before this Command runs the first time
     @Override
 	protected void initialize() {
+    	System.out.println("StopShooter Started");
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
 		Robot.shooter.stop();
-		new RotateArmToAngle(62.0).start();
 		Robot.drive.setAimDrop(false);
     }
 
@@ -36,6 +36,7 @@ public class StopShooter extends Command {
     // Called once after isFinished returns true
     @Override
 	protected void end() {
+    	System.out.println("StopShooter Finished");
     }
 
     // Called when another command which requires one or more of the same

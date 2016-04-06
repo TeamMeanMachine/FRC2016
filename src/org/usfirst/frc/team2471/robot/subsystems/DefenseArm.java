@@ -34,7 +34,7 @@ public class DefenseArm extends PIDSubsystem{
 	}
 	
 	public void rotate(double power) {
-		if(RobotMap.pdp.getCurrent(8) <= 25 && RobotMap.pdp.getCurrent(7) <= 25) {
+		if(RobotMap.pdp.getCurrent(8) <= 30 && RobotMap.pdp.getCurrent(7) <= 30) {
 			armMotor.set(power);
 		}
 		else {
@@ -71,22 +71,22 @@ public class DefenseArm extends PIDSubsystem{
 	}
 
 	public void setTargetAngle(double angle) {
+		double minAngle = SmartDashboard.getNumber("DefenseArmMin", -13.0);
+		double maxAngle;
 		if (Robot.climbing) {
-			targetAngle = SmartDashboard.getNumber("DefenseArmClimb", 107.0);
-			//getPIDController().setPID(getPIDController().getP()*0.75, 0, getPIDController().getD());
+			maxAngle = SmartDashboard.getNumber("DefenseArmClimb", 107.0);
 		}
 		else {
-			double maxAngle = SmartDashboard.getNumber("DefenseArmMax", 77.0);
-			double minAngle = SmartDashboard.getNumber("DefenseArmMin", -13.0);
-			
-			if (angle > maxAngle) {
-				angle = maxAngle;
-			}
-			else if (angle < minAngle) {
-				angle = minAngle;
-			}
-			targetAngle = angle;
-		}		
+			maxAngle = SmartDashboard.getNumber("DefenseArmMax", 77.0);
+		}
+		
+		if (angle > maxAngle) {
+			angle = maxAngle;
+		}
+		else if (angle < minAngle) {
+			angle = minAngle;
+		}
+		targetAngle = angle;
 		setSetpoint(targetAngle);
 	}
 	
