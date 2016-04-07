@@ -5,6 +5,7 @@ import org.opencv.core.Core;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShotAuto;
+import org.usfirst.frc.team2471.robot.commands.DoNothingAuto;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
@@ -96,6 +97,7 @@ public class Robot extends IterativeRobot {
         //Here is the Sendable for the autonomous command
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Terrain and Shoot", new TerrainAndShotAuto());
+        autoChooser.addObject("Don't Move", new DoNothingAuto());
         autoChooser.addObject("Sally Port", new SallyPortAuto());
         autoChooser.addObject("Draw Bridge", new DrawBridgeAuto());
         SmartDashboard.putData("AutoChooser", autoChooser);
