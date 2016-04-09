@@ -28,7 +28,8 @@ public class DriveUntilUltrasonic extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return RobotMap.ultrasonicSensor.getVoltage() <= SmartDashboard.getNumber("UltrasonicLimit",0.1) || isTimedOut();
+    	double ultrasonicLimit = SmartDashboard.getNumber("UltrasonicLimit",0.1);
+    	return RobotMap.backupUltrasonic.getVoltage() <= ultrasonicLimit || isTimedOut() || (Robot.oi.driverStick.getRawAxis(1) < -.3);
     }
 
     // Called once after isFinished returns true

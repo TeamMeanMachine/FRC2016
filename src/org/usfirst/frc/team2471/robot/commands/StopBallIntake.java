@@ -4,6 +4,7 @@ import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -22,7 +23,7 @@ public class StopBallIntake extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	if(Robot.intake.getBallState() == false) {
+    	if(Robot.intake.getBallState() == false || SmartDashboard.getBoolean("ManualIntake", false)) {
 			new CancelIntake().start();
     	}
     }

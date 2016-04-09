@@ -3,37 +3,32 @@ package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class UnloadShooter extends Command {
 	
-
+	private double startTime;
 	public UnloadShooter() {
 		requires(Robot.shooter);
 		requires(Robot.intake);		
 	}
 	@Override
 	protected void initialize() {
-		Robot.logger.logInfo("Unloading shooter");
-		if(Robot.shooter.hasBall()) {
-			Robot.shooter.shooterIntakeReverse();
-			Robot.intake.intakeUp();		
-			Robot.intake.intakeIn(1);
-			Robot.logger.logInfo("Ball found in robot. Proceeding");
-		}
-		else {
-			Robot.logger.logInfo("Ball not found in robot. Proceeding");
-		}
+		double startTime = Timer.getFPGATimestamp();
+		Robot.intake.intakeUp();	
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
+		Robot.shooter.shooterIntakeReverse();
+		Robot.intake.intakeIn(1);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.getIntakeSensor();
+		return (Timer.getFPGATimestamp() - startTime) > 0.7;
 	}
 
 	@Override

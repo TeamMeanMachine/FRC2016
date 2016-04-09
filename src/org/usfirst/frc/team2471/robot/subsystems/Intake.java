@@ -5,6 +5,7 @@ import org.usfirst.frc.team2471.robot.RobotMap;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake extends Subsystem{
 	
@@ -45,7 +46,8 @@ public class Intake extends Subsystem{
 	}
 	
 	public boolean getIntakeSensor() {
-		return !RobotMap.ballInSensor.get();
+//		return !RobotMap.ballInSensor2.get();
+		return RobotMap.intakeUltrasonic.getVoltage() < 0.07 || RobotMap.intakeUltrasonic.getVoltage() >= 0.12;
 	}
 	
 	public boolean getBallState() {

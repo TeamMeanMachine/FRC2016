@@ -2,10 +2,11 @@ package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SpitBall extends Command {
-	long endTime;
+	double startTime;
 	
 	public SpitBall() {
 		requires(Robot.intake);		
@@ -13,28 +14,18 @@ public class SpitBall extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.logger.logInfo("Spitting ball");
 		Robot.intake.intakeStop();
-		if(Robot.intake.getIntakeSensor()) {
-			Robot.intake.intakeDown();	
-			Robot.logger.logInfo("Ball found in intake. Spitting out ball");
-		}
-		else {
-			Robot.logger.logWarning("Ball not found in intake!");
-		}
-		this.endTime = System.currentTimeMillis() + 500; // Run intake after .5 seconds
+		Robot.intake.intakeDown();	
 	}
 
 	@Override
 	protected void execute() {
-		if(System.currentTimeMillis() > endTime) {
-			Robot.intake.intakeOut(1.0);
-		}
+		Robot.intake.intakeOut(.7);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.getBallState();
+		return (Timer.getFPGATimestamp() - startTime) > .7;
 	}
 
 	@Override

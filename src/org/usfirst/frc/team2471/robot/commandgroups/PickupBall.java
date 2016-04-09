@@ -32,10 +32,10 @@ public class PickupBall extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new IntakeDown());
-    	addParallel(new RumbleJoystick(0.5, OI.driverStick));
+    	/*//addParallel(new RumbleJoystick(0.5, OI.driverStick));
     	addSequential(new CenterBall());
     	addSequential(new MicroBallHelper());
     	addSequential(new MicroBallHelper());
-    	addSequential(new QueueShot());
+    	addSequential(new QueueShot());*/
     }
 }

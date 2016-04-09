@@ -90,7 +90,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("DefenseArmClimb", prefs.getDouble("DefenseArmClimb", 107.0));
 		SmartDashboard.putBoolean("IntelVision", prefs.getBoolean("IntelVision", true));
 		SmartDashboard.putNumber("UltrasonicLimit", prefs.getDouble("UltrasonicLimit", 0.1));
+		SmartDashboard.putNumber("BallUltrasonicLimit", prefs.getDouble("BallUltrasonicLimit", 0.1));
 		SmartDashboard.putNumber("ClimbForwardPower", prefs.getDouble("ClimbForwardPower", 0.15));
+		SmartDashboard.putBoolean("ManualIntake", prefs.getBoolean("ManualIntake", false));
 		
 		oi = new OI();
 		
@@ -113,7 +115,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Defense Arm Position", Robot.defenseArm.voltageToAngle(RobotMap.magnepotArm.getVoltage()));
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 
-	
+		SmartDashboard.putNumber("IntakeUltrasonic", RobotMap.intakeUltrasonic.getVoltage());
+		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getVoltage());
+        SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
 	}
 
     @Override
@@ -146,6 +150,7 @@ public class Robot extends IterativeRobot {
         defenseArm.setTargetAngle(defenseArm.getPosition());
         drive.resetEncoders();
 		Robot.climbing = false;
+		RobotMap.gyro.reset();
     }
 
     /**
@@ -167,7 +172,9 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("DefenseArmClimb", SmartDashboard.getNumber("DefenseArmClimb"));
     	prefs.putBoolean("IntelVision", SmartDashboard.getBoolean("IntelVision"));
     	prefs.putDouble("UltrasonicLimit", SmartDashboard.getNumber("UltrasonicLimit"));
+    	prefs.putDouble("BallUltrasonicLimit", SmartDashboard.getNumber("BallUltrasonicLimit"));
     	prefs.putDouble("ClimbForwardPower", SmartDashboard.getNumber("ClimbForwardPower"));
+    	prefs.putBoolean("ManualIntake", SmartDashboard.getBoolean("ManualIntake"));
     	System.out.println("Saved prefs.");
     }
 
@@ -188,11 +195,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("At Pressure", pressure > 55.0);
 		SmartDashboard.putNumber("Pressure", pressure);
 		
-		ColorSensor.ColorData color = RobotMap.colorSensor.getRawData();
-		SmartDashboard.putNumber("Red", color.r);
-		SmartDashboard.putNumber("Green", color.g);
-		SmartDashboard.putNumber("Blue", color.b);
-		SmartDashboard.putNumber("Ultrasonic", RobotMap.ultrasonicSensor.getVoltage());
+		
+		SmartDashboard.putNumber("IntakeUltrasonic", RobotMap.intakeUltrasonic.getVoltage());
+		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getVoltage());
     }
     
     /**

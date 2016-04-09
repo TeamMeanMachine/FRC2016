@@ -25,7 +25,7 @@ public class SuckUpBall extends Command {
 	@Override
 	protected void execute() {
 		Robot.intake.intakeIn(1.0);
-		if(!ballIn && RobotMap.ballInSensor.get() == false) {
+		if(!ballIn && Robot.intake.getIntakeSensor()) {
 			ballInTime = Timer.getFPGATimestamp();
 			ballIn = true;
 		}

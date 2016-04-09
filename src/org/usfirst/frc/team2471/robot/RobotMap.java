@@ -27,7 +27,8 @@ public class RobotMap {
     private static CANTalon leftSlave, leftMaster;
     public static CANTalon leftDrive;
     
-    public static AnalogInput ultrasonicSensor; 
+    public static AnalogInput intakeUltrasonic;
+    public static AnalogInput backupUltrasonic; 
     
     private static CANTalon rightSlave, rightMaster;
     public static CANTalon rightDrive;
@@ -64,7 +65,8 @@ public class RobotMap {
     
     public static AnalogInput magnepotArm;
     
-    public static DigitalInput ballInSensor;
+    public static DigitalInput ballInSensor1;
+    public static DigitalInput ballInSensor2;
     public static AnalogGyro gyro; 
     public static BuiltInAccelerometer accelerometer;
     
@@ -72,13 +74,13 @@ public class RobotMap {
     
     public static double accelDownX, accelDownY, accelDownZ;
     
-    public static ColorSensor colorSensor;
     public static PressureSensor pressureSensor;
     
     public static VisionProcessor vision;
     
     public static void init(){
-    	ultrasonicSensor = new AnalogInput(3);
+    	intakeUltrasonic = new AnalogInput(3);
+    	backupUltrasonic = new AnalogInput(4);
     	
     	aimer = new CANTalon(13);
     	
@@ -122,7 +124,8 @@ public class RobotMap {
     	ballSensorShooter = new DigitalInput(1);
     	
     	rollerIntake = new CANTalon(9);
-    	ballInSensor = new DigitalInput(0);
+    	ballInSensor1 = new DigitalInput(0);
+    	ballInSensor2 = new DigitalInput(2);
     	
     	defenseArmLeft = new CANTalon(8);
     	defenseArm = defenseArmLeft;
@@ -162,7 +165,7 @@ public class RobotMap {
         
         pressureSensor = new PressureSensor(2);
         
-        colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_16X);
+//        colorSensor = new ColorSensor(2, ColorSensor.IntegrationTime.TCS34725_INTEGRATIONTIME_2_4MS, ColorSensor.SensorGain.TCS34725_GAIN_16X);
         
 //        vision = new VisionProcessor();
 //        vision.start();

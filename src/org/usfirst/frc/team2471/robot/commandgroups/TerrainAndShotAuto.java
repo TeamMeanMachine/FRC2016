@@ -2,6 +2,7 @@ package org.usfirst.frc.team2471.robot.commandgroups;
 
 import org.usfirst.frc.team2471.robot.commands.Aim2;
 import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
+import org.usfirst.frc.team2471.robot.commands.DriveUntilUltrasonic;
 import org.usfirst.frc.team2471.robot.commands.QueueShot;
 import org.usfirst.frc.team2471.robot.commands.ResetGyroCommand;
 import org.usfirst.frc.team2471.robot.commands.RingLightCommand;
@@ -25,6 +26,8 @@ public class TerrainAndShotAuto extends CommandGroup {
     	addParallel(new QueueShot());
     	addSequential(new DriveDistanceCommand(12, 0, 0.9)); //Changed from 
     	addSequential(new DriveDistanceCommand(4, 0, 0.4));
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new DriveDistanceCommand(2, 0.0, -0.4));
     	addSequential(new RotateArmToAngle(0.0));
     	addSequential(new WaitCommand(1.0));
 
@@ -38,7 +41,7 @@ public class TerrainAndShotAuto extends CommandGroup {
     	addSequential(new RotateToAngle(0, 0.5, 5.0));
     	//addSequential(new DriveDistanceCommand(10, 0, -0.7));
     	 */
-
+    	addSequential(new DriveUntilUltrasonic(.4), 1.5);
     	addSequential(new AimAndShootGroup(true));
     	
     	addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));

@@ -3,10 +3,13 @@ package org.usfirst.frc.team2471.robot;
 import org.usfirst.frc.team2471.robot.commandgroups.AimGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
+import org.usfirst.frc.team2471.robot.commandgroups.PickupBallManual;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
 import org.usfirst.frc.team2471.robot.commands.CancelAuto;
+import org.usfirst.frc.team2471.robot.commands.DriveUntilUltrasonic;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
+import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
@@ -59,7 +62,8 @@ public class OI {
 	public static JoystickButton sallyPortInit;
 	public static JoystickButton drawbridgeHelper;
 	public static JoystickButton driverLight;
-	
+	public static JoystickButton manualSuck;
+	public static JoystickButton backupUltrasonic;
 	
 	public OI(){
 		driverStick = new Joystick(0);
@@ -75,14 +79,14 @@ public class OI {
 		fireButton.whenPressed(new Shoot());
 		
 		suckIn = new JoystickButton(driverStick, 6);
-		suckIn.whenPressed(new PickupBall());
+		suckIn.whenPressed(new PickUpBallAuto());
 		suckIn.whenReleased(new StopBallIntake());
 		
 		sallyPort = new JoystickButton(coStick, 4);
 		sallyPort.whenPressed(new SallyPortPreset());
 		
 		emergencySpit = new JoystickButton(driverStick, 8);
-		emergencySpit.whileHeld(new ReleaseBall());
+		emergencySpit.whenPressed(new ReleaseBall());
 		
 /*		backUntilTilted = new JoystickButton(driverStick, 7);
 		backUntilTilted.whenPressed(new BackUntilOuterWorks());*/
@@ -100,6 +104,13 @@ public class OI {
 		
 		driverLight = new JoystickButton(driverStick, 7);
 		driverLight.whenPressed(new LightAction());
+		
+		manualSuck = new JoystickButton(driverStick, 1);
+		manualSuck.whenPressed(new PickupBallManual());
+		
+		backupUltrasonic = new JoystickButton(driverStick, 5);
+		backupUltrasonic.whenPressed(new DriveUntilUltrasonic(.4));
+			
 	}
 }
 

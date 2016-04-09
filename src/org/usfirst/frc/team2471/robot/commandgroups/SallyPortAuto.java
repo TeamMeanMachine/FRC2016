@@ -35,7 +35,8 @@ public class SallyPortAuto extends CommandGroup {
     	addSequential(new RotateToAngle( 0.0, 0.5, 2.0 ));
     	addSequential(new DriveDistanceCommand(8, 0, 0.7));
     	addSequential(new WaitCommand(0.5));
-    	   	
+    	
+    	addSequential(new DriveUntilUltrasonic(.4), 1.5);
     	addSequential(new AimAndShootGroup(true));
     	
     	addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));

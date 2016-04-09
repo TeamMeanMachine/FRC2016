@@ -4,6 +4,7 @@ import org.usfirst.frc.team2471.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -30,7 +31,11 @@ public class BallSpit extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !Robot.intake.getIntakeSensor() && (Timer.getFPGATimestamp() - startTime > 0.2);
+    	if(SmartDashboard.getBoolean("ManualIntake", false)) {
+    		return (Timer.getFPGATimestamp() - startTime > 0.2);
+    	} else {
+    		return Robot.intake.getIntakeSensor() == false && Timer.getFPGATimestamp() - startTime > 0.2;
+    	}
     }
 
     // Called once after isFinished returns true

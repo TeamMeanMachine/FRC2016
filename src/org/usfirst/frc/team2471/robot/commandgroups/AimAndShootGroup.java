@@ -15,7 +15,7 @@ public class AimAndShootGroup extends CommandGroup {
     
     public  AimAndShootGroup(boolean finishOnTarget) {
     	
-    	addSequential( new DriveUntilUltrasonic(0.3), 5.0 );
+    	//addSequential( new DriveUntilUltrasonic(0.3), 5.0 );
     	addSequential( new StartShooter() );
     	addSequential( new RotateArmToAngle(-5.0));
     	
