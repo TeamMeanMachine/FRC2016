@@ -4,6 +4,7 @@ import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
+import org.usfirst.frc.team2471.robot.commandgroups.ArmClimb;
 import org.usfirst.frc.team2471.robot.commands.DriveLoop;
 import org.usfirst.frc.team2471.robot.commands.RumbleJoystick;
 
@@ -189,11 +190,15 @@ public class Drive extends Subsystem {
 		}
 		else {
 			RobotMap.ratchet.set(true);
-			Robot.climbing = true;
+			if (!Robot.climbing){
+				Robot.climbing = true;
+				new ArmClimb().start();
+			}
 			forward = SmartDashboard.getNumber("ClimbForwardPower", 0.15);
 			rightDrive.set( forward );
 			leftDrive.set( -(forward) );
-			Robot.defenseArm.setTargetAngle(SmartDashboard.getNumber("DefenseArmClimb", 107.0));
+			//Robot.defenseArm.setTargetAngle(SmartDashboard.getNumber("DefenseArmClimb", 107.0));
+			
 		}
 		Robot.drive.setLiftExtension(extendPower * 0.75);
 	}

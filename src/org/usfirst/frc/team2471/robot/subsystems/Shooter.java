@@ -178,6 +178,10 @@ public class Shooter extends Subsystem{
 		intakeMotor.set(-0.8);
 	}
 	
+	public void variableQueue(double power){
+		intakeMotor.set(-power);
+	}
+	
 	public void shooterIntakeOff() {
 		System.out.println("Intake Off2");
 		intakeMotor.set(0.0);

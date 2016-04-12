@@ -161,7 +161,7 @@ public class RobotMap {
         compressor = new Compressor();
         
         ratchet = new Solenoid(7);
-        ratchet.set(true);
+        ratchet.set(false);
         
         pressureSensor = new PressureSensor(2);
         

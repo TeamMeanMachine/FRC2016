@@ -20,12 +20,12 @@ public class SpitBall extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.intake.intakeOut(.7);
+		Robot.intake.intakeOut(0.7);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return (Timer.getFPGATimestamp() - startTime) > .7;
+		return (Timer.getFPGATimestamp() - startTime) > 0.7;
 	}
 
 	@Override

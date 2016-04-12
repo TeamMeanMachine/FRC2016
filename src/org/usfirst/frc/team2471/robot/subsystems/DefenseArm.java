@@ -74,7 +74,7 @@ public class DefenseArm extends PIDSubsystem{
 		double minAngle = SmartDashboard.getNumber("DefenseArmMin", -13.0);
 		double maxAngle;
 		if (Robot.climbing) {
-			maxAngle = SmartDashboard.getNumber("DefenseArmClimb", 107.0);
+			maxAngle = SmartDashboard.getNumber("SuperMaxArmLimit", 95.0);
 		}
 		else {
 			maxAngle = SmartDashboard.getNumber("DefenseArmMax", 77.0);
