@@ -2,7 +2,6 @@ package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
-import org.usfirst.frc.team2471.robot.commandgroups.IntakeAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBallManual;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,7 +18,7 @@ public class IntakeDown extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (RobotMap.ballSensorShooter.get()==true) {
+    	if (RobotMap.shooterBallSensor.get()==true) {
 	    	Robot.intake.intakeDown();
 	    	Robot.intake.intakeIn(1.0);
     	}

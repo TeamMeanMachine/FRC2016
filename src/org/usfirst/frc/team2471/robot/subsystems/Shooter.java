@@ -3,7 +3,6 @@ package org.usfirst.frc.team2471.robot.subsystems;
 import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
-import org.usfirst.frc.team2471.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -34,7 +33,7 @@ public class Shooter extends Subsystem{
 		topMotor = RobotMap.shootMotorTop;
 		bottomMotor = RobotMap.shootMotorBottom;
 		intakeMotor = RobotMap.shootIntake;
-		ballSensor = RobotMap.ballSensorShooter;
+		ballSensor = RobotMap.shooterBallSensor;
 		
 		topController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new topSource(), new topOutput());
 		bottomController = new PIDController(Constants.SHOOTER_P, Constants.SHOOTER_I, Constants.SHOOTER_D, 0, new bottomSource(), new bottomOutput());
@@ -171,11 +170,11 @@ public class Shooter extends Subsystem{
 	
 	public void shooterIntakeOn() {
 		if(Math.abs(topController.getError()) < 500 && Math.abs(bottomController.getError()) < 500)
-			intakeMotor.set(-0.8);
+			intakeMotor.set(-0.6);
 	}
 	
 	public void queueIntake() {
-		intakeMotor.set(-0.8);
+		intakeMotor.set(-0.5);
 	}
 	
 	public void variableQueue(double power){

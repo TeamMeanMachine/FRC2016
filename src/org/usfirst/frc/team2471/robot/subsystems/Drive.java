@@ -6,7 +6,6 @@ import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commandgroups.ArmClimb;
 import org.usfirst.frc.team2471.robot.commands.DriveLoop;
-import org.usfirst.frc.team2471.robot.commands.RumbleJoystick;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
@@ -124,7 +123,6 @@ public class Drive extends Subsystem {
 		return ( rightDrive.getPosition() - leftDrive.getPosition() ) / 2.0;
 	}
 	
-	// Note: I moved all of the stuff here from DriveLoop so I didn't have to copy and paste when I made the DriveFrontBackOnly command
 	public void setPower(double forward, double turn) {
 		double deadband = 0.20;
 		if (turn <= deadband && turn >= -deadband){

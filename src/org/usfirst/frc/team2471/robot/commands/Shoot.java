@@ -35,7 +35,7 @@ public class Shoot extends Command {
 			case ballInShooter:
 				Robot.shooter.shootLogic();
 				Robot.shooter.shooterIntakeOn();
-				if(RobotMap.ballSensorShooter.get() == true) {
+				if(RobotMap.shooterBallSensor.get() == true) {
 					state = BallState.shot;
 					shotTime = Timer.getFPGATimestamp();
 				}

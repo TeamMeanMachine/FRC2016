@@ -1,14 +1,18 @@
 package org.usfirst.frc.team2471.robot.commandgroups;
 
+import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
 import org.usfirst.frc.team2471.robot.commands.DriveUntilUltrasonic;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BackUntilOuterWorks extends CommandGroup {
     
-    public  BackUntilOuterWorks() {
-//    	addSequential(new DriveUntilColor(64, 60, 40, -0.5));
-//    	addSequential(new DriveUntilColor(57, 56, 38 ,0.5));
-    	addSequential(new DriveUntilUltrasonic(0.3));
+    public BackUntilOuterWorks(double power) {
+    	double ultrasonicLimit = SmartDashboard.getNumber("UltrasonicLimit", 5);
+    	addSequential(new DriveUntilUltrasonic(-power, ultrasonicLimit, true));
+//    	addSequential(new DriveUntilUltrasonic(0.3, ultrasonicLimit, false));
+    	addSequential(new DriveDistanceCommand(1.5/12, 0, 0.3));
+    	
     }
 }

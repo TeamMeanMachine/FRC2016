@@ -1,25 +1,28 @@
 package org.usfirst.frc.team2471.robot.commands;
-import org.usfirst.frc.team2471.robot.ColorSensor;
+import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveUntilUltrasonic extends Command {
 
 	double power;
+	double threshold;
+	boolean lessThan;
 	
-    public DriveUntilUltrasonic(double _power) {
+	
+    public DriveUntilUltrasonic(double power, double threshold, boolean lessThan) {
         requires(Robot.drive);
-        
-        power = _power;
+        this.power = power;
+        this.threshold = threshold;
+        this.lessThan = lessThan;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	if(!isFinished())
-    		Robot.drive.setSpeed(0, -power);
+    		Robot.drive.setSpeed(0, power);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,8 +31,13 @@ public class DriveUntilUltrasonic extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	double ultrasonicLimit = SmartDashboard.getNumber("UltrasonicLimit",0.1);
-    	return RobotMap.backupUltrasonic.getVoltage() <= ultrasonicLimit || isTimedOut() || (Robot.oi.driverStick.getRawAxis(1) < -.3);
+    	if(lessThan) {
+    		return RobotMap.backupUltrasonic.getRangeInches() <= threshold || isTimedOut() || Math.abs(OI.driverStick.getRawAxis(1)) > 0.3;
+    	}
+    	else {
+    		return RobotMap.backupUltrasonic.getRangeInches() >= threshold || isTimedOut() || Math.abs(OI.driverStick.getRawAxis(1)) > 0.3;
+    	}
+    	
     }
 
     // Called once after isFinished returns true

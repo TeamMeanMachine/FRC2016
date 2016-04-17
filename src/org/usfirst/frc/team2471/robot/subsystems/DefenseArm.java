@@ -34,7 +34,7 @@ public class DefenseArm extends PIDSubsystem{
 	}
 	
 	public void rotate(double power) {
-		if(RobotMap.pdp.getCurrent(8) <= 30 && RobotMap.pdp.getCurrent(7) <= 30) {
+		if(RobotMap.pdp.getCurrent(8) <= 40 && RobotMap.pdp.getCurrent(7) <= 40) {
 			armMotor.set(power);
 		}
 		else {

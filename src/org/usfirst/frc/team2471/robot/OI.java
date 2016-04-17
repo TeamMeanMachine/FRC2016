@@ -1,18 +1,20 @@
 package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.robot.commandgroups.AimGroup;
+import org.usfirst.frc.team2471.robot.commandgroups.BackUntilOuterWorks;
+import org.usfirst.frc.team2471.robot.commandgroups.ChevalHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeHelper;
-import org.usfirst.frc.team2471.robot.commandgroups.PickupBall;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBallManual;
+import org.usfirst.frc.team2471.robot.commandgroups.PortcullisHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
 import org.usfirst.frc.team2471.robot.commands.CancelAuto;
-import org.usfirst.frc.team2471.robot.commands.DriveUntilUltrasonic;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
+import org.usfirst.frc.team2471.util.JoystickPOVButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -59,11 +61,15 @@ public class OI {
 	public static JoystickButton emergencySpit;
 	public static JoystickButton backUntilTilted;
 	public static JoystickButton helperSequence;
-	public static JoystickButton sallyPortInit;
-	public static JoystickButton drawbridgeHelper;
 	public static JoystickButton driverLight;
 	public static JoystickButton manualSuck;
 	public static JoystickButton backupUltrasonic;
+	public static JoystickButton cancelAuto;
+
+	public static JoystickPOVButton sallyPortHelper;
+	public static JoystickPOVButton drawbridgeHelper;
+	public static JoystickPOVButton chevalHelper;
+	public static JoystickPOVButton portcullisHelper;
 	
 	public OI(){
 		driverStick = new Joystick(0);
@@ -93,23 +99,34 @@ public class OI {
 		
 		helperSequence = new JoystickButton(driverStick, 2);
 		
-		sallyPortInit = new JoystickButton(driverStick, 3);
-		sallyPortInit.whenPressed(new SallyPortHelper());
+
+
+		cancelAuto = new JoystickButton(driverStick, 9);
+		cancelAuto.whenPressed(new CancelAuto());
 		
-		drawbridgeHelper = new JoystickButton(driverStick, 4);
-		drawbridgeHelper.whenPressed(new DrawBridgeHelper());
-		
-		drawbridgeHelper = new JoystickButton(driverStick, 2);
-		drawbridgeHelper.whenPressed(new CancelAuto());
-		
-		driverLight = new JoystickButton(driverStick, 7);
+		driverLight = new JoystickButton(driverStick, 4);
 		driverLight.whenPressed(new LightAction());
 		
 		manualSuck = new JoystickButton(driverStick, 1);
 		manualSuck.whenPressed(new PickupBallManual());
 		
-		backupUltrasonic = new JoystickButton(driverStick, 5);
-		backupUltrasonic.whenPressed(new DriveUntilUltrasonic(.4));
+		backupUltrasonic = new JoystickButton(driverStick, 7);
+		backupUltrasonic.whenPressed(new BackUntilOuterWorks(0.4));
+		
+		
+		sallyPortHelper = new JoystickPOVButton(driverStick, 0);
+		sallyPortHelper.whenPressed(new SallyPortHelper());
+
+		drawbridgeHelper = new JoystickPOVButton(driverStick, 90);
+		drawbridgeHelper.whenPressed(new DrawBridgeHelper());		
+		
+		chevalHelper = new JoystickPOVButton(driverStick, 180);
+		chevalHelper.whenPressed(new ChevalHelper());
+		
+		portcullisHelper = new JoystickPOVButton(driverStick, 270);
+		portcullisHelper.whenPressed(new PortcullisHelper());
+		
+		
 			
 	}
 }

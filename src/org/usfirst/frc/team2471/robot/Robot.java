@@ -1,8 +1,9 @@
 
 package org.usfirst.frc.team2471.robot;
 
-import org.opencv.core.Core;
+import org.usfirst.frc.team2471.robot.commandgroups.ChevalAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeAuto;
+import org.usfirst.frc.team2471.robot.commandgroups.PortcullisAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShotAuto;
 import org.usfirst.frc.team2471.robot.commands.DoNothingAuto;
@@ -103,6 +104,8 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Don't Move", new DoNothingAuto());
         autoChooser.addObject("Sally Port", new SallyPortAuto());
         autoChooser.addObject("Draw Bridge", new DrawBridgeAuto());
+        autoChooser.addObject("Chival de Frise", new ChevalAuto());
+        autoChooser.addObject("Portcullis", new PortcullisAuto());
         SmartDashboard.putData("AutoChooser", autoChooser);
         
         drive.resetEncoders();
@@ -116,8 +119,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Defense Arm Position", Robot.defenseArm.voltageToAngle(RobotMap.magnepotArm.getVoltage()));
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 
-		SmartDashboard.putNumber("IntakeUltrasonic", RobotMap.intakeUltrasonic.getVoltage());
-		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getVoltage());
+		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getRangeInches());
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
 	}
 
@@ -197,9 +199,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("At Pressure", pressure > 55.0);
 		SmartDashboard.putNumber("Pressure", pressure);
 		
-		
-		SmartDashboard.putNumber("IntakeUltrasonic", RobotMap.intakeUltrasonic.getVoltage());
-		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getVoltage());
+		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getRangeInches());
     }
     
     /**

@@ -12,7 +12,7 @@ public class RotateArmToAngleWait extends RotateArmToAngle {
 	// Make this return true when this Command no longer needs to run execute()
     @Override
 	protected boolean isFinished() {
-        return Math.abs(Robot.defenseArm.getTargetError()) <= this.error;
+        return (Math.abs(Robot.defenseArm.getTargetError()) <= this.error) || isTimedOut();
     }
 
 }

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2471.robot;
 
-import org.team2471.vision.VisionProcessor;
-
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -12,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -27,8 +26,9 @@ public class RobotMap {
     private static CANTalon leftSlave, leftMaster;
     public static CANTalon leftDrive;
     
-    public static AnalogInput intakeUltrasonic;
-    public static AnalogInput backupUltrasonic; 
+//    public static AnalogInput backupUltrasonic;
+    public static Ultrasonic backupUltrasonic;
+    
     
     private static CANTalon rightSlave, rightMaster;
     public static CANTalon rightDrive;
@@ -43,7 +43,7 @@ public class RobotMap {
     
 /*_____________________________Shooter____________________________________ */
     public static CANTalon shootMotorTop, shootMotorBottom, shootIntake;
-    public static DigitalInput ballSensorShooter;
+    public static DigitalInput shooterBallSensor;
     
 /*_________________________Aimer---------------------------------------*/
     public static CANTalon aimer;
@@ -54,6 +54,7 @@ public class RobotMap {
 /*_____________________________Intake____________________________________ */
     
     public static CANTalon rollerIntake;
+    public static DigitalInput intakeBallSensor;
     
 /*______________________________Defense Arm_________________________________*/
     private static CANTalon defenseArmLeft, defenseArmRight;
@@ -65,8 +66,6 @@ public class RobotMap {
     
     public static AnalogInput magnepotArm;
     
-    public static DigitalInput ballInSensor1;
-    public static DigitalInput ballInSensor2;
     public static AnalogGyro gyro; 
     public static BuiltInAccelerometer accelerometer;
     
@@ -76,11 +75,10 @@ public class RobotMap {
     
     public static PressureSensor pressureSensor;
     
-    public static VisionProcessor vision;
-    
     public static void init(){
-    	intakeUltrasonic = new AnalogInput(3);
-    	backupUltrasonic = new AnalogInput(4);
+//    	backupUltrasonic = new AnalogInput(4);
+    	backupUltrasonic = new Ultrasonic(3, 2);
+    	backupUltrasonic.setAutomaticMode(true);
     	
     	aimer = new CANTalon(13);
     	
@@ -121,11 +119,10 @@ public class RobotMap {
     	shootMotorTop = new CANTalon(2);
     	shootMotorBottom = new CANTalon(3);
     	shootIntake = new CANTalon(6);
-    	ballSensorShooter = new DigitalInput(1);
+    	shooterBallSensor = new DigitalInput(1);
     	
     	rollerIntake = new CANTalon(9);
-    	ballInSensor1 = new DigitalInput(0);
-    	ballInSensor2 = new DigitalInput(2);
+    	intakeBallSensor = new DigitalInput(0);
     	
     	defenseArmLeft = new CANTalon(8);
     	defenseArm = defenseArmLeft;

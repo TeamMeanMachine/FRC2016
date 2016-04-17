@@ -1,8 +1,6 @@
 package org.usfirst.frc.team2471.util;
 
 import java.io.Closeable;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;

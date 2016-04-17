@@ -1,11 +1,6 @@
 package org.usfirst.frc.team2471.robot.commandgroups;
 
-import org.usfirst.frc.team2471.robot.OI;
-import org.usfirst.frc.team2471.robot.commands.CenterBall;
-import org.usfirst.frc.team2471.robot.commands.Delay;
 import org.usfirst.frc.team2471.robot.commands.IntakeDown;
-import org.usfirst.frc.team2471.robot.commands.QueueShot;
-import org.usfirst.frc.team2471.robot.commands.RumbleJoystick;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
