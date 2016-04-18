@@ -178,7 +178,7 @@ public class Drive extends Subsystem {
 			Robot.drive.setSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
 		}
 		else if(Robot.DEBUGMODE) {
-			Robot.logger.logSevere("Robot tried to drive when the aim dropper is down! This should never happen.");
+			Robot.logger.logWarning("Robot tried to drive when the aim dropper is down");
 		}
 		
 		// Climb extension stuff

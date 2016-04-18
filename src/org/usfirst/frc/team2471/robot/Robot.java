@@ -96,6 +96,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("ManualIntake", prefs.getBoolean("ManualIntake", false));
 		SmartDashboard.putNumber("SuperMaxArmLimit", prefs.getDouble("SuperMaxArmLimit", 95));
 		
+		SmartDashboard.putBoolean("RumbleHasBlob", false);
+		SmartDashboard.putBoolean("RumbleAimOnTarget", false);
+		SmartDashboard.putBoolean("RumbleHasPressure", false);
+		SmartDashboard.putBoolean("RumbleTopError", false);
+		SmartDashboard.putBoolean("RumbleBottomErrror", false);
+		SmartDashboard.putBoolean("Rumble", false);
+		
 		oi = new OI();
 		
         //Here is the Sendable for the autonomous command
@@ -196,7 +203,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("CompressorCurrent", RobotMap.compressor.getCompressorCurrent());
         
         double pressure = RobotMap.pressureSensor.getPressure();
-        SmartDashboard.putBoolean("At Pressure", pressure > 55.0);
 		SmartDashboard.putNumber("Pressure", pressure);
 		
 		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getRangeInches());

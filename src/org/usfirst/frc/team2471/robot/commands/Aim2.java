@@ -14,12 +14,12 @@ public class Aim2 extends PIDCommand {
 	private boolean targetFound;
 	private int onTargetCount;
 	private boolean finishOnTarget;
-	
+
 	public Aim2(boolean _finishOnTarget) {
 		super(Constants.AIM_2_P, Constants.AIM_2_I, Constants.AIM_2_D);
 		requires(Robot.drive);
 		requires(Robot.shooter);
-		
+
 		aimController = getPIDController();
 		SmartDashboard.putData("Aim2 PID", aimController);
 		finishOnTarget = _finishOnTarget;
@@ -30,60 +30,78 @@ public class Aim2 extends PIDCommand {
 		targetFound = false;
 		aimController.disable();
 		onTargetCount = 0;
-		
-//		if (SmartDashboard.getBoolean("AutoAim") && !SmartDashboard.getBoolean("IntelVision")) {
-//			RobotMap.vision.resume();
-//			System.out.println("Vision Resumed");
-//		}
+
+		// if (SmartDashboard.getBoolean("AutoAim") &&
+		// !SmartDashboard.getBoolean("IntelVision")) {
+		// RobotMap.vision.resume();
+		// System.out.println("Vision Resumed");
+		// }
 	}
 
 	@Override
-	protected void execute() {		
+	protected void execute() {
 		if (SmartDashboard.getBoolean("AutoAim")) {
-			if(SmartDashboard.getBoolean("IntelVision")) {
-				if(!targetFound && SmartDashboard.getNumber("BLOB_COUNT",0) > 0) {
+			if (SmartDashboard.getBoolean("IntelVision")) {
+				if (!targetFound && SmartDashboard.getNumber("BLOB_COUNT", 0) > 0) {
 					targetFound = true;
 					aimController.enable();
+//					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
 				}
-				if(targetFound) {
-					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET",0));
+				if (targetFound) {
+					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
 				}
-				//if(Math.abs(aimController.getError()) < 0.5 && RobotMap.pressureSensor.getPressure() > 55.0) {
-				if(Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 10.0 &&
-						SmartDashboard.getNumber("BLOB_COUNT", 0.0) > 0.0 &&
-						RobotMap.pressureSensor.getPressure() > 52.0 &&
-						Math.abs(RobotMap.shootMotorBottom.getError()) < 25.0 &&
-						Math.abs(RobotMap.shootMotorTop.getError()) < 25.0 ) {
+				
+				SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
+
+				// Rumble stuff
+				boolean rumbleHasBlob = SmartDashboard.getNumber("BLOB_COUNT", 0.0) > 0.0;
+				boolean rumbleAimOnTarget = Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 10.0;
+				boolean rumbleHasPressure = RobotMap.pressureSensor.getPressure() > 52.0;
+				boolean rumbleTopError = Math.abs(RobotMap.shootMotorTop.getError()) < 15.0;
+				boolean rumbleBottomError = Math.abs(RobotMap.shootMotorBottom.getError()) < 15.0;
+				SmartDashboard.putBoolean("RumbleHasBlob", rumbleHasBlob);
+				SmartDashboard.putBoolean("RumbleAimOnTarget", rumbleAimOnTarget);
+				SmartDashboard.putBoolean("RumbleHasPressure", rumbleHasPressure);
+				SmartDashboard.putBoolean("RumbleTopError", rumbleTopError);
+				SmartDashboard.putBoolean("RumbleBottomError", rumbleBottomError);
+
+				if (rumbleHasBlob
+						&& rumbleAimOnTarget
+						&& rumbleHasPressure
+						&& rumbleTopError
+						&& rumbleBottomError) {
 					new RumbleJoystick(0.5, OI.coStick).start();
+					SmartDashboard.putBoolean("Rumble", true);
 					onTargetCount++;
 				}
 				SmartDashboard.putNumber("Aim Error", aimController.getError());
+			} else {
+				SmartDashboard.putBoolean("Rumble", false);
+				// if(!targetFound && RobotMap.vision.getBlobCount() > 0) {
+				// targetFound = true;
+				// aimController.enable();
+				// }
+				// if(targetFound) {
+				// setSetpoint(RobotMap.vision.getGyroTarget());
+				// }
+				// if(Math.abs(aimController.getError()) < 0.5) {// &&
+				// RobotMap.pressureSensor.getPressure() > 55.0) {
+				// new RumbleJoystick(0.5, OI.coStick).start();
+				// onTargetCount++;
+				// }
+				// SmartDashboard.putNumber("Aim Error",
+				// aimController.getError());
 			}
-//			else {
-//				if(!targetFound && RobotMap.vision.getBlobCount() > 0) {
-//					targetFound = true;
-//					aimController.enable();
-//				}
-//				if(targetFound) {
-//					setSetpoint(RobotMap.vision.getGyroTarget());
-//				}
-//				if(Math.abs(aimController.getError()) < 0.5) {// && RobotMap.pressureSensor.getPressure() > 55.0) {
-//					new RumbleJoystick(0.5, OI.coStick).start();
-//					onTargetCount++;
-//				}
-//				SmartDashboard.putNumber("Aim Error", aimController.getError());
-//			}
-		}
-		else {
+		} else {
 			aimController.disable();
 			double leftRightValue = OI.coStick.getRawAxis(4);
 			double deadband = 0.2;
-			if (Math.abs(leftRightValue) < deadband)  // dead band for xbox
+			if (Math.abs(leftRightValue) < deadband) // dead band for xbox
 				leftRightValue = 0.0;
 			else
-				leftRightValue = (leftRightValue - Math.signum(leftRightValue)*deadband) / (1.0-deadband);
+				leftRightValue = (leftRightValue - Math.signum(leftRightValue) * deadband) / (1.0 - deadband);
 			Robot.drive.setAimerMotor(leftRightValue);
-			
+
 		}
 
 		Robot.drive.setAimDrop(true);
@@ -92,26 +110,32 @@ public class Aim2 extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		if(finishOnTarget) {
+		if (finishOnTarget) {
 			return onTargetCount > 50.0;
-		}
-		else {
+		} else {
 			return OI.coStick.getRawButton(2);
 		}
 	}
 
 	@Override
 	protected void end() {
-//		Robot.drive.setAimDrop(false);
+		// Robot.drive.setAimDrop(false);
 		aimController.disable();
-//		RobotMap.vision.suspend();
+		// RobotMap.vision.suspend();
+		
+		SmartDashboard.putBoolean("RumbleHasBlob", false);
+		SmartDashboard.putBoolean("RumbleAimOnTarget", false);
+		SmartDashboard.putBoolean("RumbleHasPressure", false);
+		SmartDashboard.putBoolean("RumbleTopError", false);
+		SmartDashboard.putBoolean("RumbleBottomError", false);
+		SmartDashboard.putBoolean("Rumble", false);
 	}
 
 	@Override
 	protected void interrupted() {
 		end();
 	}
-	
+
 	@Override
 	protected double returnPIDInput() {
 		return RobotMap.gyro.getAngle();
@@ -120,6 +144,6 @@ public class Aim2 extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		Robot.drive.setAimerMotor(output);
-		//Robot.drive.setSpeed(-output, 0.0);  // run the drivetrain instead
+		// Robot.drive.setSpeed(-output, 0.0); // run the drivetrain instead
 	}
 }

@@ -32,10 +32,14 @@ public class DriveUntilUltrasonic extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if(lessThan) {
-    		return RobotMap.backupUltrasonic.getRangeInches() <= threshold || isTimedOut() || Math.abs(OI.driverStick.getRawAxis(1)) > 0.3;
+    		return RobotMap.backupUltrasonic.getRangeInches() <= threshold || isTimedOut() 
+//    				|| Math.abs(OI.driverStick.getRawAxis(1)) > 0.3
+    				;
     	}
     	else {
-    		return RobotMap.backupUltrasonic.getRangeInches() >= threshold || isTimedOut() || Math.abs(OI.driverStick.getRawAxis(1)) > 0.3;
+    		return RobotMap.backupUltrasonic.getRangeInches() >= threshold || isTimedOut() 
+//    				|| Math.abs(OI.driverStick.getRawAxis(1)) > 0.3
+    				;
     	}
     	
     }

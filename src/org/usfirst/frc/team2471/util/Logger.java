@@ -6,12 +6,15 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Logger implements Closeable {
 //	private File logFile;
 	private PrintWriter logWriter;
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-hh.mm.ss");
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("hh.mm.ss");
+	private Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("PST"));
+		
 
 	public Logger(){
 		StringBuilder logFileNameBuilder = new StringBuilder("logs/LOG_");
@@ -34,11 +37,11 @@ public class Logger implements Closeable {
 //		} catch (FileNotFoundException e) {
 //			e.printStackTrace();
 //		}
-		logInfo("Logger initialized!");
+		logInfo("Logger Initialized");
 	}
 	
 	private String getTimestamp(boolean includeDate) {
-	    Date today = Calendar.getInstance().getTime();
+	    Date today = calendar.getTime();
 	    if(includeDate) {
 	    	return formatter.format(today);
 	    }
@@ -57,8 +60,8 @@ public class Logger implements Closeable {
 	public void logWarning(String message) {
 		logInfo("WARNING", message, true, true);
 	}
-	public void logSevere(String message) {
-		logInfo("SEVERE", message, true, true);
+	public void logError(String message) {
+		logInfo("ERROR", message, true, true);
 	}
 	
 	private void logInfo(String level, String message, boolean printToConsole, boolean writeToFile) {
