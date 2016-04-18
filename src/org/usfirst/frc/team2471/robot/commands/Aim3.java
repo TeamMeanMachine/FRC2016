@@ -21,7 +21,7 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 	private boolean findSample;
 	
 
-	public Aim3(boolean finishOnTarget) { // Boolean so compiler doesn't complain
+	public Aim3(boolean finishOnTarget) { // TODO: Use boolean
 		super(Constants.AIM_2_P, Constants.AIM_2_I, Constants.AIM_2_D);
 		requires(Robot.drive);
 		requires(Robot.shooter);
@@ -60,8 +60,7 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
@@ -69,12 +68,6 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 		// TODO Auto-generated method stub
 		
 	}
-
-	private void resetSampleTimer() {
-		findSample = true;
-		sampleTime = Timer.getFPGATimestamp() + 4;
-	}
-	
 	
 	@Override
 	protected double returnPIDInput() {
@@ -84,18 +77,22 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 	@Override
 	protected void usePIDOutput(double output) {
 		Robot.drive.setAimerMotor(output);
-		
-		
+	}
+
+	private void resetSampleTimer() {
+		findSample = true;
+		sampleTime = Timer.getFPGATimestamp() + 4;
 	}
 	
 	private void calcNewSample() {
+		findSample = false;
 		samples++;
 		Robot.logger.logInfo("Aiming with sample " + samples);
 		
 		if(SmartDashboard.getNumber("BLOB_COUNT") > 0.0) {
 			offsetAngle = SmartDashboard.getNumber("AIM_ERROR");
 			
-			if(getPIDController().onTarget()) { // If we are not in tolerance
+			if(!getPIDController().onTarget()) { 
 				setSetpoint(RobotMap.gyro.getAngle() + offsetAngle);
 			}
 			else {
@@ -103,7 +100,7 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 			}
 		}
 		else {
-			// TODO: Figure out what we want to do here
+			// TODO: Wait for blob instead of quitting
 			Robot.logger.logError("No blob found");
 			finished = true;
 		}
