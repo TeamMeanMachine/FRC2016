@@ -18,7 +18,6 @@ public class AimGroup extends CommandGroup {
     	addSequential( new RotateArmToAngle(-5.0));
     	
     	addSequential(new LogCommand("Before shoot"));
-    	addSequential( new Aim2(finishOnTarget));
     	addSequential(new LogCommand("After shoot"));
     	
     	addSequential( new WaitCommand(1.0));   	
