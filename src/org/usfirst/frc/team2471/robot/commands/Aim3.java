@@ -52,7 +52,7 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 				calcNewSample();
 			}
 		}
-		else if(getPIDController().onTarget() && !finished) {
+		else if(Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 1.0 && !finished) {
 			resetSampleTimer();
 		}
 		
@@ -99,7 +99,7 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 			Robot.logger.logDebug("Setting gyro to " + RobotMap.gyro.getAngle() + offsetAngle + "\nCurrent angle is " + RobotMap.gyro.getAngle());
 			setSetpoint(RobotMap.gyro.getAngle() + offsetAngle);
 			
-			if(getPIDController().onTarget()) {
+			if(Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 1.0) {
 				finished = true;
 				Robot.logger.logInfo("Robot is on target!");
 			}

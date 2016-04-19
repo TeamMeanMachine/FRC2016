@@ -1,14 +1,17 @@
 package org.usfirst.frc.team2471.robot;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
 
@@ -66,7 +69,9 @@ public class RobotMap {
     
     public static AnalogInput magnepotArm;
     
-    public static AnalogGyro gyro; 
+//    public static AnalogGyro gyro; 
+    public static AHRS gyro;
+    
     public static BuiltInAccelerometer accelerometer;
     
     public static Compressor compressor;
@@ -139,8 +144,16 @@ public class RobotMap {
     	
     	pdp = new PowerDistributionPanel(0);
     	
-    	gyro = new AnalogGyro(0);
-		gyro.initGyro();
+//    	gyro = new AnalogGyro(0);
+//		gyro.initGyro();
+        try {
+            /* Communicate w/navX MXP via the MXP SPI Bus.                                     */
+            /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
+            /* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
+            gyro = new AHRS(SPI.Port.kMXP);
+        } catch (RuntimeException ex ) {
+            DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+        }
 		
     	accelerometer = new BuiltInAccelerometer();
         accelDownX = accelerometer.getX();  // robot needs to be flat when this runs
