@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.util.TMMGyro;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -70,7 +72,7 @@ public class RobotMap {
     public static AnalogInput magnepotArm;
     
 //    public static AnalogGyro gyro; 
-    public static AHRS gyro;
+    public static TMMGyro gyro;
     
     public static BuiltInAccelerometer accelerometer;
     
@@ -149,8 +151,8 @@ public class RobotMap {
         try {
             /* Communicate w/navX MXP via the MXP SPI Bus.                                     */
             /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
-            /* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
-            gyro = new AHRS(SPI.Port.kMXP);
+            /* See http://navx-mxp..com/guidance/selecting-an-interface/ for details. */
+            gyro = new TMMGyro(SPI.Port.kOnboardCS0);
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
@@ -159,11 +161,10 @@ public class RobotMap {
         accelDownX = accelerometer.getX();  // robot needs to be flat when this runs
         accelDownY = accelerometer.getY();
         accelDownZ = accelerometer.getZ();
-        
+
         // normalize
         double length = Math.sqrt(accelDownX*accelDownX + accelDownY*accelDownY + accelDownZ*accelDownZ);
         if (length>0.0) {
-	        accelDownX /= length;
 	        accelDownY /= length;
 	        accelDownZ /= length;
         }

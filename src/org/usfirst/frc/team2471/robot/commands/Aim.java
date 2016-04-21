@@ -31,7 +31,7 @@ public class Aim extends PIDCommand {
 		try{
 			double blobCount = SmartDashboard.getNumber("BLOB_COUNT", -1.0d);
 			if (blobCount == -1.0d) {
-				System.out.println("Connection to compute stick failed");
+				Robot.logger.logError("Connection to compute stick failed");
 				input = -100;
 			}
 			if (blobCount > 0) {
@@ -43,7 +43,7 @@ public class Aim extends PIDCommand {
 			SmartDashboard.putNumber("Error", input);
 			return input;
 		} catch(Exception e){
-			System.out.println("Could not find Dashboard variable from Intel Stick");
+			Robot.logger.logError("Could not find Dashboard variable from Intel Stick");
 			return -100;
 		}
 		
@@ -58,7 +58,7 @@ public class Aim extends PIDCommand {
 	@Override
 	protected void initialize() {
 		Robot.drive.setAimDrop(true);
-		System.out.println("Aim");
+//		System.out.println("Aim");
 		onTargetCount = 0;
 	}
 
@@ -68,7 +68,7 @@ public class Aim extends PIDCommand {
 			setSetpoint(SmartDashboard.getNumber("AimChange"));
 		} catch (Exception e) {
 			setSetpoint(0.0);
-			System.out.println("Could not find Dashboard variable from Intel Stick");
+			Robot.logger.logError("Could not find Dashboard variable from Intel Stick");
 		}
 		
 		if (SmartDashboard.getBoolean("AutoAim")) {

@@ -19,7 +19,7 @@ public class RotateArmToAngle extends Command {
     // Called just before this Command runs the first time
     @Override
 	protected void initialize() {
-    	System.out.println("RotateArmToAngle Initialized");
+//    	System.out.println("RotateArmToAngle Initialized");
 		Robot.defenseArm.setTargetAngle(targetAngle);
     }
 
@@ -38,7 +38,7 @@ public class RotateArmToAngle extends Command {
     // Called once after isFinished returns true
     @Override
 	protected void end() {
-    	System.out.println("RotateArmToAngle Finished");
+//    	System.out.println("RotateArmToAngle Finished");
     }
 
     // Called when another command which requires one or more of the same

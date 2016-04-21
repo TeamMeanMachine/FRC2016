@@ -145,7 +145,7 @@ public class Drive extends Subsystem {
 		
 		boolean useGyro = SmartDashboard.getBoolean("UseGyro", false);
 		
-		final double FASTRATE = 350;  // TODO: determine how fast is fast
+		final double FASTRATE = 50;  // TODO: determine how fast is fast
 		
 		if (useGyro) {
 			Robot.drive.turnRateController.enable();
@@ -176,9 +176,6 @@ public class Drive extends Subsystem {
 				Robot.climbing = true;
 			}
 			Robot.drive.setSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
-		}
-		else if(Robot.DEBUGMODE) {
-			Robot.logger.logWarning("Robot tried to drive when the aim dropper is down");
 		}
 		
 		// Climb extension stuff

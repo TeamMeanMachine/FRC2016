@@ -27,6 +27,7 @@ public class Aim2 extends PIDCommand {
 
 	@Override
 	protected void initialize() {
+		Robot.logger.logInfo("Aiming");
 		targetFound = false;
 		aimController.disable();
 		onTargetCount = 0;
@@ -46,11 +47,19 @@ public class Aim2 extends PIDCommand {
 					targetFound = true;
 					aimController.enable();
 //					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
+//					double gyro = getSetpoint() - SmartDashboard.getNumber("AIM_ERROR");
+//					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
 				}
-				if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 1) {
+				 if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 0.1) {
 					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
-				}
-				
+//					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
+//					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
+//					Robot.logger.logInfo("Gyro1: " + SmartDashboard.getNumber("GYRO1") +
+//							"\tGyro2: " + SmartDashboard.getNumber("GYRO2") +
+//							"\tGyro3: " + RobotMap.gyro.getAngle());
+					
+				 }
+
 				SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
 
 				// Rumble stuff
@@ -65,11 +74,7 @@ public class Aim2 extends PIDCommand {
 				SmartDashboard.putBoolean("RumbleTopError", rumbleTopError);
 				SmartDashboard.putBoolean("RumbleBottomError", rumbleBottomError);
 
-				if (rumbleHasBlob
-						&& rumbleAimOnTarget
-						&& rumbleHasPressure
-						&& rumbleTopError
-						&& rumbleBottomError) {
+				if (rumbleHasBlob && rumbleAimOnTarget && rumbleHasPressure && rumbleTopError && rumbleBottomError) {
 					new RumbleJoystick(0.5, OI.coStick).start();
 					SmartDashboard.putBoolean("Rumble", true);
 					onTargetCount++;
@@ -122,7 +127,7 @@ public class Aim2 extends PIDCommand {
 		// Robot.drive.setAimDrop(false);
 		aimController.disable();
 		// RobotMap.vision.suspend();
-		
+
 		SmartDashboard.putBoolean("RumbleHasBlob", false);
 		SmartDashboard.putBoolean("RumbleAimOnTarget", false);
 		SmartDashboard.putBoolean("RumbleHasPressure", false);

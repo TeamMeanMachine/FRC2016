@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team2471.robot;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team2471.robot.commandgroups.ChevalAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.PortcullisAuto;
@@ -95,6 +97,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("ClimbForwardPower", prefs.getDouble("ClimbForwardPower", 0.15));
 		SmartDashboard.putBoolean("ManualIntake", prefs.getBoolean("ManualIntake", false));
 		SmartDashboard.putNumber("SuperMaxArmLimit", prefs.getDouble("SuperMaxArmLimit", 95));
+		SmartDashboard.putNumber("AIM_DROP_TEST_ANGLE", 0);
+		
+		SmartDashboard.putBoolean("PING", false);
 		
 		SmartDashboard.putBoolean("RumbleHasBlob", false);
 		SmartDashboard.putBoolean("RumbleAimOnTarget", false);
@@ -187,6 +192,12 @@ public class Robot extends IterativeRobot {
     	prefs.putBoolean("ManualIntake", SmartDashboard.getBoolean("ManualIntake"));
     	prefs.putDouble("SuperMaxArmLimit", SmartDashboard.getNumber("SuperMaxArmLimit"));
     	System.out.println("Saved prefs.");
+    	
+    	try {
+			logger.update();
+		} catch (IOException e) {
+			System.out.println("Logger failed to save file :(");
+		}
     }
 
     /**
@@ -199,12 +210,10 @@ public class Robot extends IterativeRobot {
         	RobotMap.ringLight.set(true);
         }
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
+        SmartDashboard.putNumber("gyroRate", RobotMap.gyro.getRate());
         
         SmartDashboard.putNumber("CompressorCurrent", RobotMap.compressor.getCompressorCurrent());
-        
-        double pressure = RobotMap.pressureSensor.getPressure();
-		SmartDashboard.putNumber("Pressure", pressure);
-		
+		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getRangeInches());
     }
     

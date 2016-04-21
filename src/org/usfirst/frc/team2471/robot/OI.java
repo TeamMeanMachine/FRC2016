@@ -8,9 +8,11 @@ import org.usfirst.frc.team2471.robot.commandgroups.PickupBallManual;
 import org.usfirst.frc.team2471.robot.commandgroups.PortcullisHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
+import org.usfirst.frc.team2471.robot.commands.AimDropTest;
 import org.usfirst.frc.team2471.robot.commands.CancelAuto;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
+import org.usfirst.frc.team2471.robot.commands.PingSmartDashboard;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
@@ -65,6 +67,9 @@ public class OI {
 	public static JoystickButton manualSuck;
 	public static JoystickButton backupUltrasonic;
 	public static JoystickButton cancelAuto;
+	public static JoystickButton aimDropTest;
+	
+	public static JoystickButton pingButton;
 
 	public static JoystickPOVButton sallyPortHelper;
 	public static JoystickPOVButton drawbridgeHelper;
@@ -113,6 +118,8 @@ public class OI {
 		backupUltrasonic = new JoystickButton(driverStick, 7);
 		backupUltrasonic.whenPressed(new BackUntilOuterWorks(0.4));
 		
+		aimDropTest = new JoystickButton(coStick, 1);
+		aimDropTest.whenPressed(new AimDropTest());
 		
 		sallyPortHelper = new JoystickPOVButton(driverStick, 0);
 		sallyPortHelper.whenPressed(new SallyPortHelper());
@@ -125,6 +132,9 @@ public class OI {
 		
 		portcullisHelper = new JoystickPOVButton(driverStick, 270);
 		portcullisHelper.whenPressed(new PortcullisHelper());
+		
+		pingButton = new JoystickButton(coStick, 7);
+		pingButton.whenPressed(new PingSmartDashboard());
 		
 		
 			

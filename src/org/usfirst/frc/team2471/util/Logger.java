@@ -1,43 +1,50 @@
 package org.usfirst.frc.team2471.util;
 
 import java.io.Closeable;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
-public class Logger implements Closeable {
-//	private File logFile;
-	private PrintWriter logWriter;
+public class Logger {
+	private List<String> lines;
+	private String fileName;
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-hh.mm.ss");
 	private SimpleDateFormat dateFormatter = new SimpleDateFormat("hh.mm.ss");
 	private Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("PST"));
+	
+	private final String LOG_PATH = "/home/lvuser/2471_logs";
 		
 
 	public Logger(){
-		StringBuilder logFileNameBuilder = new StringBuilder("logs/LOG_");
+		// Create log directory if it doesn't exist
+		File logDir = new File(LOG_PATH);
+		if(!logDir.exists()) {
+			System.out.println("Creating log directory");
+			try {
+				logDir.mkdir();
+			} catch(SecurityException e) {
+				System.out.println("Unable to create log directory");
+			}
+		}
+		
+		StringBuilder logFileNameBuilder = new StringBuilder(LOG_PATH + "/");
 	    logFileNameBuilder.append(getTimestamp(true));
 	    logFileNameBuilder.append(".txt");
-	    String fileName = logFileNameBuilder.toString();
-
-//		this.logFile = new File(fileName);
-//		// Create log file
-//		try {
-//			logFile.createNewFile();
-//		} catch (IOException e) {
-//			System.out.println("Failed to create logger file!");
-//			e.printStackTrace();
-//		}
-//		
-//		// Open print writer
-//		try {
-//			logWriter = new PrintWriter(logFile);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-		logInfo("Logger Initialized");
+	    this.fileName = logFileNameBuilder.toString();
+	    this.lines = new ArrayList<>();
+	    this.lines.add("**BEGIN LOG FOR " + getTimestamp(true) + " **\n\n");
+	    System.out.println("Logfile will be created at " + this.fileName);
+		logDebug("Logger Initialized");
 	}
 	
 	private String getTimestamp(boolean includeDate) {
@@ -55,7 +62,7 @@ public class Logger implements Closeable {
 		logInfo("DEBUG", message, true, false);
 	}
 	public void logInfo(String message) {
-		logInfo("INFO", message, true, true);
+		logInfo("INFO", message, false, true);
 	}
 	public void logWarning(String message) {
 		logInfo("WARNING", message, true, true);
@@ -77,14 +84,15 @@ public class Logger implements Closeable {
 		if(printToConsole) {
 			System.out.println(finalMessage);
 		}
-//		if(writeToFile) {
-//			logWriter.write(finalMessage);
-//		}
+		if(writeToFile) {
+			lines.add(finalMessage);
+		}
 	}
 
-	@Override
-	public void close() throws IOException {
-		logWriter.flush();
-		logWriter.close();
+	public void update() throws IOException {
+		Path file = Paths.get(fileName);
+		Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+		System.out.println("Log file updated");
+		lines = new ArrayList<>();
 	}
 }
