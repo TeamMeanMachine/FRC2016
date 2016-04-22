@@ -131,7 +131,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Defense Arm Position", Robot.defenseArm.voltageToAngle(RobotMap.magnepotArm.getVoltage()));
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 
-		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getRangeInches());
+		SmartDashboard.putNumber("UltrasonicR", RobotMap.backupUltrasonicRight.getRangeInches());
+		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
 	}
 
@@ -214,7 +215,9 @@ public class Robot extends IterativeRobot {
         
         SmartDashboard.putNumber("CompressorCurrent", RobotMap.compressor.getCompressorCurrent());
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
-		SmartDashboard.putNumber("BackupUltrasonic", RobotMap.backupUltrasonic.getRangeInches());
+		
+		SmartDashboard.putNumber("UltrasonicR", RobotMap.backupUltrasonicRight.getRangeInches());
+		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
     }
     
     /**

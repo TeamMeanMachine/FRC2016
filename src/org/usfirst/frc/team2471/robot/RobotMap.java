@@ -32,7 +32,8 @@ public class RobotMap {
     public static CANTalon leftDrive;
     
 //    public static AnalogInput backupUltrasonic;
-    public static Ultrasonic backupUltrasonic;
+    public static Ultrasonic backupUltrasonicRight;
+    public static Ultrasonic backupUltrasonicLeft;
     
     
     private static CANTalon rightSlave, rightMaster;
@@ -84,8 +85,10 @@ public class RobotMap {
     
     public static void init(){
 //    	backupUltrasonic = new AnalogInput(4);
-    	backupUltrasonic = new Ultrasonic(3, 2);
-    	backupUltrasonic.setAutomaticMode(true);
+    	backupUltrasonicRight = new Ultrasonic(3, 2);
+    	backupUltrasonicRight.setAutomaticMode(true);
+    	backupUltrasonicLeft = new Ultrasonic(5, 4);
+    	backupUltrasonicLeft.setAutomaticMode(true);
     	
     	aimer = new CANTalon(13);
     	
