@@ -47,7 +47,4 @@ public class TMMGyro extends AHRS {
 			}
 		}
 	}
-	
-	
-
 }
