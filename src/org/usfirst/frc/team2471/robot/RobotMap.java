@@ -4,6 +4,7 @@ import org.usfirst.frc.team2471.util.TMMGyro;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -72,7 +73,7 @@ public class RobotMap {
     
     public static AnalogInput magnepotArm;
     
-//    public static AnalogGyro gyro; 
+    public static AnalogGyro analogGyro; 
     public static TMMGyro gyro;
     
     public static BuiltInAccelerometer accelerometer;
@@ -87,8 +88,8 @@ public class RobotMap {
 //    	backupUltrasonic = new AnalogInput(4);
     	backupUltrasonicRight = new Ultrasonic(3, 2);
     	backupUltrasonicRight.setAutomaticMode(true);
-    	backupUltrasonicLeft = new Ultrasonic(5, 4);
-    	backupUltrasonicLeft.setAutomaticMode(true);
+//    	backupUltrasonicLeft = new Ultrasonic(5, 4);
+//    	backupUltrasonicLeft.setAutomaticMode(true);
     	
     	aimer = new CANTalon(13);
     	
@@ -149,8 +150,9 @@ public class RobotMap {
     	
     	pdp = new PowerDistributionPanel(0);
     	
-//    	gyro = new AnalogGyro(0);
-//		gyro.initGyro();
+    	analogGyro = new AnalogGyro(0);
+		analogGyro.initGyro();
+		
         try {
             /* Communicate w/navX MXP via the MXP SPI Bus.                                     */
             /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */

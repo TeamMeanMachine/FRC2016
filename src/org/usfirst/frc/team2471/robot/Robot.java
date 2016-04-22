@@ -132,7 +132,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 
 		SmartDashboard.putNumber("UltrasonicR", RobotMap.backupUltrasonicRight.getRangeInches());
-		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
+//		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
 	}
 
@@ -217,7 +217,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 		
 		SmartDashboard.putNumber("UltrasonicR", RobotMap.backupUltrasonicRight.getRangeInches());
-		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
+//		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
     }
     
     /**

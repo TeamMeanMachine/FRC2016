@@ -145,7 +145,7 @@ public class Drive extends Subsystem {
 		
 		boolean useGyro = SmartDashboard.getBoolean("UseGyro", false);
 		
-		final double FASTRATE = 50;  // TODO: determine how fast is fast
+		final double FASTRATE = 250;  // TODO: determine how fast is fast
 		
 		if (useGyro) {
 			Robot.drive.turnRateController.enable();
