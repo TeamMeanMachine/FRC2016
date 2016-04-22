@@ -12,7 +12,7 @@ public class LogCommand extends Command {
 	}
 	@Override
 	protected void initialize() {
-		Robot.logger.logDebug(message);
+//		Robot.logger.logDebug(message);
 
 	}
 

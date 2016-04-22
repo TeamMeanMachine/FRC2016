@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
     
     public static Preferences prefs;
     
-    public static Logger logger;
+//	public static Logger logger;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -70,7 +70,7 @@ public class Robot extends IterativeRobot {
 		defenseArm = new DefenseArm();
 		
 		prefs = Preferences.getInstance();
-		logger = new Logger();
+//		logger = new Logger();
 		climbing = false;
 		
 //		prefs.putDouble("AimChange", 15); // Temporary for testing without smart dashboard on 2/27/15
@@ -194,11 +194,11 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("SuperMaxArmLimit", SmartDashboard.getNumber("SuperMaxArmLimit"));
     	System.out.println("Saved prefs.");
     	
-    	try {
-			logger.update();
-		} catch (IOException e) {
-			System.out.println("Logger failed to save file :(");
-		}
+//    	try {
+//			logger.update();
+//		} catch (IOException e) {
+//			System.out.println("Logger failed to save file :(");
+//		}
     }
 
     /**

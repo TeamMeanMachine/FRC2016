@@ -26,25 +26,25 @@ public class Logger {
 		
 
 	public Logger(){
-		// Create log directory if it doesn't exist
-		File logDir = new File(LOG_PATH);
-		if(!logDir.exists()) {
-			System.out.println("Creating log directory");
-			try {
-				logDir.mkdir();
-			} catch(SecurityException e) {
-				System.out.println("Unable to create log directory");
-			}
-		}
-		
-		StringBuilder logFileNameBuilder = new StringBuilder(LOG_PATH + "/");
-	    logFileNameBuilder.append(getTimestamp(true));
-	    logFileNameBuilder.append(".txt");
-	    this.fileName = logFileNameBuilder.toString();
-	    this.lines = new ArrayList<>();
-	    this.lines.add("**BEGIN LOG FOR " + getTimestamp(true) + " **\n\n");
+//		// Create log directory if it doesn't exist
+//		File logDir = new File(LOG_PATH);
+//		if(!logDir.exists()) {
+//			System.out.println("Creating log directory");
+//			try {
+//				logDir.mkdir();
+//			} catch(SecurityException e) {
+//				System.out.println("Unable to create log directory");
+//			}
+//		}
+//		
+//		StringBuilder logFileNameBuilder = new StringBuilder(LOG_PATH + "/");
+//	    logFileNameBuilder.append(getTimestamp(true));
+//	    logFileNameBuilder.append(".txt");
+//	    this.fileName = logFileNameBuilder.toString();
+//	    this.lines = new ArrayList<>();
+//	    this.lines.add("**BEGIN LOG FOR " + getTimestamp(true) + " **\n\n");
 	    System.out.println("Logfile will be created at " + this.fileName);
-		logDebug("Logger Initialized");
+//		logDebug("Logger Initialized");
 	}
 	
 	private String getTimestamp(boolean includeDate) {
@@ -84,14 +84,14 @@ public class Logger {
 		if(printToConsole) {
 			System.out.println(finalMessage);
 		}
-		if(writeToFile) {
-			lines.add(finalMessage);
-		}
+//		if(writeToFile) {
+//			lines.add(finalMessage);
+//		}
 	}
 
 	public void update() throws IOException {
-		Path file = Paths.get(fileName);
-		Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+//		Path file = Paths.get(fileName);
+//		Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 		System.out.println("Log file updated");
 		lines = new ArrayList<>();
 	}

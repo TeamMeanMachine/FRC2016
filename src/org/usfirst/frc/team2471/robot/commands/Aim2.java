@@ -27,7 +27,7 @@ public class Aim2 extends PIDCommand {
 
 	@Override
 	protected void initialize() {
-		Robot.logger.logInfo("Aiming");
+//		Robot.logger.logInfo("Aiming");
 		targetFound = false;
 		aimController.disable();
 		onTargetCount = 0;

@@ -42,7 +42,7 @@ public class TMMGyro extends AHRS {
 				try {
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
-					Robot.logger.logWarning("Gyro thread interrupted!");
+//					Robot.logger.logWarning("Gyro thread interrupted!");
 				}
 			}
 		}

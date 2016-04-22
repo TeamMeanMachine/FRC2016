@@ -48,7 +48,7 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 		
 		if (findSample) {
 			if (Timer.getFPGATimestamp() > sampleTime) {
-				Robot.logger.logDebug("Finding new aim angle");
+//				Robot.logger.logDebug("Finding new aim angle");
 				calcNewSample();
 			}
 		}
@@ -92,21 +92,21 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 	private void calcNewSample() {
 		findSample = false;
 		samples++;
-		Robot.logger.logInfo("Aiming with sample " + samples);
+//		Robot.logger.logInfo("Aiming with sample " + samples);
 		
 		if(SmartDashboard.getNumber("BLOB_COUNT") > 0.0) {
 			offsetAngle = SmartDashboard.getNumber("AIM_ERROR");
-			Robot.logger.logDebug("Setting gyro to " + RobotMap.gyro.getAngle() + offsetAngle + "\nCurrent angle is " + RobotMap.gyro.getAngle());
+//			Robot.logger.logDebug("Setting gyro to " + RobotMap.gyro.getAngle() + offsetAngle + "\nCurrent angle is " + RobotMap.gyro.getAngle());
 			setSetpoint(RobotMap.gyro.getAngle() + offsetAngle);
 			
 			if(Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 1.0) {
 				finished = true;
-				Robot.logger.logInfo("Robot is on target!");
+//				Robot.logger.logInfo("Robot is on target!");
 			}
 		}
 		else {
 			// TODO: Wait for blob instead of quitting
-			Robot.logger.logError("No blob found");
+//			Robot.logger.logError("No blob found");
 			finished = true;
 		}
 	}

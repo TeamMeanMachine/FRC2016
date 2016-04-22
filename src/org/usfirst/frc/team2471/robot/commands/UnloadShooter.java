@@ -14,7 +14,7 @@ public class UnloadShooter extends Command {
 	}
 	@Override
 	protected void initialize() {
-		Robot.logger.logInfo("Unloading shooter");
+//		Robot.logger.logInfo("Unloading shooter");
 		if(Robot.shooter.hasBall()) {
 			Robot.shooter.shooterIntakeReverse();
 			Robot.intake.intakeUp();		
