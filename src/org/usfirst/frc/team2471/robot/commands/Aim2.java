@@ -50,7 +50,7 @@ public class Aim2 extends PIDCommand {
 //					double gyro = getSetpoint() - SmartDashboard.getNumber("AIM_ERROR");
 //					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
 				}
-				 if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 0.1) {
+				 if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 1.0) {
 					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
 //					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
 //					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
@@ -64,7 +64,7 @@ public class Aim2 extends PIDCommand {
 
 				// Rumble stuff
 				boolean rumbleHasBlob = SmartDashboard.getNumber("BLOB_COUNT", 0.0) > 0.0;
-				boolean rumbleAimOnTarget = Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 2.0;
+				boolean rumbleAimOnTarget = Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 1.0;
 				boolean rumbleHasPressure = RobotMap.pressureSensor.getPressure() > 52.0;
 				boolean rumbleTopError = Math.abs(RobotMap.shootMotorTop.getError()) < 15.0;
 				boolean rumbleBottomError = Math.abs(RobotMap.shootMotorBottom.getError()) < 15.0;
