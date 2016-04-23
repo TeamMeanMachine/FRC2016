@@ -61,7 +61,7 @@ public class Logger {
 		logInfo("DEBUG", message, true, false);
 	}
 	public void logInfo(String message) {
-		logInfo("INFO", message, false, true);
+		logInfo("INFO", message, true, true);
 	}
 	public void logWarning(String message) {
 		logInfo("WARNING", message, true, true);

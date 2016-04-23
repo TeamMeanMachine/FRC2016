@@ -166,6 +166,7 @@ public class Shooter extends Subsystem{
 		SmartDashboard.putNumber("BottomSpeed", -bottomMotor.getEncVelocity());
 		SmartDashboard.putNumber("Top Error", topController.getError());
 		SmartDashboard.putNumber("Bottom Error", bottomController.getError());
+		SmartDashboard.putNumber("ShooterSpeedDiff", topMotor.getSetpoint() - bottomMotor.getSetpoint());
 	}
 	
 	public void shooterIntakeOn() {
