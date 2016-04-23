@@ -2,8 +2,6 @@ package org.usfirst.frc.team2471.robot;
 
 import org.usfirst.frc.team2471.util.TMMGyro;
 
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;

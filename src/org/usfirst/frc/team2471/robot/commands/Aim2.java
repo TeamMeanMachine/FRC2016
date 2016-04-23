@@ -46,17 +46,17 @@ public class Aim2 extends PIDCommand {
 				if (!targetFound && SmartDashboard.getNumber("BLOB_COUNT", 0) > 0) {
 					targetFound = true;
 					aimController.enable();
-//					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
-//					double gyro = getSetpoint() - SmartDashboard.getNumber("AIM_ERROR");
-//					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
+					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
+					double gyro = getSetpoint() - SmartDashboard.getNumber("AIM_ERROR");
+					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
 				}
 				 if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 1.0) {
 					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
-//					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
-//					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
-//					Robot.logger.logInfo("Gyro1: " + SmartDashboard.getNumber("GYRO1") +
-//							"\tGyro2: " + SmartDashboard.getNumber("GYRO2") +
-//							"\tGyro3: " + RobotMap.gyro.getAngle());
+					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
+					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
+					Robot.logger.logInfo("Gyro1: " + SmartDashboard.getNumber("GYRO1") +
+							"\tGyro2: " + SmartDashboard.getNumber("GYRO2") +
+							"\tGyro3: " + RobotMap.gyro.getAngle());
 					
 				 }
 
