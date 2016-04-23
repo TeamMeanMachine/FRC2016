@@ -33,7 +33,7 @@ public class PingSmartDashboard extends Command {
 	@Override
 	protected void end() {
 		double timeDiff = (Timer.getFPGATimestamp() - startTime) / 1000;
-//		Robot.logger.logInfo("Ping result: " + timeDiff + "ms");
+		Robot.logger.logInfo("Ping result: " + timeDiff + "ms");
 	}
 
 	@Override
