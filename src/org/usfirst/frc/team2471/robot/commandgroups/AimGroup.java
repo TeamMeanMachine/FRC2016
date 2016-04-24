@@ -12,19 +12,17 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class AimGroup extends CommandGroup {
     
-    public  AimGroup(boolean finishOnTarget) {
-    	if(Robot.shooter.hasBall()) {
-	//    	addSequential( new BackUntilOuterWorks(0.3), 5.0 );
-	    	addSequential( new StartShooter() );
-	    	addSequential( new RotateArmToAngle(-5.0));
-	    	
-	    	addSequential(new LogCommand("Before shoot"));
-	    	addSequential(new Aim2(finishOnTarget));
-	    	addSequential(new LogCommand("After shoot"));
-	    	
-	    	addSequential( new WaitCommand(1.0));   	
-	    	addSequential( new RotateArmToAngle(62.0));
-	    	addSequential( new StopShooter());
-    	}
+    public  AimGroup(boolean finishOnTarget) { // TODO: Don't let any of this run if we don't have a ball
+//    	addSequential( new BackUntilOuterWorks(0.3), 5.0 );
+    	addSequential( new StartShooter() );
+    	addSequential( new RotateArmToAngle(-5.0));
+    	
+    	addSequential(new LogCommand("Before shoot"));
+    	addSequential(new Aim2(finishOnTarget));
+    	addSequential(new LogCommand("After shoot"));
+    	
+    	addSequential( new WaitCommand(1.0));   	
+    	addSequential( new RotateArmToAngle(62.0));
+    	addSequential( new StopShooter());
     }
 }
