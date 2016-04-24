@@ -24,6 +24,10 @@ public class Aim2 extends PIDCommand {
 		SmartDashboard.putData("Aim2 PID", aimController);
 		finishOnTarget = _finishOnTarget;
 	}
+	@Override
+	public boolean isInterruptible() {
+		return false;
+	}
 
 	@Override
 	protected void initialize() {
@@ -64,27 +68,12 @@ public class Aim2 extends PIDCommand {
 				}
 				
 				SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
-
-				// Rumble stuff
-				boolean rumbleHasBlob = SmartDashboard.getNumber("BLOB_COUNT", 0.0) > 0.0;
-				boolean rumbleAimOnTarget = Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 1.0;
-				boolean rumbleHasPressure = RobotMap.pressureSensor.getPressure() > 52.0;
-				boolean rumbleTopError = Math.abs(RobotMap.shootMotorTop.getError()) < 15.0;
-				boolean rumbleBottomError = Math.abs(RobotMap.shootMotorBottom.getError()) < 15.0;
-				SmartDashboard.putBoolean("RumbleHasBlob", rumbleHasBlob);
-				SmartDashboard.putBoolean("RumbleAimOnTarget", rumbleAimOnTarget);
-				SmartDashboard.putBoolean("RumbleHasPressure", rumbleHasPressure);
-				SmartDashboard.putBoolean("RumbleTopError", rumbleTopError);
-				SmartDashboard.putBoolean("RumbleBottomError", rumbleBottomError);
-				
-
-				if (rumbleHasBlob && rumbleAimOnTarget && rumbleHasPressure && rumbleTopError && rumbleBottomError) {
-					new RumbleJoystick(0.5, OI.coStick).start();
-					SmartDashboard.putBoolean("Rumble", true);
-					onTargetCount++;
-				}
 				SmartDashboard.putNumber("Aim Error", aimController.getError());
-			} else {
+
+				doRumble(true);
+
+			} // end of intel vision
+			else {
 				SmartDashboard.putBoolean("Rumble", false);
 				// if(!targetFound && RobotMap.vision.getBlobCount() > 0) {
 				// targetFound = true;
@@ -101,7 +90,7 @@ public class Aim2 extends PIDCommand {
 				// SmartDashboard.putNumber("Aim Error",
 				// aimController.getError());
 			}
-		} else {
+		} else {  // manual aim
 			aimController.disable();
 			double leftRightValue = OI.coStick.getRawAxis(4);
 			double deadband = 0.2;
@@ -110,12 +99,41 @@ public class Aim2 extends PIDCommand {
 			else
 				leftRightValue = (leftRightValue - Math.signum(leftRightValue) * deadband) / (1.0 - deadband);
 			Robot.drive.setAimerMotor(leftRightValue);
-
+			
+			doRumble(false);
 		}
 
 		Robot.drive.setAimDrop(true);
 		Robot.shooter.shootLogic();
-		
+	}
+	
+	private void doRumble(boolean autoAim) {
+		// Rumble stuff
+		boolean rumbleHasPressure = RobotMap.pressureSensor.getPressure() > 52.0;
+		boolean rumbleTopError = Math.abs(RobotMap.shootMotorTop.getError()) < 15.0;
+		boolean rumbleBottomError = Math.abs(RobotMap.shootMotorBottom.getError()) < 15.0;
+		boolean rumbleAimOnTarget;
+		boolean rumbleHasBlob;
+		if (autoAim) {
+			rumbleAimOnTarget = Math.abs(SmartDashboard.getNumber("AIM_ERROR", 0.0)) < 1.0;
+			rumbleHasBlob = SmartDashboard.getNumber("BLOB_COUNT", 0.0) > 0.0;
+		}
+		else {
+			rumbleAimOnTarget = true;
+			rumbleHasBlob = true;
+		}
+		SmartDashboard.putBoolean("RumbleHasBlob", rumbleHasBlob);
+		SmartDashboard.putBoolean("RumbleAimOnTarget", rumbleAimOnTarget);
+		SmartDashboard.putBoolean("RumbleHasPressure", rumbleHasPressure);
+		SmartDashboard.putBoolean("RumbleTopError", rumbleTopError);
+		SmartDashboard.putBoolean("RumbleBottomError", rumbleBottomError);
+
+		boolean rumble = rumbleHasBlob && rumbleAimOnTarget && rumbleHasPressure && rumbleTopError && rumbleBottomError;
+		SmartDashboard.putBoolean("Rumble", rumble);
+		if (rumble) {
+			new RumbleJoystick(0.5, OI.coStick).start();
+			onTargetCount++;
+		}
 	}
 
 	@Override
@@ -123,7 +141,7 @@ public class Aim2 extends PIDCommand {
 		if (finishOnTarget) {
 			return onTargetCount > 50.0;
 		} else {
-			return OI.coStick.getRawButton(2);
+			return OI.coStick.getRawButton(2) || OI.coStick.getRawButton(6);
 		}
 	}
 

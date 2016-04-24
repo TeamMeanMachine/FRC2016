@@ -27,6 +27,7 @@ public class PickUpBallAuto extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
     	addSequential(new IntakeDown());
     	addParallel(new RumbleJoystick(0.5, OI.driverStick));
     	addSequential(new CenterBall());
@@ -34,4 +35,9 @@ public class PickUpBallAuto extends CommandGroup {
     	addSequential(new MicroBallHelper());
     	addSequential(new QueueShot());
     }
+    
+	@Override
+	public boolean isInterruptible() {
+		return false;
+	}
 }
