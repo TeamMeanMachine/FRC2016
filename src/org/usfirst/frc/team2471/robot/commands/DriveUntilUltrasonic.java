@@ -1,4 +1,5 @@
 package org.usfirst.frc.team2471.robot.commands;
+import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 
@@ -31,12 +32,12 @@ public class DriveUntilUltrasonic extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if(lessThan) {
-    		//return RobotMap.backupUltrasonicRight.getRangeInches() <= threshold || RobotMap.backupUltrasonicLeft.getRangeInches() <= threshold || isTimedOut();
-    		return RobotMap.backupUltrasonicRight.getRangeInches() <= threshold || isTimedOut();
+    		return RobotMap.backupUltrasonicRight.getRangeInches() <= threshold || RobotMap.backupUltrasonicLeft.getRangeInches() <= threshold || isTimedOut();
+//    		return RobotMap.backupUltrasonicRight.getRangeInches() <= threshold || isTimedOut();
     	}
     	else {
-    		//return (RobotMap.backupUltrasonicRight.getRangeInches() >= threshold && RobotMap.backupUltrasonicLeft.getRangeInches() >= threshold) || isTimedOut();
-    		return (RobotMap.backupUltrasonicRight.getRangeInches() >= threshold ) || isTimedOut();
+    		return (RobotMap.backupUltrasonicRight.getRangeInches() >= threshold && RobotMap.backupUltrasonicLeft.getRangeInches() >= threshold) || isTimedOut();
+//    		return (RobotMap.backupUltrasonicRight.getRangeInches() >= threshold ) || isTimedOut();
     	}
     }
 

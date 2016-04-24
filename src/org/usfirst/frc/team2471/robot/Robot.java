@@ -9,6 +9,7 @@ import org.usfirst.frc.team2471.robot.commandgroups.PortcullisAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShotAuto;
 import org.usfirst.frc.team2471.robot.commands.DoNothingAuto;
+import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
@@ -80,6 +81,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("ShooterEnable", false);
 		SmartDashboard.putBoolean("AutoAim",true);
 		
+		SmartDashboard.putData(new SpitOutEmergency());
+		
 		// read prefs, put on dashboard
 		SmartDashboard.putNumber("TopSetSpeed", prefs.getDouble("TopSetSpeed", 3300));
 		SmartDashboard.putNumber("BottomSetSpeed", prefs.getDouble("BottomSetSpeed", 1920));
@@ -98,6 +101,15 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("ManualIntake", prefs.getBoolean("ManualIntake", false));
 		SmartDashboard.putNumber("SuperMaxArmLimit", prefs.getDouble("SuperMaxArmLimit", 95));
 		SmartDashboard.putNumber("AIM_DROP_TEST_ANGLE", 0);
+		SmartDashboard.putBoolean("ShooterHasBall", shooter.hasBall());
+		
+		// Subsystems
+		SmartDashboard.putData(defenseArm);
+		SmartDashboard.putData(drive);
+		SmartDashboard.putData(intake);
+		SmartDashboard.putData(shooter);
+
+		SmartDashboard.putNumber("GYRO_TARGET", 0);
 		
 		SmartDashboard.putBoolean("PING", false);
 		
@@ -132,7 +144,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 
 		SmartDashboard.putNumber("UltrasonicR", RobotMap.backupUltrasonicRight.getRangeInches());
-//		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
+		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
 	}
 
@@ -194,11 +206,7 @@ public class Robot extends IterativeRobot {
     	prefs.putDouble("SuperMaxArmLimit", SmartDashboard.getNumber("SuperMaxArmLimit"));
     	System.out.println("Saved prefs.");
     	
-    	try {
-			logger.update();
-		} catch (IOException e) {
-			System.out.println("Logger failed to save file :(");
-		}
+		logger.update();
     }
 
     /**
@@ -217,7 +225,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Pressure", RobotMap.pressureSensor.getPressure());
 		
 		SmartDashboard.putNumber("UltrasonicR", RobotMap.backupUltrasonicRight.getRangeInches());
-//		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
+		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
+		SmartDashboard.putBoolean("ShooterHasBall", shooter.hasBall());
     }
     
     /**

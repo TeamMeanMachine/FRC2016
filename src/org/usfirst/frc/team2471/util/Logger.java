@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class Logger {
+	public static final boolean SAVE_TO_FILE = false;
 	private List<String> lines;
 	private String fileName;
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-hh.mm.ss");
@@ -88,10 +89,23 @@ public class Logger {
 		}
 	}
 
-	public void update() throws IOException {
-		Path file = Paths.get(fileName);
-		Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-		System.out.println("Log file updated");
+	public void update() {
+		logInfo("Robot disabled");
+		
+		if(SAVE_TO_FILE) {
+			Path filePath = Paths.get(fileName);
+			try {
+				if(!Files.exists(filePath)) {
+					Files.createFile(filePath);
+				}
+				Files.write(filePath, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				System.out.println("Failed to update the logger");
+				e.printStackTrace();
+				return;
+			}
+			System.out.println("Log file updated"); 
+		}
 		lines = new ArrayList<>();
 	}
 }

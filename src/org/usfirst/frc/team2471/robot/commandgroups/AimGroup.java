@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.commandgroups;
 
+import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.commands.Aim2;
 import org.usfirst.frc.team2471.robot.commands.LogCommand;
 import org.usfirst.frc.team2471.robot.commands.RotateArmToAngle;
@@ -12,16 +13,18 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class AimGroup extends CommandGroup {
     
     public  AimGroup(boolean finishOnTarget) {
-//    	addSequential( new BackUntilOuterWorks(0.3), 5.0 );
-    	addSequential( new StartShooter() );
-    	addSequential( new RotateArmToAngle(-5.0));
-    	
-    	addSequential(new LogCommand("Before shoot"));
-    	addSequential(new Aim2(finishOnTarget));
-    	addSequential(new LogCommand("After shoot"));
-    	
-    	addSequential( new WaitCommand(1.0));   	
-    	addSequential( new RotateArmToAngle(62.0));
-    	addSequential( new StopShooter());
+    	if(Robot.shooter.hasBall()) {
+	//    	addSequential( new BackUntilOuterWorks(0.3), 5.0 );
+	    	addSequential( new StartShooter() );
+	    	addSequential( new RotateArmToAngle(-5.0));
+	    	
+	    	addSequential(new LogCommand("Before shoot"));
+	    	addSequential(new Aim2(finishOnTarget));
+	    	addSequential(new LogCommand("After shoot"));
+	    	
+	    	addSequential( new WaitCommand(1.0));   	
+	    	addSequential( new RotateArmToAngle(62.0));
+	    	addSequential( new StopShooter());
+    	}
     }
 }

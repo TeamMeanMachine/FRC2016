@@ -47,18 +47,22 @@ public class Aim2 extends PIDCommand {
 					targetFound = true;
 					aimController.enable();
 					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
-					double gyro = getSetpoint() - SmartDashboard.getNumber("AIM_ERROR");
-					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
-				}
-				 if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 3.0) {
-					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
+					if(getSetpoint() == 0) { // Assuming default to 0
+						Robot.logger.logError("GYRO_TARGET not found!");
+					}
+					
 					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
 					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
-					Robot.logger.logInfo("Gyro1: " + SmartDashboard.getNumber("GYRO1") +
-							"\tGyro2: " + SmartDashboard.getNumber("GYRO2") +
-							"\tGyro3: " + RobotMap.gyro.getAngle());
-				 }
-
+				}
+				if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 3.0) {
+					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
+					if(getSetpoint() == 0) {
+						Robot.logger.logError("GYRO_TARGET not found!");
+					}
+					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
+					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
+				}
+				
 				SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
 
 				// Rumble stuff
@@ -111,6 +115,7 @@ public class Aim2 extends PIDCommand {
 
 		Robot.drive.setAimDrop(true);
 		Robot.shooter.shootLogic();
+		
 	}
 
 	@Override

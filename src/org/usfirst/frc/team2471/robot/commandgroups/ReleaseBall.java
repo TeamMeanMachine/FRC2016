@@ -9,6 +9,6 @@ public class ReleaseBall extends CommandGroup {
 	
 	public ReleaseBall() {
 		addSequential(new UnloadShooter());
-		addSequential(new SpitBall(), 2.0);
+		addSequential(new SpitBall());
 	}
 }

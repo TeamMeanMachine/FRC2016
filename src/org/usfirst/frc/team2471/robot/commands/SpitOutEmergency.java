@@ -2,10 +2,11 @@ package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SpitOutEmergency extends Command{
-
+	double finishedTime;
 	
 	public SpitOutEmergency() {
 		// TODO Auto-generated constructor stub
@@ -15,7 +16,7 @@ public class SpitOutEmergency extends Command{
 	
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
+		finishedTime = Timer.getFPGATimestamp() + 2;
 		Robot.intake.intakeDown();
 	}
 
@@ -28,13 +29,11 @@ public class SpitOutEmergency extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+		return Timer.getFPGATimestamp() > finishedTime;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
 		Robot.intake.intakeUp();
 		Robot.intake.intakeStop();
 		Robot.shooter.shooterIntakeOff();

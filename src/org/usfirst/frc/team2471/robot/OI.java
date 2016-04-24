@@ -135,9 +135,6 @@ public class OI {
 		
 		pingButton = new JoystickButton(coStick, 7);
 		pingButton.whenPressed(new PingSmartDashboard());
-		
-		
-			
 	}
 }
 
