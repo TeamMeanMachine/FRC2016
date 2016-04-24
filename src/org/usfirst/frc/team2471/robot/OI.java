@@ -62,7 +62,6 @@ public class OI {
 	public static JoystickButton sallyPort;
 	public static JoystickButton emergencySpit;
 	public static JoystickButton backUntilTilted;
-	public static JoystickButton helperSequence;
 	public static JoystickButton driverLight;
 	public static JoystickButton manualSuck;
 	public static JoystickButton backupUltrasonic;
@@ -102,11 +101,7 @@ public class OI {
 /*		backUntilTilted = new JoystickButton(driverStick, 7);
 		backUntilTilted.whenPressed(new BackUntilOuterWorks());*/
 		
-		helperSequence = new JoystickButton(driverStick, 2);
-		
-
-
-		cancelAuto = new JoystickButton(driverStick, 9);
+		cancelAuto = new JoystickButton(driverStick, 2);
 		cancelAuto.whenPressed(new CancelAuto());
 		
 		driverLight = new JoystickButton(driverStick, 4);
@@ -118,8 +113,8 @@ public class OI {
 		backupUltrasonic = new JoystickButton(driverStick, 7);
 		backupUltrasonic.whenPressed(new BackUntilOuterWorks(0.4));
 		
-		aimDropTest = new JoystickButton(coStick, 1);
-		aimDropTest.whenPressed(new AimDropTest());
+//		aimDropTest = new JoystickButton(coStick, 1);
+//		aimDropTest.whenPressed(new AimDropTest());
 		
 		sallyPortHelper = new JoystickPOVButton(driverStick, 0);
 		sallyPortHelper.whenPressed(new SallyPortHelper());
