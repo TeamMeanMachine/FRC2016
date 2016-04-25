@@ -15,7 +15,6 @@ import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
 import org.usfirst.frc.team2471.robot.commands.PingSmartDashboard;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
-import org.usfirst.frc.team2471.robot.commands.StopBallIntake;
 import org.usfirst.frc.team2471.util.JoystickPOVButton;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -90,7 +89,6 @@ public class OI {
 		
 		suckIn = new JoystickButton(driverStick, 6);
 		suckIn.whenPressed(new PickUpBallAuto());
-		suckIn.whenReleased(new StopBallIntake());
 		
 		sallyPort = new JoystickButton(coStick, 4);
 		sallyPort.whenPressed(new SallyPortPreset());

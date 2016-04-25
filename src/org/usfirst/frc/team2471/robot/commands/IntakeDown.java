@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 import org.usfirst.frc.team2471.robot.commandgroups.PickupBallManual;
@@ -37,7 +38,7 @@ public class IntakeDown extends Command {
     		return false;
     	}
     	else {
-    		return Robot.intake.getIntakeSensor();
+    		return Robot.intake.getIntakeSensor() || !OI.driverStick.getRawButton(6);
     	}
     }
 

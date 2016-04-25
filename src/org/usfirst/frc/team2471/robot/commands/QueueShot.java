@@ -14,7 +14,7 @@ public class QueueShot extends Command {
 
     public QueueShot() {
     	requires(Robot.intake);
-    	requires(Robot.shooter);
+//    	requires(Robot.shooter);
     }
 
     // Called just before this Command runs the first time
