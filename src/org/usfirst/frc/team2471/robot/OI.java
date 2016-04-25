@@ -9,10 +9,9 @@ import org.usfirst.frc.team2471.robot.commandgroups.PortcullisHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
 import org.usfirst.frc.team2471.robot.commands.AimDropTest;
-import org.usfirst.frc.team2471.robot.commands.CancelAuto;
+import org.usfirst.frc.team2471.robot.commands.StopCommand;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
-import org.usfirst.frc.team2471.robot.commands.PingSmartDashboard;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.util.JoystickPOVButton;
@@ -100,7 +99,7 @@ public class OI {
 		backUntilTilted.whenPressed(new BackUntilOuterWorks());*/
 		
 		cancelAuto = new JoystickButton(driverStick, 2);
-		cancelAuto.whenPressed(new CancelAuto());
+		cancelAuto.whenPressed(new StopCommand());
 		
 		driverLight = new JoystickButton(driverStick, 4);
 		driverLight.whenPressed(new LightAction());
@@ -126,8 +125,6 @@ public class OI {
 		portcullisHelper = new JoystickPOVButton(driverStick, 270);
 		portcullisHelper.whenPressed(new PortcullisHelper());
 		
-		pingButton = new JoystickButton(coStick, 7);
-		pingButton.whenPressed(new PingSmartDashboard());
 	}
 }
 

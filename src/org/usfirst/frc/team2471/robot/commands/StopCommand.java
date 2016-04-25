@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CancelAuto extends Command {
+public class StopCommand extends Command {
 
-    public CancelAuto() {
+    public StopCommand() {
     	requires(Robot.drive);
     	requires(Robot.defenseArm);
     }
