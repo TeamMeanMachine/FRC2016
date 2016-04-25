@@ -19,7 +19,7 @@ public class DriveLoop extends Command{
 	protected void execute() {
 		double forward = -OI.driverStick.getRawAxis(1);    //Forward & Backwards
 		double turn = -OI.driverStick.getRawAxis(4);	 //Left & Right
-		Robot.drive.moveWithController(forward, turn);
+		Robot.drive.setPower(forward, turn);
 	
 	}
 
@@ -30,7 +30,7 @@ public class DriveLoop extends Command{
 
 	@Override
 	protected void end() {
-		Robot.drive.setPower(0.0, 0.0);
+		Robot.drive.setSpeed(0.0, 0.0);
 	}
 
 	@Override

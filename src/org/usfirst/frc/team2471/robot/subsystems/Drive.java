@@ -100,7 +100,7 @@ public class Drive extends Subsystem {
 		return aimDropCylinder.get();
 	}
 	
-	public void setPower(double right, double forward){
+	public void setSpeed(double right, double forward){
 		
 		rightDrive.set( forward + right );
 		leftDrive.set( -(forward - right) );
@@ -132,7 +132,7 @@ public class Drive extends Subsystem {
 		return ( rightDrive.getPosition() - leftDrive.getPosition() ) / 2.0;
 	}
 	
-	public void moveWithController(double forward, double turn) {
+	public void setPower(double forward, double turn) {
 		double deadband = 0.20;
 		if (turn <= deadband && turn >= -deadband){
 			turn = 0;
@@ -184,7 +184,7 @@ public class Drive extends Subsystem {
 				forward = 0;
 				Robot.climbing = true;
 			}
-			Robot.drive.setPower(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
+			Robot.drive.setSpeed(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
 		}
 		
 		// Climb extension stuff

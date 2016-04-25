@@ -1,40 +1,37 @@
 package org.usfirst.frc.team2471.robot.commands;
 
-import java.nio.channels.SelectableChannel;
-
-import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RotateToAngle extends PIDCommand {
+public class RotateToAngle extends Command {
 
-	private double angle;
-    private double speed;
-    private PIDController controller;
+	private double targetAngle;
+    private double speed, direction;
+    private double tolerance;
     
-    public RotateToAngle(double angle, double speed, double tolerance ) {
-    	super(Constants.ROTATE_P, Constants.ROTATE_I, Constants.ROTATE_D);
+    public RotateToAngle(double angle, double speedZeroToOne, double _tolerance ) {
         requires(Robot.drive);
-        
-    	this.controller = getPIDController();
-    	this.speed = speed;
-        this.angle = angle;
-        controller.setAbsoluteTolerance(tolerance);
-        controller.setOutputRange(-1, 1);
-        
-        controller.setInputRange(-180, 180);
-        controller.setContinuous();
+        speed = speedZeroToOne;
+        targetAngle = angle;
+        tolerance = _tolerance;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setSetpoint(angle);
+    	double gyroAngle = RobotMap.gyro.getAngle();
+		while (gyroAngle > 180.0)
+			gyroAngle -= 360.0; 
+		while (gyroAngle < -180.0)
+			gyroAngle += 360.0; 
+		
+    	direction = Math.signum(targetAngle - gyroAngle);
+    	if (!isFinished())  // don't turn if we are already there
+    		Robot.drive.setSpeed( direction * -speed, 0 );
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -43,12 +40,24 @@ public class RotateToAngle extends PIDCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return controller.onTarget();
+    	double gyroAngle = (RobotMap.gyro.getAngle() - 360.0) % 360.0;
+    	while (gyroAngle > 180.0)
+    		gyroAngle -= 360.0; 
+    	while (gyroAngle < -180.0)
+    		gyroAngle += 360.0; 
+    	
+    	if (Math.abs(gyroAngle - targetAngle) < tolerance)  //  fudge factor tolerance for heading 
+    		return true;
+    	
+    	if (isTimedOut())
+    		return true;
+
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        Robot.drive.setPower(0, 0);
+        Robot.drive.setSpeed( 0, 0 );
     }
 
     // Called when another command which requires one or more of the same
@@ -56,14 +65,4 @@ public class RotateToAngle extends PIDCommand {
     protected void interrupted() {
     	end();
     }
-
-	@Override
-	protected double returnPIDInput() {
-		return RobotMap.gyro.getAngle();
-	}
-
-	@Override
-	protected void usePIDOutput(double output) {
-		Robot.drive.setPower(output, speed);
-	}
 }
