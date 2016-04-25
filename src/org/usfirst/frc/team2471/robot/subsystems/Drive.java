@@ -28,6 +28,7 @@ public class Drive extends Subsystem {
 	private Solenoid aimDropCylinder;
 	
 	public PIDController turnRateController;
+	public PIDController turnAngleController;
 	
 	private double turnResult = 0.0;
 	
@@ -45,7 +46,7 @@ public class Drive extends Subsystem {
 		
 		aimDropCylinder = RobotMap.aimDropCylinder;
 		
-		turnRateController = new PIDController( Constants.TURN_P, Constants.TURN_I, Constants.TURN_D, new turnRatePIDSource(), new turnRatePIDOutput());
+		turnRateController = new PIDController( Constants.TURN_P, Constants.TURN_I_TELEOP, Constants.TURN_D, new turnRatePIDSource(), new turnRatePIDOutput());
 		turnRateController.setOutputRange(-1.0, 1.0);
 		
 		SmartDashboard.putData("TurnPID", turnRateController);
@@ -78,6 +79,14 @@ public class Drive extends Subsystem {
 				turnResult = -1.0;
 			}
 		}
+	}
+	
+	public void autonomousMode() {
+		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_AUTO, Constants.TURN_D);
+	}
+	
+	public void teleopMode() {
+		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_TELEOP, Constants.TURN_D);
 	}
 	
 	public void setAimerMotor(double power) {

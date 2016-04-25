@@ -34,5 +34,7 @@ public class DrawBridgeAuto extends CommandGroup {
     	
     	addSequential(new RotateToAngle(0, 0.5, 2.0));
     	// addSequential(new DriveDistanceCommand(10, 0, -0.7));
+
+    	addSequential(new AutoAfterShoot());
     }
 }

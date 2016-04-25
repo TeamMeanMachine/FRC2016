@@ -27,6 +27,15 @@ public class TMMGyro extends AHRS {
 	public double getRate() {
 		return rate;
 	}
+	
+	@Override
+	public void reset() {
+		super.reset();
+		System.out.println("Resetting gyro");
+		rate = 0;
+		previousHeading = 0;
+		previousTime = Timer.getFPGATimestamp() - 1.0/20; 
+	}
 
 	
 	private class StepRunnable implements Runnable {
@@ -35,6 +44,9 @@ public class TMMGyro extends AHRS {
 			while(true) {
 				double currentHeading = getAngle();
 				double currentTime = Timer.getFPGATimestamp();
+				if(currentTime != previousTime) { // We never want to divide by 0
+					currentTime += 0.1;
+				}
 				rate = (currentHeading - previousHeading) / (currentTime - previousTime);
 				
 				previousHeading = currentHeading;

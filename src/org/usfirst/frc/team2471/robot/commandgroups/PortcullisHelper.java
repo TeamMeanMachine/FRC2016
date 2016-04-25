@@ -15,9 +15,9 @@ public class PortcullisHelper extends CommandGroup {
 	public PortcullisHelper() {
 		double upAngle = SmartDashboard.getNumber("DefenseArmMax", 62);
 		double downAngle = SmartDashboard.getNumber("DefenseArmMin", -16);
-		addParallel(new RotateArmToAngle(downAngle));
+		addParallel(new RotateArmToAngle(downAngle), 1);
 		addSequential(new DriveDistanceCommand(1.5, 0, 0.25), 2.5);
-		addParallel(new RotateArmToAngle(upAngle));
+		addParallel(new RotateArmToAngle(upAngle), 1);
 		addSequential(new WaitCommand(0.35));
 		addSequential(new DriveDistanceCommand(4.5, 0, 0.8));
 	}

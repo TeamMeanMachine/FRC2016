@@ -26,6 +26,8 @@ public final class Constants {
     
     //Turning
     public static final double TURN_P = 0.002;
-    public static final double TURN_I = 0.0;
+//	public static final double TURN_I_AUTO = 0.005;
+    public static final double TURN_I_AUTO = 0.000;
+    public static final double TURN_I_TELEOP = 0.0;
     public static final double TURN_D = 0.003;
 }

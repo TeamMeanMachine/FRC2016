@@ -18,6 +18,7 @@ public class Shoot extends Command {
 	protected void initialize() {
 		ballInShooter = true;
 		endTime = Timer.getFPGATimestamp() + 5;
+		Robot.shooter.shooterIntakeOn();
 		
 		if(!Robot.shooter.hasBall()) {
 			endTime = 0;

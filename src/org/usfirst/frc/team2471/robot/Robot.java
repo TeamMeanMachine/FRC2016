@@ -150,6 +150,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
     	drive.resetEncoders();
     	RobotMap.gyro.reset();
+    	drive.autonomousMode();
         // schedule the autonomous command (example)
     	autonomousCommand = (Command)autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
@@ -173,6 +174,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         
+        drive.teleopMode();        
         defenseArm.setTargetAngle(defenseArm.getPosition());
         drive.resetEncoders();
 		Robot.climbing = false;

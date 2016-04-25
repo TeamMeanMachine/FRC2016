@@ -38,6 +38,7 @@ public class DefenseArm extends PIDSubsystem{
 			armMotor.set(power);
 		}
 		else {
+			Robot.logger.logWarning("Arm tried to go over voltage limit!");
 			setSetpoint(getPosition());
 			armMotor.set(0.0);
 		}
