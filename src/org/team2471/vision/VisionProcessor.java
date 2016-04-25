@@ -3,7 +3,6 @@ package org.team2471.vision;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;

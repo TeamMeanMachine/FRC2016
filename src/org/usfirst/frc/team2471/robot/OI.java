@@ -8,12 +8,11 @@ import org.usfirst.frc.team2471.robot.commandgroups.PickupBallManual;
 import org.usfirst.frc.team2471.robot.commandgroups.PortcullisHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
-import org.usfirst.frc.team2471.robot.commands.AimDropTest;
-import org.usfirst.frc.team2471.robot.commands.StopCommand;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
+import org.usfirst.frc.team2471.robot.commands.StopCommand;
 import org.usfirst.frc.team2471.util.JoystickPOVButton;
 
 import edu.wpi.first.wpilibj.Joystick;

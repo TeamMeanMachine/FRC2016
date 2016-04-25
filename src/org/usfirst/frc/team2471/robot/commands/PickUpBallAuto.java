@@ -35,9 +35,4 @@ public class PickUpBallAuto extends CommandGroup {
     	addSequential(new MicroBallHelper());
     	addSequential(new QueueShot());
     }
-    
-	@Override
-	public boolean isInterruptible() {
-		return false;
-	}
 }

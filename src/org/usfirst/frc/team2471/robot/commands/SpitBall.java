@@ -19,7 +19,7 @@ public class SpitBall extends Command {
 		Robot.intake.intakeStop();
 		Robot.intake.intakeDown();
 		releaseTime = Timer.getFPGATimestamp() + 0.4;
-		endTime = Timer.getFPGATimestamp() + 5; // To make sure it ends. It shouldn't make it this far
+		endTime = Timer.getFPGATimestamp() + 2.5; // To make sure it ends. It shouldn't make it this far
 		released = false;
 	}
 

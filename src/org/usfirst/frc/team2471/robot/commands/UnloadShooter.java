@@ -29,7 +29,7 @@ public class UnloadShooter extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.getIntakeSensor();
+		return Robot.intake.getIntakeSensor() || isTimedOut();
 	}
 
 	@Override

@@ -1,8 +1,6 @@
 
 package org.usfirst.frc.team2471.robot;
 
-import java.io.IOException;
-
 import org.usfirst.frc.team2471.robot.commandgroups.ChevalAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.PortcullisAuto;
@@ -10,7 +8,6 @@ import org.usfirst.frc.team2471.robot.commandgroups.SallyPortAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShootAuto;
 import org.usfirst.frc.team2471.robot.commands.DoNothingAuto;
 import org.usfirst.frc.team2471.robot.commands.RotateToAngle;
-import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
@@ -83,8 +80,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("LightON", false);
 		SmartDashboard.putBoolean("ShooterEnable", false);
 		SmartDashboard.putBoolean("AutoAim",true);
-		
-		SmartDashboard.putData(new SpitOutEmergency());
 		
 		// read prefs, put on dashboard
 		SmartDashboard.putNumber("TopSetSpeed", prefs.getDouble("TopSetSpeed", 3300));

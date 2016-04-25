@@ -2,14 +2,9 @@ package org.team2471.vision;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Timestamp;
-import java.util.Date;
-
-import javax.imageio.ImageIO;
 
 
 
