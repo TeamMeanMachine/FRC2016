@@ -33,7 +33,7 @@ public class DriveDistanceCommand extends Command {
         	startDistance = Robot.drive.getEncoderDistance();
             started = true;
         }
-        Robot.drive.setSpeed(x, y);
+        Robot.drive.moveWithController(x, y);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -43,7 +43,7 @@ public class DriveDistanceCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drive.setSpeed(0, 0);
+    	Robot.drive.moveWithController(0, 0);
         started = false;
     }
 

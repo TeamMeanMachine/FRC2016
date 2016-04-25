@@ -33,7 +33,7 @@ public class RotateRelative extends Command {
 		
     	direction = Math.signum(angleOffset);
     	if (!isFinished())  // don't turn if we are already there
-    		Robot.drive.setSpeed( direction * -speed, 0 );
+    		Robot.drive.moveWithController( direction * -speed, 0 );
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -59,7 +59,7 @@ public class RotateRelative extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-        Robot.drive.setSpeed( 0, 0 );
+        Robot.drive.moveWithController( 0, 0 );
     }
 
     // Called when another command which requires one or more of the same

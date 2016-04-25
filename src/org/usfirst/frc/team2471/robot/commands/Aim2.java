@@ -172,6 +172,6 @@ public class Aim2 extends PIDCommand {
 	@Override
 	protected void usePIDOutput(double output) {
 		Robot.drive.setAimerMotor(output);
-		// Robot.drive.setSpeed(-output, 0.0); // run the drivetrain instead
+		// Robot.drive.moveWithController(-output, 0.0); // run the drivetrain instead
 	}
 }

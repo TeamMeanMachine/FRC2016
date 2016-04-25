@@ -21,7 +21,7 @@ public class DriveUntilUltrasonic extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	if(!isFinished())
-    		Robot.drive.setSpeed(0, power);
+    		Robot.drive.moveWithController(0, power);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -44,7 +44,7 @@ public class DriveUntilUltrasonic extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drive.setSpeed(0, 0);
+    	Robot.drive.moveWithController(0, 0);
     }
 
     // Called when another command which requires one or more of the same
