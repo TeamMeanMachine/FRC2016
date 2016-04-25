@@ -104,7 +104,7 @@ public class Aim2 extends PIDCommand {
 		}
 
 		Robot.drive.setAimDrop(true);
-		Robot.shooter.shootLogic();
+//		Robot.shooter.shootLogic();
 	}
 	
 	private void doRumble(boolean autoAim) {

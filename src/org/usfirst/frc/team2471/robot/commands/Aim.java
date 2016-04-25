@@ -88,7 +88,7 @@ public class Aim extends PIDCommand {
 			Robot.drive.setAimerMotor(leftRightValue);
 		}
 		
-		Robot.shooter.shootLogic();
+//		Robot.shooter.shootLogic();
 	}
 
 	@Override

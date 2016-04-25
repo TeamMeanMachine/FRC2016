@@ -48,7 +48,7 @@ public class Aim3 extends PIDCommand { // This is all broken dont use
 				findingSample = true;
 			}
 		}
-		Robot.shooter.shootLogic();
+//		Robot.shooter.shootLogic();
 	}
 
 	@Override
