@@ -214,7 +214,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
         Scheduler.getInstance().run();
         if(SmartDashboard.getBoolean("LightON")) {
-        	RobotMap.ringLight.set(true);
+        	shooter.setLights(true);
         }
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
         SmartDashboard.putNumber("gyroRate", RobotMap.gyro.getRate());

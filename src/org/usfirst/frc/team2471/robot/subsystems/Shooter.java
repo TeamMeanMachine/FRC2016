@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,6 +23,8 @@ public class Shooter extends Subsystem{
 	private PIDController bottomController;
 	private DigitalInput ballSensor;
 	private boolean shooterOn = false;
+	private Solenoid flashlight;
+	private Solenoid ringLight;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -49,26 +52,8 @@ public class Shooter extends Subsystem{
 		
 		bottomMotor.setInverted(true);  // this one is for talon SRX open loop
 		
-		/*
-		bottomMotor.reverseOutput(true);  // talon SRX closed loop
-
-		topMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
-		bottomMotor.changeControlMode( CANTalon.TalonControlMode.Speed );
-		
-		topMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
-		bottomMotor.setFeedbackDevice( CANTalon.FeedbackDevice.QuadEncoder );
-		
-		topMotor.configPeakOutputVoltage( 12.0, 0.0 );
-		bottomMotor.configPeakOutputVoltage( 0.0, -12.0 );
-		
-		topMotor.configNominalOutputVoltage( 0.0, 0.0 );
-		bottomMotor.configNominalOutputVoltage( 0.0, 0.0 );
-		
-		topMotor.setPID( 2000, 0, 0.0);
-		bottomMotor.setPID( 2000, 0, 0.0);
-		
-		topMotor.setF( 0.0 );
-		bottomMotor.setF( 0.0 );*/
+		flashlight = RobotMap.flashlight;
+		ringLight = RobotMap.ringLight;
 	}
 	
 	
@@ -138,7 +123,7 @@ public class Shooter extends Subsystem{
 		bottomMotor.set(0.0);
 		intakeMotor.set(0.0);
 		shooterOn = false;
-		RobotMap.ringLight.set(false);
+		setLights(false);
 		Robot.drive.setAimDrop(false);
 	}
 	
@@ -156,7 +141,7 @@ public class Shooter extends Subsystem{
 		
 		if (shooterOn) {
 			shoot(topSpeed, bottomSpeed);
-			RobotMap.ringLight.set(true);
+			setLights(true);
 		}
 		else {
 			stop();
@@ -193,6 +178,15 @@ public class Shooter extends Subsystem{
 	
 	public boolean hasBall() {
 		return !ballSensor.get();
+	}
+	
+	public void setFlashlight(boolean state) {
+		flashlight.set(state);
+	}
+
+	public void setLights(boolean state) {
+		flashlight.set(state);
+		ringLight.set(state);
 	}
 }
 

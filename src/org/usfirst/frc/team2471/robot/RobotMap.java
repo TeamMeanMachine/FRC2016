@@ -43,7 +43,7 @@ public class RobotMap {
     public static Solenoid aimDropCylinder;
     public static Solenoid pto;
     public static Solenoid ratchet;
-    public static Solenoid driverLight;
+    public static Solenoid flashlight;
 
     
 /*_____________________________Shooter____________________________________ */
@@ -184,6 +184,6 @@ public class RobotMap {
 //        vision = new VisionProcessor();
 //        vision.start();
 //        vision.suspend();
-        driverLight = new Solenoid(2);
+        flashlight = new Solenoid(2);
     }
 }
