@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class TerrainAndShotAuto extends CommandGroup {
+public class TerrainAndShootAuto extends CommandGroup {
     
-    public  TerrainAndShotAuto() {
+    public  TerrainAndShootAuto() {
     	addSequential(new LogCommand("Resetting gyro"));
     	addSequential(new ResetGyroCommand());
 
@@ -43,7 +43,7 @@ public class TerrainAndShotAuto extends CommandGroup {
     	addSequential(new AimAndShootGroup(true));
 
     	addSequential(new LogCommand("Rotating"));
-    	addSequential(new RotateToAngle(0, 0.5, 2.0));
+    	addSequential(new RotateToAngle(0, 0.5, 2.0), 1);
     	
     	addSequential(new LogCommand("Driving backward"));
     	addSequential(new DriveDistanceCommand(9.0, 0.0, -0.8));

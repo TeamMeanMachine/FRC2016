@@ -7,8 +7,9 @@ import org.usfirst.frc.team2471.robot.commandgroups.ChevalAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.PortcullisAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortAuto;
-import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShotAuto;
+import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShootAuto;
 import org.usfirst.frc.team2471.robot.commands.DoNothingAuto;
+import org.usfirst.frc.team2471.robot.commands.RotateToAngle;
 import org.usfirst.frc.team2471.robot.commands.SpitOutEmergency;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
@@ -70,6 +71,8 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
 		defenseArm = new DefenseArm();
 		
+		SmartDashboard.putData(new RotateToAngle(0, 0.5, 2.0)); // Temporary
+		
 		prefs = Preferences.getInstance();
 		logger = new Logger();
 		climbing = false;
@@ -124,7 +127,7 @@ public class Robot extends IterativeRobot {
 		
         //Here is the Sendable for the autonomous command
         autoChooser = new SendableChooser();
-        autoChooser.addDefault("Terrain and Shoot", new TerrainAndShotAuto());
+        autoChooser.addDefault("Terrain and Shoot", new TerrainAndShootAuto());
         autoChooser.addObject("Don't Move", new DoNothingAuto());
         autoChooser.addObject("Sally Port", new SallyPortAuto());
         autoChooser.addObject("Draw Bridge", new DrawBridgeAuto());

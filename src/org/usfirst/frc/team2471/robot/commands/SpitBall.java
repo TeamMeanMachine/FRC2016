@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SpitBall extends Command {
 	private double releaseTime;
-	private double endTime = Timer.getFPGATimestamp() + 2;
-	private boolean released = false;
+	private double endTime;
+	private boolean released;
 	
-	public SpitBall() { // TODO: Fix this shit
+	public SpitBall() {
 		requires(Robot.intake);
 	}
 
@@ -18,7 +18,9 @@ public class SpitBall extends Command {
 	protected void initialize() {
 		Robot.intake.intakeStop();
 		Robot.intake.intakeDown();
-		releaseTime = Timer.getFPGATimestamp() + 2;
+		releaseTime = Timer.getFPGATimestamp() + 0.4;
+		endTime = Timer.getFPGATimestamp() + 5; // To make sure it ends. It shouldn't make it this far
+		released = false;
 	}
 
 	@Override
@@ -26,8 +28,8 @@ public class SpitBall extends Command {
 		Robot.intake.intakeDown();
 		if(Timer.getFPGATimestamp() > releaseTime) {
 			Robot.intake.intakeOut(1.0);
-			if(!Robot.intake.getBallState() && !released) {
-				endTime = Timer.getFPGATimestamp() + 0.3;
+			if(!Robot.intake.getIntakeSensor() && !released) {
+				endTime = Timer.getFPGATimestamp() + 0.6;
 				released = true;
 			}
 		}
