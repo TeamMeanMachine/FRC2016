@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveDistanceCommand extends Command {
     private double distance;
-    private double x;
+    protected double x;
     private double y;
     private boolean started = false;
     private double startDistance;
@@ -24,7 +24,7 @@ public class DriveDistanceCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//    	System.out.println("DriveDistanceCommand Started");
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,7 +33,7 @@ public class DriveDistanceCommand extends Command {
         	startDistance = Robot.drive.getEncoderDistance();
             started = true;
         }
-        Robot.drive.setSpeed(x, y);
+        Robot.drive.setPower(x, y);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -43,7 +43,7 @@ public class DriveDistanceCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drive.setSpeed(0, 0);
+    	Robot.drive.setPower(0, 0);
         started = false;
     }
 

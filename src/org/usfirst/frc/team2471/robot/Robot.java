@@ -67,9 +67,7 @@ public class Robot extends IterativeRobot {
         intake = new Intake();
         shooter = new Shooter();
 		defenseArm = new DefenseArm();
-		
-		SmartDashboard.putData(new RotateToAngle(0, 0.5, 2.0)); // Temporary
-		
+				
 		prefs = Preferences.getInstance();
 		logger = new Logger();
 		climbing = false;

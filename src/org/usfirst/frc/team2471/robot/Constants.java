@@ -30,4 +30,9 @@ public final class Constants {
     public static final double TURN_I_AUTO = 0.000;
     public static final double TURN_I_TELEOP = 0.0;
     public static final double TURN_D = 0.003;
+    
+    //Rotate
+    public static final double ROTATE_P = 0.1;
+    public static final double ROTATE_I = 0.0;
+    public static final double ROTATE_D = 0.1;
 }

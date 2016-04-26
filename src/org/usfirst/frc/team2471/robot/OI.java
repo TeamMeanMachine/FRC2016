@@ -8,8 +8,10 @@ import org.usfirst.frc.team2471.robot.commandgroups.PickupBallManual;
 import org.usfirst.frc.team2471.robot.commandgroups.PortcullisHelper;
 import org.usfirst.frc.team2471.robot.commandgroups.ReleaseBall;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
+import org.usfirst.frc.team2471.robot.commands.DriveWithHeading;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
+import org.usfirst.frc.team2471.robot.commands.RotateToAngle;
 import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.StopCommand;
@@ -64,6 +66,7 @@ public class OI {
 	public static JoystickButton backupUltrasonic;
 	public static JoystickButton cancelAuto;
 	public static JoystickButton aimDropTest;
+	public static JoystickButton testButton;
 	
 	public static JoystickButton pingButton;
 
@@ -96,6 +99,9 @@ public class OI {
 		
 /*		backUntilTilted = new JoystickButton(driverStick, 7);
 		backUntilTilted.whenPressed(new BackUntilOuterWorks());*/
+		
+		testButton = new JoystickButton(coStick, 7);
+		testButton.whenPressed(new DriveWithHeading(6, 0.9, 0));
 		
 		cancelAuto = new JoystickButton(driverStick, 2);
 		cancelAuto.whenPressed(new StopCommand());
