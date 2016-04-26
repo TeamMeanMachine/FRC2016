@@ -101,7 +101,7 @@ public class OI {
 		backUntilTilted.whenPressed(new BackUntilOuterWorks());*/
 		
 		testButton = new JoystickButton(coStick, 7);
-		testButton.whenPressed(new DriveWithHeading(6, 0.9, 0));
+		testButton.whenPressed(new DriveWithHeading(6, 0.9));
 		
 		cancelAuto = new JoystickButton(driverStick, 2);
 		cancelAuto.whenPressed(new StopCommand());

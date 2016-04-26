@@ -9,7 +9,7 @@ public class ResetGyroCommand extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		RobotMap.gyro.reset();
+//		RobotMap.gyro.reset();
 	}
 
 	@Override

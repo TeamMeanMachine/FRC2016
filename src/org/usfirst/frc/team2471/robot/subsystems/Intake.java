@@ -4,6 +4,7 @@ import org.usfirst.frc.team2471.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem{
@@ -11,6 +12,8 @@ public class Intake extends Subsystem{
 	private CANTalon roller;
 	private Solenoid actuate;
 	private boolean ballIn;
+	
+	private Ultrasonic ballUltrasonic;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -52,7 +55,11 @@ public class Intake extends Subsystem{
 		return ballIn;
 	}
 	
-	public void setBallState(boolean _ballIn) {
-		ballIn = _ballIn;
+	public void setBallState(boolean state) {
+		ballIn = state;
+	}
+	
+	public double getUltrasonic() {
+		return ballUltrasonic.getRangeInches();
 	}
 }

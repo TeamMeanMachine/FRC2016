@@ -45,6 +45,7 @@ public class DriveDistanceCommand extends Command {
     protected void end() {
     	Robot.drive.setPower(0, 0);
         started = false;
+        
     }
 
     // Called when another command which requires one or more of the same

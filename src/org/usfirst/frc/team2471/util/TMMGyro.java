@@ -36,6 +36,11 @@ public class TMMGyro extends AHRS {
 		previousHeading = 0;
 		previousTime = Timer.getFPGATimestamp() - 1.0/20; 
 	}
+	
+	@Override
+	public double getAngle() {
+		return super.getAngle() + 360;
+	}
 
 	
 	private class StepRunnable implements Runnable {

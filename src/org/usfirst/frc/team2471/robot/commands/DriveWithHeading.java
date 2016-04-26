@@ -12,20 +12,32 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 public class DriveWithHeading extends DriveDistanceCommand {
 	private double headingAngle;
 	
+	private PIDController rotateController = new PIDController(Constants.ROTATE_P, Constants.ROTATE_I, Constants.ROTATE_D, 
+			new RotateSource(), new RotateOutput());
+	
 	public DriveWithHeading(double distance, double speed, double headingAngle) {
 		super(distance, 0, speed);
+		Robot.logger.logDebug("Setpoint should be set to " + headingAngle);
 		this.headingAngle = headingAngle;
-		rotateController = new PIDController(Constants.ROTATE_P, Constants.ROTATE_I, Constants.ROTATE_D, 
-				new RotateSource(), new RotateOutput());
 	}
-	PIDController rotateController;
+	
+	public DriveWithHeading(double distance, double speed) {
+		this(distance, speed, 0);
+	}
 
 	@Override
 	protected void initialize() {
 		super.initialize(); // In case we add something later
 		Robot.logger.logDebug("Starting angle: " + RobotMap.gyro.getAngle());
+		Robot.logger.logDebug("Setpoint: " + rotateController.getSetpoint());
 		rotateController.setSetpoint(headingAngle);
 		rotateController.enable();
+	}
+	
+	@Override
+    protected void end() {
+		super.end();
+		rotateController.disable();
 	}
 	
 	private class RotateSource implements PIDSource {
@@ -47,7 +59,6 @@ public class DriveWithHeading extends DriveDistanceCommand {
 	private class RotateOutput implements PIDOutput {
 		@Override
 		public void pidWrite(double output) {
-			Robot.logger.logDebug("Modifying turn by " + output);
 			x = -output;
 		}
 	}

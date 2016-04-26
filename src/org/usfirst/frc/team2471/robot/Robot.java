@@ -129,6 +129,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("AutoChooser", autoChooser);
         
         drive.resetEncoders();
+        RobotMap.gyro.reset();
     }
 	
 	@Override

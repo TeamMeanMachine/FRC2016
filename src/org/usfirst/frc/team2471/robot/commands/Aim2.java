@@ -14,16 +14,30 @@ public class Aim2 extends PIDCommand {
 	private boolean targetFound;
 	private int onTargetCount;
 	private boolean finishOnTarget;
+	
+	private int onTargetMax;
 
-	public Aim2(boolean _finishOnTarget) {
+	public Aim2(boolean finishOnTarget, boolean speedMode) {
 		super(Constants.AIM_2_P, Constants.AIM_2_I, Constants.AIM_2_D);
 		requires(Robot.drive);
 		requires(Robot.shooter);
 
 		aimController = getPIDController();
 		SmartDashboard.putData("Aim2 PID", aimController);
-		finishOnTarget = _finishOnTarget;
+		this.finishOnTarget = finishOnTarget;
+
+		if(speedMode) {
+			this.onTargetMax = 10;
+		}
+		else {
+			this.onTargetMax = 50;
+		}
 	}
+	
+	public Aim2(boolean finishOnTarget) {
+		this(finishOnTarget, false);
+	}
+	
 	@Override
 	public boolean isInterruptible() {
 		return false;
@@ -139,7 +153,7 @@ public class Aim2 extends PIDCommand {
 	@Override
 	protected boolean isFinished() {
 		if (finishOnTarget) {
-			return onTargetCount > 50.0;
+			return onTargetCount > onTargetMax;
 		} else {
 			return OI.coStick.getRawButton(2) || OI.coStick.getRawButton(6);
 		}

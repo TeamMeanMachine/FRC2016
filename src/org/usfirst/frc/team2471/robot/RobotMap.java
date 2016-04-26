@@ -60,6 +60,7 @@ public class RobotMap {
     
     public static CANTalon rollerIntake;
     public static DigitalInput intakeBallSensor;
+    public static Ultrasonic ballUltrasonic;
     
 /*______________________________Defense Arm_________________________________*/
     private static CANTalon defenseArmLeft, defenseArmRight;
@@ -88,6 +89,8 @@ public class RobotMap {
     	backupUltrasonicLeft = new Ultrasonic(5, 4);
     	backupUltrasonicRight.setAutomaticMode(true);
     	backupUltrasonicLeft.setAutomaticMode(true);
+    	
+    	
     	
     	aimer = new CANTalon(13);
     	
