@@ -57,7 +57,7 @@ public class OI {
 	public static JoystickButton armRotateDownButton;
 	public static JoystickButton fireButton;
 	public static JoystickButton suckIn;
-	public static JoystickButton fastAim;
+	public static JoystickButton fastShot;
 	public static JoystickButton emergencySpit;
 	public static JoystickButton backUntilTilted;
 	public static JoystickButton driverLight;
@@ -90,8 +90,8 @@ public class OI {
 		suckIn = new JoystickButton(driverStick, 6);
 		suckIn.whenPressed(new PickUpBallAuto());
 		
-		fastAim = new JoystickButton(coStick, 4);
-		fastAim.whenPressed(new AimAndShootGroup(true));
+		fastShot = new JoystickButton(coStick, 4);
+		fastShot.whenPressed(new AimAndShootGroup(true));
 		
 		emergencySpit = new JoystickButton(driverStick, 8);
 		emergencySpit.whenPressed(new ReleaseBall());
