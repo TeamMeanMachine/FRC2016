@@ -5,15 +5,13 @@ import org.usfirst.frc.team2471.robot.commands.LogCommand;
 import org.usfirst.frc.team2471.robot.commands.RotateArmToAngle;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.StartShooter;
-import org.usfirst.frc.team2471.robot.commands.StopShooter;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AimAndShootGroup extends CommandGroup {
     
-    public  AimAndShootGroup(boolean fastMode) {
+    public AimAndShootGroup(boolean fastMode) {
     	addSequential( new StartShooter() );
     	
     	addSequential( new RotateArmToAngle(-5.0));

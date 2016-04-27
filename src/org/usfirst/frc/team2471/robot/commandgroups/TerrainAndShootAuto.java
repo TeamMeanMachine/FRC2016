@@ -28,7 +28,7 @@ public class TerrainAndShootAuto extends CommandGroup {
     	
     	addSequential(new BackUntilOuterWorks(0.4));
     	
-    	addSequential(new AimAndShootGroup(true));
+    	addSequential(new AimAndShootGroup(false));
 
     	addSequential(new AutoAfterShoot());
     }

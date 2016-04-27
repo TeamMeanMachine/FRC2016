@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot.commandgroups;
 
 import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
+import org.usfirst.frc.team2471.robot.commands.DriveWithHeading;
 import org.usfirst.frc.team2471.robot.commands.QueueShot;
 import org.usfirst.frc.team2471.robot.commands.ResetGyroCommand;
 import org.usfirst.frc.team2471.robot.commands.RotateArmToAngle;
@@ -17,8 +18,8 @@ public class SallyPortAuto extends CommandGroup {
     	addSequential(new ResetGyroCommand());
     	addParallel(new RotateArmToAngle(50.0));
     	addParallel(new QueueShot());
-    	addSequential(new DriveDistanceCommand(3, 0, 0.7));
-    	addSequential(new DriveDistanceCommand(3, 0, 0.25), 1.0);
+    	addSequential(new DriveWithHeading(3, 0.7));
+    	addSequential(new DriveWithHeading(3, 0.25), 1.0);
 
     	addSequential(new SallyPortHelper());
 

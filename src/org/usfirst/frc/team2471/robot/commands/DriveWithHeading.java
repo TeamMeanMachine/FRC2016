@@ -15,12 +15,22 @@ public class DriveWithHeading extends DriveDistanceCommand {
 	private PIDController rotateController = new PIDController(Constants.ROTATE_P, Constants.ROTATE_I, Constants.ROTATE_D, 
 			new RotateSource(), new RotateOutput());
 	
+
+	/**
+	 * Functionally identical to DriveDistanceCommand except with a PID controller to correct the heading to a passed in angle.
+	 * If no heading is specified then the default will be set to 0
+	 */
 	public DriveWithHeading(double distance, double speed, double headingAngle) {
 		super(distance, 0, speed);
 		Robot.logger.logDebug("Setpoint should be set to " + headingAngle);
 		this.headingAngle = headingAngle;
 	}
 	
+
+	/**
+	 * Functionally identical to DriveDistanceCommand except with a PID controller to correct the heading to a passed in angle.
+	 * If no heading is specified then the default will be set to 0
+	 */
 	public DriveWithHeading(double distance, double speed) {
 		this(distance, speed, 0);
 	}
