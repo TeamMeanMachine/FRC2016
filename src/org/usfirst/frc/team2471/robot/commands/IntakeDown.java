@@ -19,7 +19,7 @@ public class IntakeDown extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (RobotMap.shooterBallSensor.get()==true) {
+    	if (RobotMap.shooterBallSensor.get()) {
 	    	Robot.intake.intakeDown();
 	    	Robot.intake.intakeIn(1.0);
     	}
@@ -34,11 +34,16 @@ public class IntakeDown extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	if(!OI.driverStick.getRawButton(6)) {
+    		Robot.intake.setSuckCanceled(true);
+    		return true;
+    	}
+    	
     	if(SmartDashboard.getBoolean("ManualIntake", false)) {
     		return false;
     	}
     	else {
-    		return Robot.intake.getIntakeSensor() || !OI.driverStick.getRawButton(6);
+    		return Robot.intake.getIntakeSensor();
     	}
     }
 
@@ -54,6 +59,8 @@ public class IntakeDown extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.intake.setSuckCanceled(false);
     	end();
+    	
     }
 }

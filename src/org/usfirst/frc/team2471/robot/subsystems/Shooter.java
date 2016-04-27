@@ -161,7 +161,7 @@ public class Shooter extends Subsystem{
 	}
 	
 	public void shooterIntakeReverse(){
-		intakeMotor.set(0.5);
+		intakeMotor.set(1);
 	}
 	
 	public boolean hasBall() {

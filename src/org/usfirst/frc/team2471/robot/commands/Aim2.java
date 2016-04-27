@@ -63,26 +63,19 @@ public class Aim2 extends PIDCommand {
 			if (SmartDashboard.getBoolean("IntelVision")) {
 				if (!targetFound && SmartDashboard.getNumber("BLOB_COUNT", 0) > 0) {
 					targetFound = true;
-					aimController.enable();
-					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
-					if(getSetpoint() == 0) { // Assuming default to 0
-						Robot.logger.logError("GYRO_TARGET not found!");
-					}
-					
-					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
-					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
+					aimController.enable();	
 				}
-				if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 3.0) {
-					setSetpoint(SmartDashboard.getNumber("GYRO_TARGET", 0));
-					if(getSetpoint() == 0) {
-						Robot.logger.logError("GYRO_TARGET not found!");
-					}
-					double gyro = getSetpoint() + SmartDashboard.getNumber("AIM_ERROR");
-					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + Math.round(getSetpoint() - gyro) + " degrees");
+				SmartDashboard.putNumber("AimGyroError", aimController.getError());
+				if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 1) {
+					double aimError = SmartDashboard.getNumber("AIM_ERROR");
+					setSetpoint(RobotMap.gyro.getAngle() + aimError);
+					
+					double gyro = RobotMap.gyro.getAngle();
+					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + (getSetpoint() - gyro) + " degrees");
 				}
 				
 				SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
-				SmartDashboard.putNumber("Aim Error", aimController.getError());
+//				SmartDashboard.putNumber("Aim Error", aimController.getError());
 
 				doRumble(true);
 
@@ -108,10 +101,16 @@ public class Aim2 extends PIDCommand {
 			aimController.disable();
 			double leftRightValue = OI.coStick.getRawAxis(4);
 			double deadband = 0.2;
-			if (Math.abs(leftRightValue) < deadband) // dead band for xbox
+			if (Math.abs(leftRightValue) < deadband) { // dead band for xbox
 				leftRightValue = 0.0;
-			else
+			}
+				
+			else {
 				leftRightValue = (leftRightValue - Math.signum(leftRightValue) * deadband) / (1.0 - deadband);
+			}
+			
+			leftRightValue *= (leftRightValue * leftRightValue) * 0.6; // Ramp
+				
 			Robot.drive.setAimerMotor(leftRightValue);
 			
 			doRumble(false);
@@ -185,6 +184,7 @@ public class Aim2 extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
+//		Robot.logger.logDebug("Setting aimer to " + output);
 		Robot.drive.setAimerMotor(output);
 		// Robot.drive.setSpeed(-output, 0.0); // run the drivetrain instead
 	}

@@ -30,7 +30,7 @@ public class SallyPortAuto extends CommandGroup {
     	//addSequential(new WaitCommand(0.5));
     	
     	addSequential(new BackUntilOuterWorks(0.4), 1.5);
-    	addSequential(new AimAndShootGroup(true));
+    	addSequential(new AimAndShootGroup(false));
     	
 
     	addSequential(new AutoAfterShoot());

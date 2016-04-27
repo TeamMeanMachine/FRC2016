@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AimAndShootGroup extends CommandGroup {
     
-    public  AimAndShootGroup(boolean finishOnTarget) {
+    public  AimAndShootGroup(boolean fastMode) {
     	addSequential( new StartShooter() );
     	
     	addSequential( new RotateArmToAngle(-5.0));
 
-    	addSequential( new Aim2(finishOnTarget, true));
+    	addSequential( new Aim2(true, fastMode));
 
     	if(SmartDashboard.getBoolean("AutoAim", true)) {
         	addSequential( new Shoot() );    		

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.robot.commandgroups.AimAndShootGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.AimGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.BackUntilOuterWorks;
 import org.usfirst.frc.team2471.robot.commandgroups.ChevalHelper;
@@ -11,8 +12,6 @@ import org.usfirst.frc.team2471.robot.commandgroups.SallyPortHelper;
 import org.usfirst.frc.team2471.robot.commands.DriveWithHeading;
 import org.usfirst.frc.team2471.robot.commands.LightAction;
 import org.usfirst.frc.team2471.robot.commands.PickUpBallAuto;
-import org.usfirst.frc.team2471.robot.commands.RotateToAngle;
-import org.usfirst.frc.team2471.robot.commands.SallyPortPreset;
 import org.usfirst.frc.team2471.robot.commands.Shoot;
 import org.usfirst.frc.team2471.robot.commands.StopCommand;
 import org.usfirst.frc.team2471.util.JoystickPOVButton;
@@ -58,7 +57,7 @@ public class OI {
 	public static JoystickButton armRotateDownButton;
 	public static JoystickButton fireButton;
 	public static JoystickButton suckIn;
-	public static JoystickButton sallyPort;
+	public static JoystickButton fastAim;
 	public static JoystickButton emergencySpit;
 	public static JoystickButton backUntilTilted;
 	public static JoystickButton driverLight;
@@ -91,8 +90,8 @@ public class OI {
 		suckIn = new JoystickButton(driverStick, 6);
 		suckIn.whenPressed(new PickUpBallAuto());
 		
-		sallyPort = new JoystickButton(coStick, 4);
-		sallyPort.whenPressed(new SallyPortPreset());
+		fastAim = new JoystickButton(coStick, 4);
+		fastAim.whenPressed(new AimAndShootGroup(true));
 		
 		emergencySpit = new JoystickButton(driverStick, 8);
 		emergencySpit.whenPressed(new ReleaseBall());

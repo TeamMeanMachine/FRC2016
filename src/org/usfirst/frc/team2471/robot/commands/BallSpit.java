@@ -31,6 +31,10 @@ public class BallSpit extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	if(isTimedOut()) {
+    		return true;
+    	}
+    	
     	if(SmartDashboard.getBoolean("ManualIntake", false)) {
     		return (Timer.getFPGATimestamp() - startTime > 0.2);
     	} else {
@@ -46,6 +50,7 @@ public class BallSpit extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.intake.setSuckCanceled(false);
     	end();
     }
 }

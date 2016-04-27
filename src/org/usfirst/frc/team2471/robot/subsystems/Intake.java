@@ -13,6 +13,8 @@ public class Intake extends Subsystem{
 	private Solenoid actuate;
 	private boolean ballIn;
 	
+	private boolean suckCanceled;
+	
 	private Ultrasonic ballUltrasonic;
 
 	@Override
@@ -61,5 +63,13 @@ public class Intake extends Subsystem{
 	
 	public double getUltrasonic() {
 		return ballUltrasonic.getRangeInches();
+	}
+	
+	public void setSuckCanceled(boolean state) {
+		suckCanceled = state;
+	}
+	
+	public boolean getSuckCanceled() {
+		return suckCanceled;
 	}
 }

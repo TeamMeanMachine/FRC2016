@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2471.robot.commands;
 
 import org.usfirst.frc.team2471.robot.OI;
+import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.commandgroups.MicroBallHelper;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -30,9 +31,14 @@ public class PickUpBallAuto extends CommandGroup {
     	
     	addSequential(new IntakeDown());
     	addParallel(new RumbleJoystick(0.5, OI.driverStick));
-    	addSequential(new CenterBall());
+    	addSequential(new CenterBall(), 1);
     	addSequential(new MicroBallHelper());
     	addSequential(new MicroBallHelper());
     	addSequential(new QueueShot());
+    }
+    
+    @Override
+    protected void end() {
+    	Robot.intake.setSuckCanceled(false);
     }
 }

@@ -15,11 +15,9 @@ public class UnloadShooter extends Command {
 	@Override
 	protected void initialize() {
 		Robot.logger.logInfo("Unloading shooter");
-		if(Robot.shooter.hasBall()) {
-			Robot.shooter.shooterIntakeReverse();
-			Robot.intake.intakeUp();		
-			Robot.intake.intakeIn(1);
-		}
+		Robot.shooter.shooterIntakeReverse();
+		Robot.intake.intakeUp();
+		Robot.intake.intakeIn(1);
 	}
 
 	@Override
@@ -29,18 +27,24 @@ public class UnloadShooter extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.getIntakeSensor() || isTimedOut();
+		return Robot.intake.getIntakeSensor();
 	}
 
 	@Override
 	protected void end() {
+		Robot.logger.logDebug("Intake sensor: " + Robot.intake.getIntakeSensor());
 		Robot.shooter.shooterIntakeOff();
 		Robot.intake.intakeStop();
 	}
 
 	@Override
 	protected void interrupted() {
-		end();
+		Robot.logger.logWarning("UnloadShooter interrupted");
 	}
+	
+	
+	
+//	@Override
+//	protected voi 
 
 }

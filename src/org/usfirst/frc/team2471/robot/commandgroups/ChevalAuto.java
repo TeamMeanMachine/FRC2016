@@ -27,6 +27,6 @@ public class ChevalAuto extends CommandGroup {
     	addSequential(new WaitCommand(1));
     	
     	addSequential(new BackUntilOuterWorks(0.4), 1.5);
-    	addSequential(new AimAndShootGroup(true));
+    	addSequential(new AimAndShootGroup(false));
 	}
 }
