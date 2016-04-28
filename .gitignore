@@ -1,7 +1,9 @@
 *.class
 *.jar
 build/*
-*.jar
 sysProps.xml
 dist/FRCUserProgram.jar
 /bin/
+
+FRC2016.iml
+.idea

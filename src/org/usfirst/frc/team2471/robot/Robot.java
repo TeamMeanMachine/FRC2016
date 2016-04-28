@@ -98,6 +98,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("SuperMaxArmLimit", prefs.getDouble("SuperMaxArmLimit", 95));
 		SmartDashboard.putNumber("AIM_DROP_TEST_ANGLE", 0);
 		SmartDashboard.putBoolean("ShooterHasBall", shooter.hasBall());
+		SmartDashboard.putBoolean("TwoBallAuto", prefs.getBoolean("TwoBall", false));
 		
 		// Subsystems
 		SmartDashboard.putData(defenseArm);

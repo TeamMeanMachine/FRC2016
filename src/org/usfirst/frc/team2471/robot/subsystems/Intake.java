@@ -12,7 +12,7 @@ public class Intake extends Subsystem{
 	private CANTalon roller;
 	private Solenoid actuate;
 	private boolean ballIn;
-	
+
 	private boolean suckCanceled;
 	
 	private Ultrasonic ballUltrasonic;
@@ -26,6 +26,7 @@ public class Intake extends Subsystem{
 	public Intake(){
 		roller = RobotMap.rollerIntake;
 		actuate = RobotMap.intakeActuate;
+		ballUltrasonic = RobotMap.ballUltrasonic;
 	}
 	
 	public void intakeIn(double x){
@@ -72,4 +73,9 @@ public class Intake extends Subsystem{
 	public boolean getSuckCanceled() {
 		return suckCanceled;
 	}
+
+	public double getBallUltrasonic() {
+		return ballUltrasonic.getRangeInches();
+	}
+
 }
