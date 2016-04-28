@@ -57,6 +57,8 @@ public class Robot extends IterativeRobot {
     public static Logger logger;
     public static CSVLogger aimLogger;
     
+    public static IntelComms vision;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -74,6 +76,8 @@ public class Robot extends IterativeRobot {
 		prefs = Preferences.getInstance();
 		logger = new Logger();
 		climbing = false;
+		
+		vision = new IntelComms();
 		
 //		prefs.putDouble("AimChange", 15); // Temporary for testing without smart dashboard on 2/27/15
 //		prefs.putDouble("Top", 3300);

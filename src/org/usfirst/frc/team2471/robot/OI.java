@@ -90,8 +90,8 @@ public class OI {
 		suckIn = new JoystickButton(driverStick, 6);
 		suckIn.whenPressed(new PickUpBallAuto());
 		
-		fastShot = new JoystickButton(coStick, 4);
-		fastShot.whenPressed(new AimAndShootGroup(true));
+		//fastShot = new JoystickButton(coStick, 4);
+		//fastShot.whenPressed(new AimAndShootGroup(true));
 		
 		emergencySpit = new JoystickButton(driverStick, 8);
 		emergencySpit.whenPressed(new ReleaseBall());

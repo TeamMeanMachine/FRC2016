@@ -21,6 +21,7 @@ public class CSVLogger {
 	private Thread stepThread;
 	private double refreshTime;
 	private final String SAVE_PATH = "/home/lvuser/aim.csv";
+	private Path filePath = Paths.get(SAVE_PATH);
 	
 	public CSVLogger() {
 		this.stepThread = new Thread(new StepThread());
@@ -28,6 +29,14 @@ public class CSVLogger {
 		this.refreshTime = Timer.getFPGATimestamp() + 1;
 		
 		buffer.add("Timestamp,Key,Value");
+		
+		if(Files.exists(filePath)) {
+			try {
+				Files.delete(filePath);
+			} catch (IOException e) {
+				Robot.logger.logError("Failed to discard old csv file");
+			}
+		}
 	}
 	
 	public void addToBuffer(String key, double value) {
@@ -60,12 +69,12 @@ public class CSVLogger {
 				
 				if(Timer.getFPGATimestamp() >= refreshTime) {
 					if(buffer.size() > 0) {
-						Path filePath = Paths.get(SAVE_PATH);
 						try {
 							if(!Files.exists(filePath)) {
 								Files.createFile(filePath);
 							}
-							Files.write(filePath, buffer, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
+							Files.write(filePath, buffer, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+							buffer.clear();
 						} catch (IOException e) {
 							Robot.logger.logError("Error in updating CSV");
 							return; 

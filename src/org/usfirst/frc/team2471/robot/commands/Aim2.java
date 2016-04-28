@@ -64,7 +64,7 @@ public class Aim2 extends PIDCommand {
 			if (SmartDashboard.getBoolean("IntelVision")) {
 				if (!targetFound && SmartDashboard.getNumber("BLOB_COUNT", 0) > 0) {
 					targetFound = true;
-					aimController.enable();	
+					aimController.enable();
 				}
 				SmartDashboard.putNumber("AimGyroError", aimController.getError());
 				if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 1) {
