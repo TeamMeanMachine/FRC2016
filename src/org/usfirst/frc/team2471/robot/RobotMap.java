@@ -72,8 +72,8 @@ public class RobotMap {
     
     public static AnalogInput magnepotArm;
     
-    public static AnalogGyro analogGyro; 
-    public static TMMGyro gyro;
+    public static AnalogGyro gyro; 
+    //public static TMMGyro gyro;
     
     public static BuiltInAccelerometer accelerometer;
     
@@ -151,17 +151,20 @@ public class RobotMap {
     	
     	pdp = new PowerDistributionPanel(0);
     	
-    	analogGyro = new AnalogGyro(0);
+    	/*analogGyro = new AnalogGyro(0);
 		analogGyro.initGyro();
 		
         try {
-            /* Communicate w/navX MXP via the MXP SPI Bus.                                     */
-            /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
-            /* See http://navx-mxp..com/guidance/selecting-an-interface/ for details. */
+             Communicate w/navX MXP via the MXP SPI Bus.                                     
+             Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     
+             See http://navx-mxp..com/guidance/selecting-an-interface/ for details. 
             gyro = new TMMGyro(SPI.Port.kOnboardCS0);
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-        }
+        }*/
+    	
+    	gyro = new AnalogGyro(0);
+    	gyro.initGyro();
 		
     	accelerometer = new BuiltInAccelerometer();
         accelDownX = accelerometer.getX();  // robot needs to be flat when this runs
