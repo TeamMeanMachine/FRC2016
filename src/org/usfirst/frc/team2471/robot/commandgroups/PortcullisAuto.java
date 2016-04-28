@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.commandgroups;
 
+import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
 import org.usfirst.frc.team2471.robot.commands.DriveWithHeading;
 import org.usfirst.frc.team2471.robot.commands.QueueShot;
 import org.usfirst.frc.team2471.robot.commands.ResetGyroCommand;
@@ -14,8 +15,8 @@ public class PortcullisAuto extends CommandGroup {
 		addSequential(new ResetGyroCommand());
 		addParallel(new RotateArmToAngle(50.0));
 		addParallel(new QueueShot());
-		addSequential(new DriveWithHeading(2, 0.7));
-		addSequential(new DriveWithHeading(1.5, 0.3));
+		addSequential(new DriveDistanceCommand(2, 0, 0.7));
+		addSequential(new DriveDistanceCommand(1.5, 0, 0.3));
 		addSequential(new WaitCommand(0.5));
 		
 		addSequential(new PortcullisHelper());

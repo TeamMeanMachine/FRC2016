@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.commandgroups;
 
+import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
 import org.usfirst.frc.team2471.robot.commands.DriveWithHeading;
 import org.usfirst.frc.team2471.robot.commands.QueueShot;
 import org.usfirst.frc.team2471.robot.commands.ResetGyroCommand;
@@ -18,15 +19,15 @@ public class DrawBridgeAuto extends CommandGroup {
     	addSequential(new ResetGyroCommand());
     	addParallel(new RotateArmToAngle(75.0));
     	addParallel(new QueueShot());
-    	addSequential(new DriveWithHeading(2, 0.5));
-    	addSequential(new DriveWithHeading(1, 0.4),1.0);
+    	addSequential(new DriveDistanceCommand(2, 0, 0.5));
+    	addSequential(new DriveDistanceCommand(1, 0, 0.4),1.0);
 
     	addSequential(new DrawBridgeHelper());
 
     	addSequential(new WaitCommand(0.5));
-    	addSequential(new DriveWithHeading(2, 0.4));
+    	addSequential(new DriveDistanceCommand(2, 0, 0.4));
     	addSequential(new RotateToAngle( 0.0, 0.5, 2.0 ));
-    	addSequential(new DriveWithHeading(6, 0.5));
+    	addSequential(new DriveDistanceCommand(6, 0, 0.5));
 
     	addSequential(new WaitCommand(0.5));
     	
