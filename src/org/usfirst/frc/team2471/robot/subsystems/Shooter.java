@@ -169,12 +169,14 @@ public class Shooter extends Subsystem{
 	}
 	
 	public void setFlashlight(boolean state) {
-		flashlight.set(state);
+		flashlight.set(false);
 	}
 
 	public void setLights(boolean state) {
-		flashlight.set(state);
-		ringLight.set(state);
+		flashlight.set(false);
+		if(ringLight.get() != state) {
+			ringLight.set(state);
+		}
 	}
 	
 	private class ShootLogic implements Runnable {

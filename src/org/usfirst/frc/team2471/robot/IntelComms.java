@@ -2,6 +2,7 @@ package org.usfirst.frc.team2471.robot;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,6 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class IntelComms {
 	private final int PORT = 5802;
 	private double lastAimError = 0;
+	private double lastBlobCount = 0;
+	private Thread serverThread;
 	
 	private ServerSocket serverSocket;
 	
@@ -22,32 +25,53 @@ public class IntelComms {
 			SmartDashboard.putBoolean("AutoAim", false);
 			return;
 		}
-		new Thread(new ServerThread()).start();
+		
+		serverThread = new Thread(() -> intelThread());
+		
+		
+		try {
+			serverThread.start();
+		} catch (IllegalThreadStateException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	private class ServerThread implements Runnable {
-		@Override
-		public void run() {
-			try {
-				Socket connectionSocket = serverSocket.accept();
-				while(true) {
-					BufferedReader clientInput = 
-							new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-					String clientMessage = clientInput.readLine();
-					parseInput(clientMessage);
+	private void intelThread() {
+		try {
+			Robot.logger.logDebug("Starting intelvision thread");
+			Socket connectionSocket = serverSocket.accept();
+			Robot.logger.logInfo("Socket found at port " + connectionSocket.getPort());
+			while(true) {
+				char charArray[] = new char[80];
+				try{
+					InputStreamReader inStream = new InputStreamReader(connectionSocket.getInputStream());
+					BufferedReader clientInput = new BufferedReader(inStream);
 					
+					int numRead = clientInput.read(charArray); 
+					String clientMessage = String.valueOf(charArray);
+					parseInput(clientMessage);
+				} catch (IOException e){
+					Robot.logger.logDebug("Error in reading input " + e.getMessage());
 				}
-			} catch (IOException e) {
-				Robot.logger.logError(e.getMessage());
 			}
-		}		
+		} catch (IOException e) {
+			Robot.logger.logError(" Error code 2 " + e.getMessage());
+		}	
 	}
 	
 	private void parseInput(String message) {
 		try {
-			lastAimError = Double.parseDouble(message);
-		} catch (NumberFormatException e) {
-			Robot.logger.logWarning("Received packet cannot be converted to a number. Message is " + message);
+			if(message.length() < 3) { // Because if the intelstick hasn't found any targets yet we don't want to spam the console
+				return;
+			}
+			String[] parsedMessage = message.split(" ");
+			lastBlobCount = Integer.parseInt(parsedMessage[0]);
+			SmartDashboard.putNumber("BLOB_COUNT", lastBlobCount);
+			
+			lastAimError = Double.parseDouble(parsedMessage[1]);
+			SmartDashboard.putNumber("AIM_ERROR", lastAimError);
+		} catch (Exception e) {
+			Robot.logger.logError("Error code 3 " + e.getMessage());
 		}
 	}
 	

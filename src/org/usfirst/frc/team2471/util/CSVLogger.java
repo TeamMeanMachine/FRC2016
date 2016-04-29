@@ -6,9 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.function.DoubleSupplier;
 
 import org.usfirst.frc.team2471.robot.Robot;
 
@@ -16,8 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 
 public class CSVLogger {
-	private List<DoubleSupplier> methods = new ArrayList<>();
-	private List<String> buffer = new ArrayList<>();
+	private List<String> buffer = new LinkedList<>();
 	private Thread stepThread;
 	private double refreshTime;
 	private final String SAVE_PATH = "/home/lvuser/aim.csv";
@@ -50,7 +48,6 @@ public class CSVLogger {
 		lineBuilder.append(value);
 		lineBuilder.append("\n");
 		buffer.add(lineBuilder.toString());
-		
 	}
 	
 	private double getTimestamp() {
@@ -68,22 +65,21 @@ public class CSVLogger {
 				}
 				
 				if(Timer.getFPGATimestamp() >= refreshTime) {
-					if(buffer.size() > 0) {
+					if(!buffer.isEmpty()) {
 						try {
 							if(!Files.exists(filePath)) {
 								Files.createFile(filePath);
 							}
 							Files.write(filePath, buffer, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 							buffer.clear();
+							refreshTime = Timer.getFPGATimestamp() + 5;
 						} catch (IOException e) {
 							Robot.logger.logError("Error in updating CSV");
 							return; 
 						}
 					}
 				}
-			}
-			
+			}		
 		}
-		
 	}
 }

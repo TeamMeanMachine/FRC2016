@@ -25,19 +25,19 @@ public class SallyPortAuto extends CommandGroup {
     	addSequential(new SallyPortHelper());
 
     	addSequential(new WaitCommand(0.5));
-    	addSequential(new RotateToAngle( 2.0, 0.5, 2.0 ));
+    	addSequential(new RotateToAngle( -10, 0.5, 2.0, true));
     	addSequential(new DriveDistanceCommand(2, 0, 0.8));
-    	addSequential(new RotateToAngle( 0.0, 0.5, 2.0 ));
-    	addSequential(new DriveDistanceCommand(8, 0, 0.7));
+    	addSequential(new RotateToAngle( 2, 0.5, 2.0, true));
+    	addSequential(new DriveDistanceCommand(5, 0, 0.7));
     	addSequential(new WaitCommand(0.5));
     	
-    	addSequential(new BackUntilOuterWorks(0.4), 1.5);
+    	//addSequential(new BackUntilOuterWorks(0.4), 1.5);
     	addSequential(new AimAndShootGroup(true));
     	
 
     	//addSequential(new AutoAfterShoot());
-    	addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));
-    	addSequential(new RotateToAngle(0, 0.5, 2.0));
-    	addSequential(new DriveDistanceCommand(8.0, 0.0, -0.8));
+    	//addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));
+    	//addSequential(new RotateToAngle(0, 0.5, 2.0));
+    	//addSequential(new DriveDistanceCommand(8.0, 0.0, -0.8));
     }
 }

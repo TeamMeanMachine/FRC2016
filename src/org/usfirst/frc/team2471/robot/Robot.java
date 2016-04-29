@@ -4,6 +4,7 @@ package org.usfirst.frc.team2471.robot;
 import org.usfirst.frc.team2471.robot.commandgroups.ChevalAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.DrawBridgeAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.PortcullisAuto;
+import org.usfirst.frc.team2471.robot.commandgroups.RotateTestCommandGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShootAuto;
 import org.usfirst.frc.team2471.robot.commands.DoNothingAuto;
@@ -45,6 +46,9 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static DefenseArm defenseArm;
 	
+	public static double BLOB_COUNT;
+	public static double AIM_ERROR;
+	
 	public static boolean shoot;
     public static boolean climbing;
     public static double ultrasonicLimit;
@@ -85,6 +89,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("LightON", false);
 		SmartDashboard.putBoolean("ShooterEnable", false);
 		SmartDashboard.putBoolean("AutoAim",true);
+		
+		SmartDashboard.putData(new RotateTestCommandGroup());
 		
 		// read prefs, put on dashboard
 		SmartDashboard.putNumber("TopSetSpeed", prefs.getDouble("TopSetSpeed", 3300));
@@ -222,7 +228,7 @@ public class Robot extends IterativeRobot {
     @Override
 	public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        if(SmartDashboard.getBoolean("LightON")) {
+        if(SmartDashboard .getBoolean("LightON")) {
         	shooter.setLights(true);
         }
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());

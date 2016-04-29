@@ -28,8 +28,8 @@ public class RotateToAngle extends PIDCommand {
         this.tolerance = tolerance;
         this.relative = relative;
         
-//        controller.setInputRange(-180, 180);
-//        controller.setContinuous();
+        controller.setInputRange(-180, 180);
+        controller.setContinuous();
     }
     
     public RotateToAngle(double angle, double speed, double tolerance) {

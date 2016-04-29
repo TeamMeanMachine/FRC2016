@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2471.robot.commands;
 
-import org.usfirst.frc.team2471.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ResetGyroCommand extends Command {
