@@ -47,7 +47,7 @@ public class RotateToAngle extends PIDCommand {
         controller.setAbsoluteTolerance(tolerance);
         
         // Temp
-        SmartDashboard.putData("TempPID", controller);
+        SmartDashboard.putData("TurnAnglePID", controller);
     }
 
     // Called repeatedly when this Command is scheduled to run

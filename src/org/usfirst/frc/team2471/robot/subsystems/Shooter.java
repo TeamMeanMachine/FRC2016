@@ -26,7 +26,7 @@ public class Shooter extends Subsystem{
 	private Solenoid flashlight;
 	private Solenoid ringLight;
 
-	private Thread shootLogic;
+//	private Thread shootLogic;
 	
 	@Override
 	protected void initDefaultCommand() {
@@ -57,8 +57,8 @@ public class Shooter extends Subsystem{
 		flashlight = RobotMap.flashlight;
 		ringLight = RobotMap.ringLight;
 		
-		shootLogic = new Thread(new ShootLogic());
-		shootLogic.start();
+//		shootLogic = new Thread(new ShootLogic());
+//		shootLogic.start();
 	}
 	
 	
@@ -179,34 +179,52 @@ public class Shooter extends Subsystem{
 		}
 	}
 	
-	private class ShootLogic implements Runnable {
-		@Override
-		public void run() {
-			while(true) {
-				double topSpeed = SmartDashboard.getNumber("TopSetSpeed", 2700);
-				double bottomSpeed = SmartDashboard.getNumber("BottomSetSpeed", 2500);
-				
-				if (shooterOn) {
-					shoot(topSpeed, bottomSpeed);
-					setLights(true);
-				}
-				else {
-					stop();
-				}
-				SmartDashboard.putNumber("TopSpeed", topMotor.getEncVelocity());
-				SmartDashboard.putNumber("BottomSpeed", -bottomMotor.getEncVelocity());
-				SmartDashboard.putNumber("Top Error", topController.getError());
-				SmartDashboard.putNumber("Bottom Error", bottomController.getError());
-				SmartDashboard.putNumber("ShooterSpeedDiff", topMotor.getSetpoint() - bottomMotor.getSetpoint());
-				
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					Robot.logger.logError("ShootLogic thread interrupted!");
-				}
-			}
+	public void shootLogic() {
+		double topSpeed = SmartDashboard.getNumber("TopSetSpeed", 2700);
+		double bottomSpeed = SmartDashboard.getNumber("BottomSetSpeed", 2500);
+		
+		if (shooterOn) {
+			shoot(topSpeed, bottomSpeed);
+			setLights(true);
 		}
+		else {
+			stop();
+		}
+		SmartDashboard.putNumber("TopSpeed", topMotor.getEncVelocity());
+		SmartDashboard.putNumber("BottomSpeed", -bottomMotor.getEncVelocity());
+		SmartDashboard.putNumber("Top Error", topController.getError());
+		SmartDashboard.putNumber("Bottom Error", bottomController.getError());
+		SmartDashboard.putNumber("ShooterSpeedDiff", topMotor.getSetpoint() - bottomMotor.getSetpoint());
 		
 	}
+	
+//	private class ShootLogic implements Runnable {
+//		@Override
+//		public void run() {
+//			while(true) {
+//				double topSpeed = SmartDashboard.getNumber("TopSetSpeed", 2700);
+//				double bottomSpeed = SmartDashboard.getNumber("BottomSetSpeed", 2500);
+//				
+//				if (shooterOn) {
+//					shoot(topSpeed, bottomSpeed);
+//					setLights(true);
+//				}
+//				else {
+//					stop();
+//				}
+//				SmartDashboard.putNumber("TopSpeed", topMotor.getEncVelocity());
+//				SmartDashboard.putNumber("BottomSpeed", -bottomMotor.getEncVelocity());
+//				SmartDashboard.putNumber("Top Error", topController.getError());
+//				SmartDashboard.putNumber("Bottom Error", bottomController.getError());
+//				SmartDashboard.putNumber("ShooterSpeedDiff", topMotor.getSetpoint() - bottomMotor.getSetpoint());
+//				
+//				try {
+//					Thread.sleep(10);
+//				} catch (InterruptedException e) {
+//					Robot.logger.logError("ShootLogic thread interrupted!");
+//				}
+//			}
+//		}
+//	}
 }
 

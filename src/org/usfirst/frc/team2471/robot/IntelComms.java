@@ -71,7 +71,7 @@ public class IntelComms {
 			lastAimError = Double.parseDouble(parsedMessage[1]);
 			SmartDashboard.putNumber("AIM_ERROR", lastAimError);
 		} catch (Exception e) {
-			Robot.logger.logError("Error code 3 " + e.getMessage());
+			//Robot.logger.logError("Error code 3 " + e.getMessage());
 		}
 	}
 	

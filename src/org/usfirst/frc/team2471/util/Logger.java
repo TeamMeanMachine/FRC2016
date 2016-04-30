@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class Logger {
-	public static final boolean SAVE_TO_FILE = false;
+	public static final boolean SAVE_TO_FILE = true;
 	private List<String> lines;
 	private String fileName;
 	private SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-hh.mm.ss");

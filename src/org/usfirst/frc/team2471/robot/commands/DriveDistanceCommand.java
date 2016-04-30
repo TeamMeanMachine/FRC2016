@@ -33,7 +33,7 @@ public class DriveDistanceCommand extends Command {
         	startDistance = Robot.drive.getEncoderDistance();
             started = true;
         }
-        Robot.drive.setPower(x, y);
+        Robot.drive.autoDrive(x, y);
     }
 
     // Make this return true when this Command no longer needs to run execute()

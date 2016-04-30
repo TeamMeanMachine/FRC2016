@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StartShooter extends Command {
 
     public StartShooter() {
-		requires(Robot.shooter);
+    	
     }
 
     // Called just before this Command runs the first time

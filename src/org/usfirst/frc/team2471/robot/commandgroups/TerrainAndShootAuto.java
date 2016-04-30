@@ -1,12 +1,9 @@
 package org.usfirst.frc.team2471.robot.commandgroups;
 
 import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
-import org.usfirst.frc.team2471.robot.commands.DriveUntilUltrasonic;
 import org.usfirst.frc.team2471.robot.commands.QueueShot;
 import org.usfirst.frc.team2471.robot.commands.ResetGyroCommand;
 import org.usfirst.frc.team2471.robot.commands.RotateArmToAngle;
-import org.usfirst.frc.team2471.robot.commands.RotateArmToAngleWait;
-import org.usfirst.frc.team2471.robot.commands.RotateToAngle;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -33,8 +30,8 @@ public class TerrainAndShootAuto extends CommandGroup {
     	addSequential(new BackUntilOuterWorks(.4));
     	addSequential(new AimAndShootGroup(true));
     	
-    	addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));
-    	addSequential(new RotateToAngle(0, 0.5, 2.0));
-    	addSequential(new DriveDistanceCommand(8.0, 0.0, -0.8));
+//    	addSequential(new DriveDistanceCommand(0.5, 0.0, -0.5));
+//    	addSequential(new RotateToAngle(0, 0.5, 2.0));
+//    	addSequential(new DriveDistanceCommand(8.0, 0.0, -0.8));
     }
 }

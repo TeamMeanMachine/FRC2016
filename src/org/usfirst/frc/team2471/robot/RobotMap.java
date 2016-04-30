@@ -85,7 +85,7 @@ public class RobotMap {
     
     public static void init(){
 //    	backupUltrasonic = new AnalogInput(4);
-    	backupUltrasonicRight = new Ultrasonic(3, 2);
+    	backupUltrasonicRight = new Ultrasonic(7, 6);
     	backupUltrasonicLeft = new Ultrasonic(5, 4);
     	backupUltrasonicRight.setAutomaticMode(true);
     	backupUltrasonicLeft.setAutomaticMode(true);

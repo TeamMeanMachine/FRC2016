@@ -31,7 +31,7 @@ public class Aim2 extends PIDCommand {
 			this.onTargetMax = 10;
 		}
 		else {
-			this.onTargetMax = 50;
+			this.onTargetMax = 150;
 		}
 	}
 	
@@ -124,8 +124,6 @@ public class Aim2 extends PIDCommand {
 		}
 
 		Robot.drive.setAimDrop(true);
-//		Robot.shooter.shootLogic();
-		
 	}
 	
 	private void doRumble(boolean autoAim) {

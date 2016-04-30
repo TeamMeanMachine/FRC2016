@@ -175,6 +175,7 @@ public class Robot extends IterativeRobot {
     @Override
 	public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+		Robot.shooter.shootLogic();
 
         SmartDashboard.putNumber("GYRO_ANGLE", RobotMap.gyro.getAngle());
     }
@@ -227,6 +228,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
 	public void teleopPeriodic() {
+		Robot.shooter.shootLogic();
         Scheduler.getInstance().run();
         if(SmartDashboard .getBoolean("LightON")) {
         	shooter.setLights(true);

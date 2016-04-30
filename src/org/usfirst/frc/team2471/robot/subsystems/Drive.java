@@ -49,7 +49,7 @@ public class Drive extends Subsystem {
 		turnRateController = new PIDController( Constants.TURN_P, Constants.TURN_I_TELEOP, Constants.TURN_D, new turnRatePIDSource(), new turnRatePIDOutput());
 		turnRateController.setOutputRange(-1.0, 1.0);
 		
-		SmartDashboard.putData("TurnPID", turnRateController);
+		SmartDashboard.putData("TurnRatePID", turnRateController);
 	}
 	
 	class turnRatePIDSource implements PIDSource {
@@ -83,10 +83,12 @@ public class Drive extends Subsystem {
 	
 	public void autonomousMode() {
 		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_AUTO, Constants.TURN_D);
+		Robot.logger.logDebug("Using Auto Mode PID for drive");
 	}
 	
 	public void teleopMode() {
 		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_TELEOP, Constants.TURN_D);
+		Robot.logger.logDebug("Using Telop Mode PID for drive");
 	}
 	
 	public void setAimerMotor(double power) {
@@ -102,6 +104,13 @@ public class Drive extends Subsystem {
 	
 	public void setPower(double right, double forward){
 		
+		
+		//Robot.drive.autonomousMode();
+		//Robot.drive.turnRateController.enable();
+		//Robot.drive.turnRateController.setSetpoint(right * FASTRATE);
+		
+		//right = Robot.drive.getTurnResult();
+		
 		rightDrive.set( forward + right );
 		leftDrive.set( -(forward - right) );
 		
@@ -109,11 +118,11 @@ public class Drive extends Subsystem {
 //		SmartDashboard.putNumber("Accel Y", RobotMap.accelerometer.getY());
 //		SmartDashboard.putNumber("Accel Z", RobotMap.accelerometer.getZ());
 		
-		SmartDashboard.putNumber( "RightRear", RobotMap.pdp.getCurrent(0) );
+		/*SmartDashboard.putNumber( "RightRear", RobotMap.pdp.getCurrent(0) );
 		SmartDashboard.putNumber( "RightFront", RobotMap.pdp.getCurrent(1) );
 		SmartDashboard.putNumber( "LeftFront", RobotMap.pdp.getCurrent(14) );
 		SmartDashboard.putNumber( "LeftRear", RobotMap.pdp.getCurrent(15) );
-		SmartDashboard.putNumber( "TotalCurrent", RobotMap.pdp.getCurrent(0)+RobotMap.pdp.getCurrent(1)+RobotMap.pdp.getCurrent(14)+RobotMap.pdp.getCurrent(15));
+		SmartDashboard.putNumber( "TotalCurrent", RobotMap.pdp.getCurrent(0)+RobotMap.pdp.getCurrent(1)+RobotMap.pdp.getCurrent(14)+RobotMap.pdp.getCurrent(15));*/
 	}
 	
 	public void setLiftExtension(double power) {
@@ -157,6 +166,7 @@ public class Drive extends Subsystem {
 		final double FASTRATE = 250;  // TODO: determine how fast is fast
 		
 		if (useGyro) {
+			Robot.drive.teleopMode();
 			Robot.drive.turnRateController.enable();
 			
 			Robot.drive.turnRateController.setSetpoint(turn * FASTRATE);
@@ -185,26 +195,65 @@ public class Drive extends Subsystem {
 				Robot.climbing = true;
 			}
 			Robot.drive.setPower(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
+
+			// Climb extension stuff
+			double extendPower = -OI.coStick.getRawAxis(2);
+			if(Math.abs(extendPower) < 0.075) {
+				extendPower = 0;
+			}
+			else {
+				RobotMap.ratchet.set(true);
+				if (!Robot.climbing){
+					Robot.climbing = true;
+					new ArmClimb().start();
+				}
+			}
+			Robot.drive.setLiftExtension(extendPower * 0.75);
+		}
+	}
+
+	public void autoDrive(double turn, double forward) {
+		
+		//No cubic functions for now, but possibly later
+		//x = x * x * x;
+		//y = y * y * y;
+		
+		boolean useGyro = SmartDashboard.getBoolean("UseGyro", false);
+		
+		final double FASTRATE = 250;  // TODO: determine how fast is fast
+		
+		if (useGyro) {
+			Robot.drive.autonomousMode();
+			Robot.drive.turnRateController.enable();
+			
+			Robot.drive.turnRateController.setSetpoint(turn * FASTRATE);
+			
+			turn = Robot.drive.getTurnResult();
+		}
+		else
+		{
+			Robot.drive.turnRateController.disable();
 		}
 		
-		// Climb extension stuff
-		double extendPower = -OI.coStick.getRawAxis(2);
-		if(Math.abs(extendPower) < 0.075) {
-			extendPower = 0;
-		}
-		else {
-			RobotMap.ratchet.set(true);
-			if (!Robot.climbing){
-				Robot.climbing = true;
-				new ArmClimb().start();
+		SmartDashboard.putNumber("DriveDistance", Robot.drive.getEncoderDistance());
+		
+
+		if(!Robot.drive.getAimDropStatus()) {
+			// Climb stuff
+			double liftPower = OI.coStick.getRawAxis(3);
+			if(Math.abs(liftPower) < 0.075) {
+				liftPower = 0;
+				RobotMap.pto.set(false);
 			}
-			forward = SmartDashboard.getNumber("ClimbForwardPower", 0.15);
-			rightDrive.set( forward );
-			leftDrive.set( -(forward) );
-			//Robot.defenseArm.setTargetAngle(SmartDashboard.getNumber("DefenseArmClimb", 107.0));
-			
+			else { // climbing
+				RobotMap.pto.set(true);
+				RobotMap.ratchet.set(false);
+				turn = 0;
+				forward = 0;
+				Robot.climbing = true;
+			}
+			Robot.drive.setPower(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
 		}
-		Robot.drive.setLiftExtension(extendPower * 0.75);
 	}
 	
 	public void resetEncoders() {
