@@ -4,6 +4,7 @@ build/*
 sysProps.xml
 dist/FRCUserProgram.jar
 /bin/
+.c9
 
 FRC2016.iml
 .idea
