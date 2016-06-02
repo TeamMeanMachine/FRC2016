@@ -11,21 +11,17 @@ import java.util.stream.Collectors;
 
 public final class CSVLogger {
 	private List<CSVContext> contexts = new ArrayList<>();
-	private int columns = 0;
+	private List<String> outBuffer = new ArrayList<>();
 
 	public CSVContext createNewContext(String name) {
 		CSVContext context = new CSVContext(name, columns);
-		contexts.add(context);
-		columns++;
 		return context;
 	}
 
 	public void tick() {
-		List<CSVContext> filteredContexts = contexts.stream()
-						.filter(context -> context.isActive())
-						.collect(Collectors.toList());
-		
-
+		outBuffer.add(contexts.stream()
+		                      .map(context -> context.getStringOutput())
+		                      .collect(joining (","))); // TODO: make sure this compiles
 	}
 
 	public class CSVContext implements AutoCloseable {
@@ -34,31 +30,30 @@ public final class CSVLogger {
 		private int column;
 		private Supplier<Number> supplier;
 
+		@Override
+		public void close() {
+			this.active = false;
+		}
+		
 		private CSVContext(String name, int column) {
 			this.name = name;
 			this.column = column;
 		}
 
-		private String getValueAsString() {
-			return Double.toString(supplier.get().doubleValue());
+		private String getStringOutput() {
+			if(active) {
+				return Double.toString(supplier.get().doubleValue());
+			}
+			return "";
 		}
 
 		private void setSupplier(Supplier<Number> supplier) {
 			this.supplier = supplier;
-			this.active = true;
+			active = true;
 		}
 
-		public int getColumn() {
+		private int getColumn() {
 			return column;
-		}
-
-		public boolean isActive() {
-			return active;
-		}
-
-		@Override
-		public void close() {
-			contexts.remove(this);
 		}
 	}
 }
