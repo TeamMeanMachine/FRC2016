@@ -1,39 +1,64 @@
 package org.usfirst.frc.team2471.util;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Supplier;
-
-import org.usfirst.frc.team2471.robot.Robot;
-
 import edu.wpi.first.wpilibj.Timer;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
-public class CSVLogger {
-	private List<Context> contexts = new LinkedList<>();
-	
-	public void addContext(String name, Supplier<Number> function) {
-		contexts.add(new Context(name, function));
+public final class CSVLogger {
+	private List<CSVContext> contexts = new ArrayList<>();
+	private int columns = 0;
+
+	public CSVContext createNewContext(String name) {
+		CSVContext context = new CSVContext(name, columns);
+		contexts.add(context);
+		columns++;
+		return context;
 	}
-	
+
 	public void tick() {
-		String output = contexts.stream()
-		                        .reduce("", (prev, next) -> prev + next.getValue() + "\n");
+		List<CSVContext> filteredContexts = contexts.stream()
+						.filter(context -> context.isActive())
+						.collect(Collectors.toList());
+		
+
 	}
 
-	private class Context {
+	public class CSVContext implements AutoCloseable {
+		private boolean active = false;
 		private String name;
-		private Supplier<Number> function;
+		private int column;
+		private Supplier<Number> supplier;
 
-		public Context(String name, Supplier<Number> function) {
+		private CSVContext(String name, int column) {
 			this.name = name;
-			this.function = function;
+			this.column = column;
+		}
+
+		private String getValueAsString() {
+			return Double.toString(supplier.get().doubleValue());
+		}
+
+		private void setSupplier(Supplier<Number> supplier) {
+			this.supplier = supplier;
+			this.active = true;
+		}
+
+		public int getColumn() {
+			return column;
+		}
+
+		public boolean isActive() {
+			return active;
+		}
+
+		@Override
+		public void close() {
+			contexts.remove(this);
 		}
 	}
 }

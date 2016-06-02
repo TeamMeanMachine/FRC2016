@@ -3,6 +3,7 @@ package org.usfirst.frc.team2471.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2471.robot.Robot;
+import org.usfirst.frc.team2471.util.CSVLogger;
 
 /**
  * Created by tyler on 4/27/16.
