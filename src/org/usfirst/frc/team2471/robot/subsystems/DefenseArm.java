@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DefenseArm extends PIDSubsystem{
 	
 	private CANTalon armMotor;
+	private CANTalon armMotor2; // Right motor. Temporary
 	private AnalogInput magnePot;
 	private double targetAngle;
 	
@@ -20,6 +21,7 @@ public class DefenseArm extends PIDSubsystem{
 	public DefenseArm() {
 		super(Constants.DEFENSE_P, Constants.DEFENSE_I, Constants.DEFENSE_D);
 		armMotor = RobotMap.defenseArm;
+		armMotor2 = RobotMap.defenseArmRight;
 		magnePot = RobotMap.magnepotArm;
 //		armMotor.setVoltageRampRate(13.0);  // 13.0 volts per second
 		setTargetAngle(getPosition());
@@ -36,11 +38,13 @@ public class DefenseArm extends PIDSubsystem{
 	public void rotate(double power) {
 		if(RobotMap.pdp.getCurrent(8) <= 40 && RobotMap.pdp.getCurrent(7) <= 40) {
 			armMotor.set(power);
+			armMotor2.set(-power);
 		}
 		else {
 			Robot.logger.logWarning("Arm tried to go over amperage limit!");
 			setSetpoint(getPosition());
 			armMotor.set(0.0);
+			armMotor2.set(0);
 		}
 	}
 

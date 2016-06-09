@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
 		defenseArm = new DefenseArm();
 		aimLogger = new CSVLogger();
-				
+
 		prefs = Preferences.getInstance();
 		logger = new Logger();
 		climbing = false;
@@ -249,6 +249,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
 	public void testPeriodic() {
+    	shooter.shooterIntakeReverse();
         LiveWindow.run();
-    }
+    } 
 }

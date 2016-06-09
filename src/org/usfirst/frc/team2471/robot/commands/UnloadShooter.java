@@ -15,14 +15,13 @@ public class UnloadShooter extends Command {
 	@Override
 	protected void initialize() {
 		Robot.logger.logInfo("Unloading shooter");
-		Robot.shooter.shooterIntakeReverse();
 		Robot.intake.intakeUp();
 		Robot.intake.intakeIn(1);
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
+		Robot.shooter.shooterIntakeReverse();
 	}
 
 	@Override

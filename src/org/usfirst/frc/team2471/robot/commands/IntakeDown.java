@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import java.time.temporal.IsoFields;
+
 import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
@@ -19,7 +21,7 @@ public class IntakeDown extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (RobotMap.shooterBallSensor.get()) {
+    	if (!RobotMap.shooterBallSensor.get()) {
 	    	Robot.intake.intakeDown();
 	    	Robot.intake.intakeIn(1.0);
     	}
@@ -29,6 +31,7 @@ public class IntakeDown extends Command {
     protected void execute() {
     	if(Robot.intake.getIntakeSensor()) {
     		Robot.intake.setBallState(true);
+    		
     	}
     }
 

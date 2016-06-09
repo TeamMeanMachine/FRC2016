@@ -26,14 +26,21 @@ public class CSVLogger {
 		this.stepThread.start();
 		this.refreshTime = Timer.getFPGATimestamp() + 1;
 		
-		buffer.add("Timestamp,Key,Value");
-		
 		if(Files.exists(filePath)) {
 			try {
 				Files.delete(filePath);
 			} catch (IOException e) {
 				Robot.logger.logError("Failed to discard old csv file");
 			}
+		}
+		try {
+			if(Files.exists(filePath)) {
+				Files.delete(filePath);
+			}
+			
+			Files.createFile(filePath);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -46,7 +53,6 @@ public class CSVLogger {
 		lineBuilder.append(",");
 		
 		lineBuilder.append(value);
-		lineBuilder.append("\n");
 		buffer.add(lineBuilder.toString());
 	}
 	
@@ -65,11 +71,8 @@ public class CSVLogger {
 				}
 				
 				if(Timer.getFPGATimestamp() >= refreshTime) {
-					if(!buffer.isEmpty()) {
+					if(false) {
 						try {
-							if(!Files.exists(filePath)) {
-								Files.createFile(filePath);
-							}
 							Files.write(filePath, buffer, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 							buffer.clear();
 							refreshTime = Timer.getFPGATimestamp() + 5;

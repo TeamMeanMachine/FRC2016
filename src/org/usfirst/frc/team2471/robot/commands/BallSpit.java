@@ -10,12 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class BallSpit extends Command {
-
-	
 	private double startTime;
     public BallSpit() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.intake);
     }
 
@@ -38,7 +34,7 @@ public class BallSpit extends Command {
     	if(SmartDashboard.getBoolean("ManualIntake", false)) {
     		return (Timer.getFPGATimestamp() - startTime > 0.2);
     	} else {
-    		return Robot.intake.getIntakeSensor() == false && Timer.getFPGATimestamp() - startTime > 0.2;
+    		return !Robot.intake.getIntakeSensor() && Timer.getFPGATimestamp() - startTime > 0.2;
     	}
     }
 
