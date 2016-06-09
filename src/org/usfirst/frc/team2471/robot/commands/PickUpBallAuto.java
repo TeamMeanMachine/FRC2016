@@ -33,7 +33,7 @@ public class PickUpBallAuto extends CommandGroup {
     	addParallel(new RumbleJoystick(0.5, OI.driverStick));
     	addSequential(new CenterBall(), 1);
     	addSequential(new MicroBallHelper());
-    	addSequential(new MicroBallHelper());
+//    	addSequential(new MicroBallHelper()); commented because robot looks nicer only centering once
     	addSequential(new QueueShot());
     }
     

@@ -249,6 +249,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
 	public void testPeriodic() {
+    	logger.logDebug(RobotMap.shooterBallSensor.get() ? "true string" : "false");
         LiveWindow.run();
-    }
+    } 
 }

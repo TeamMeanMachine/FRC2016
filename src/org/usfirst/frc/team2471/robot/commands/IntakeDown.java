@@ -19,7 +19,7 @@ public class IntakeDown extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (RobotMap.shooterBallSensor.get()) {
+    	if (!RobotMap.shooterBallSensor.get()) {
 	    	Robot.intake.intakeDown();
 	    	Robot.intake.intakeIn(1.0);
     	}

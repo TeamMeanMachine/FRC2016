@@ -99,17 +99,11 @@ public class OI {
 /*		backUntilTilted = new JoystickButton(driverStick, 7);
 		backUntilTilted.whenPressed(new BackUntilOuterWorks());*/
 		
-		testButton = new JoystickButton(coStick, 7);
-		testButton.whenPressed(new DriveWithHeading(6, 0.9));
-		
 		cancelAuto = new JoystickButton(driverStick, 2);
 		cancelAuto.whenPressed(new StopCommand());
 		
 		driverLight = new JoystickButton(driverStick, 4);
 		driverLight.whenPressed(new LightAction());
-		
-		manualSuck = new JoystickButton(driverStick, 1);
-		manualSuck.whenPressed(new PickupBallManual());
 		
 		backupUltrasonic = new JoystickButton(driverStick, 7);
 		backupUltrasonic.whenPressed(new BackUntilOuterWorks(0.4));

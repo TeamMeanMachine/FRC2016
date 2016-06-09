@@ -10,8 +10,8 @@ public final class Constants {
     public static final double AIM_2_I = 0.0;
     public static final double AIM_2_D = 0.0008;
     
-    public static final double DRIVE_P = 0.01;
-    public static final double DRIVE_I = 0.0;
+    public static final double DRIVE_P = 0.005;
+    public static final double DRIVE_I = 0.001;
     public static final double DRIVE_D = 0.03;
     
     //Defense arm

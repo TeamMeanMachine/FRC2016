@@ -30,7 +30,9 @@ public class QueueShot extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return RobotMap.shooterBallSensor.get() == false || (Timer.getFPGATimestamp() - startTime) >= 1.3 ;
+    	// 6/4/16 FIXME: Ball sensor is always false. Temporary workaround 
+//        return RobotMap.shooterBallSensor.get() && (Timer.getFPGATimestamp() - startTime) >= 0.3;
+    	return (Timer.getFPGATimestamp() - startTime) > 0.7;
     }
 
     // Called once after isFinished returns true

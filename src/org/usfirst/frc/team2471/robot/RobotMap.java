@@ -63,7 +63,7 @@ public class RobotMap {
     public static Ultrasonic ballUltrasonic;
     
 /*______________________________Defense Arm_________________________________*/
-    private static CANTalon defenseArmLeft, defenseArmRight;
+    public static CANTalon defenseArmLeft, defenseArmRight; // These should be private
     public static CANTalon defenseArm;
     
     public static Solenoid intakeActuate;
@@ -115,8 +115,8 @@ public class RobotMap {
     	rightSlave.changeControlMode(TalonControlMode.Follower);
     	rightSlave.set(rightMaster.getDeviceID());
     	
-    	aimDropCylinder = new Solenoid(4);
-    	pto = new Solenoid(5);
+    	aimDropCylinder = new Solenoid(5);
+    	pto = new Solenoid(6);
     	
     	liftExtension = new CANTalon(12);
     	
@@ -140,11 +140,12 @@ public class RobotMap {
     	defenseArm = defenseArmLeft;
     	
     	defenseArmRight = new CANTalon(7);
-    	defenseArmRight.changeControlMode(TalonControlMode.Follower);
-    	defenseArmRight.set(defenseArmLeft.getDeviceID());
-    	defenseArmRight.reverseOutput(true);
+//    	 6/4/16 FIXME: Right motor not moving. Trying not using follow mode
+//    	defenseArmRight.changeControlMode(TalonControlMode.Follower);
+//    	defenseArmRight.set(defenseArmLeft.getDeviceID());
+//    	defenseArmRight.reverseOutput(true);
     	
-    	intakeActuate = new Solenoid(6);
+    	intakeActuate = new Solenoid(4);
     	ringLight = new Solenoid(3);
     	
     	magnepotArm = new AnalogInput(1);
