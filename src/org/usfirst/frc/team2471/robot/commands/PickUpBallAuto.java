@@ -34,7 +34,7 @@ public class PickUpBallAuto extends CommandGroup {
     	addSequential(new CenterBall(), 1);
     	addSequential(new MicroBallHelper());
 //    	addSequential(new MicroBallHelper()); commented because robot looks nicer only centering once
-    	addSequential(new QueueShot());
+    	addSequential(new QueueShot(), 2);
     }
     
     @Override

@@ -165,7 +165,7 @@ public class Shooter extends Subsystem{
 	}
 	
 	public boolean hasBall() {
-		return !ballSensor.get();
+		return ballSensor.get();
 	}
 	
 	public void setFlashlight(boolean state) {

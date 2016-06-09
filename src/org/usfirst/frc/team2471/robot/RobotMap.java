@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot;
 
+import org.usfirst.frc.team2471.util.InvertedDigitalInput;
 import org.usfirst.frc.team2471.util.TMMGyro;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
@@ -131,7 +132,7 @@ public class RobotMap {
     	shootMotorTop = new CANTalon(2);
     	shootMotorBottom = new CANTalon(3);
     	shootIntake = new CANTalon(6);
-    	shooterBallSensor = new DigitalInput(1);
+    	shooterBallSensor = new InvertedDigitalInput(1);
     	
     	rollerIntake = new CANTalon(9);
     	intakeBallSensor = new DigitalInput(0);
