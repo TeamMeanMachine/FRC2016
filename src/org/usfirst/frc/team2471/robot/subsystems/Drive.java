@@ -182,7 +182,7 @@ public class Drive extends Subsystem {
 		
 		if(!Robot.drive.getAimDropStatus()) {
 			// Climb stuff
-			double liftPower = OI.coStick.getRawAxis(3);
+			double liftPower = Constants.CLIMB_DISABLED ? 0.0 : OI.coStick.getRawAxis(3);
 			if(Math.abs(liftPower) < 0.075) {
 				liftPower = 0;
 				RobotMap.pto.set(false);
@@ -197,7 +197,7 @@ public class Drive extends Subsystem {
 			Robot.drive.setPower(turn, forward - liftPower);  // using the climbing trigger is the same as driving backwards.
 
 			// Climb extension stuff
-			double extendPower = -OI.coStick.getRawAxis(2);
+			double extendPower = Constants.CLIMB_DISABLED ? 0.0 : -OI.coStick.getRawAxis(2);
 			if(Math.abs(extendPower) < 0.075) {
 				extendPower = 0;
 			}

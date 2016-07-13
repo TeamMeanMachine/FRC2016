@@ -68,18 +68,18 @@ public class Aim2 extends PIDCommand {
 				}
 				SmartDashboard.putNumber("AimGyroError", aimController.getError());
 				if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 1) {
-					double aimError = SmartDashboard.getNumber("AIM_ERROR");
-					setSetpoint(RobotMap.gyro.getAngle() + aimError);
+					double aimError = SmartDashboard.getNumber("AIM_ERROR", 0);
+					setSetpoint(RobotMap.gyro.getAngle() + aimError*0.85); // Magic number because undershooting is better than overshooting
 					
 					double gyro = RobotMap.gyro.getAngle();
 					Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + (getSetpoint() - gyro) + " degrees");
 				}
 				
 				SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
-//				SmartDashboard.putNumber("Aim Error", aimController.getError());
+//				SmartDashboard.putNumber("Aim Error", aimController.getError());`
 				
 
-				Robot.aimLogger.addToBuffer("Aim Error", SmartDashboard.getNumber("AIM_ERROR"));
+				Robot.aimLogger.addToBuffer("Aim Error", SmartDashboard.getNumber("AIM_ERROR", 0));
 				Robot.aimLogger.addToBuffer("Gyro Angle", RobotMap.gyro.getAngle());
 				Robot.aimLogger.addToBuffer("Gyro Setpoint", aimController.getSetpoint());
 				Robot.aimLogger.addToBuffer("Setpoint Error", aimController.getError());
@@ -150,7 +150,9 @@ public class Aim2 extends PIDCommand {
 		boolean rumble = rumbleHasBlob && rumbleAimOnTarget && rumbleHasPressure && rumbleTopError && rumbleBottomError;
 		SmartDashboard.putBoolean("Rumble", rumble);
 		if (rumble) {
-			new RumbleJoystick(0.5, OI.coStick).start();
+			if(SmartDashboard.getBoolean("AutoAim", true)) {
+				new RumbleJoystick(0.5, OI.coStick).start();
+			}
 			onTargetCount++;
 		}
 	}

@@ -17,7 +17,7 @@ public class AimGroup extends CommandGroup {
     	addSequential( new StartShooter() );
     	addSequential( new RotateArmToAngle(-5.0));
     	
-    	if(Constants.DEMO_MODE) {
+    	if(Constants.AIM_DROP_DISABLED) {
     		addSequential(new DriveAim());
     	} else {
     		addSequential(new Aim2(finishOnTarget));

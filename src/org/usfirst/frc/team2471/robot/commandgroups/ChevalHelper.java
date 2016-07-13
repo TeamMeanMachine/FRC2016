@@ -14,7 +14,7 @@ public class ChevalHelper extends CommandGroup {
 	 */
     public  ChevalHelper() {
     	// Move arm down to cheval
-		addSequential(new RotateArmToAngleWait(SmartDashboard.getNumber("DefenseArmMinimum", -13)+9, 2), 1);
+		addSequential(new RotateArmToAngleWait(SmartDashboard.getNumber("DefenseArmMinimum", -13), 2), 1);
 		// Wait a tiny bit
 		addSequential(new WaitCommand(0.5));
 		// Drive forward

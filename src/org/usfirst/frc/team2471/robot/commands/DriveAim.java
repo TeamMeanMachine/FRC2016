@@ -26,6 +26,7 @@ public class DriveAim extends Command {
 	protected void execute() {
 		double deadband = 0.1;
 		double power = Math.abs(OI.coStick.getRawAxis(4)) > deadband ? OI.coStick.getRawAxis(4) : 0; // Apply deadband
+		power *= 0.6; // Scale down
 		Robot.drive.setPower(power, 0);
 	}
 

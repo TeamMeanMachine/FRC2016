@@ -88,7 +88,7 @@ public class Robot extends IterativeRobot {
 //		prefs.putDouble("Bottom", 1920);
 		SmartDashboard.putBoolean("LightON", false);
 		SmartDashboard.putBoolean("ShooterEnable", false);
-		SmartDashboard.putBoolean("AutoAim",true);
+		SmartDashboard.putBoolean("AutoAim", prefs.getBoolean("AutoAim", true));
 		
 		SmartDashboard.putData(new RotateTestCommandGroup());
 		
@@ -202,6 +202,7 @@ public class Robot extends IterativeRobot {
     @Override
 	public void disabledInit(){
     	// write smartboard stuff to prefs
+    	prefs.putBoolean("AutoAim", SmartDashboard.getBoolean("AutoAim"));
     	prefs.putDouble("TopSetSpeed", SmartDashboard.getNumber("TopSetSpeed"));
     	prefs.putDouble("BottomSetSpeed", SmartDashboard.getNumber("BottomSetSpeed"));
     	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange"));
@@ -249,7 +250,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
 	public void testPeriodic() {
-    	shooter.shooterIntakeReverse();
+    	System.out.println(intake.getIntakeSensor());
         LiveWindow.run();
     } 
 }

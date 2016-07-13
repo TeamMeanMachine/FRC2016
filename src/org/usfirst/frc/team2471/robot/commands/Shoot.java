@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2471.robot.commands;
 
+import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
 
@@ -17,17 +18,20 @@ public class Shoot extends Command {
 	@Override
 	protected void initialize() {
 		ballInShooter = true;
-		endTime = Timer.getFPGATimestamp() + 5;
+		endTime = Timer.getFPGATimestamp() + 1.75;
 		Robot.shooter.shooterIntakeOn();
 		
-		if(!Robot.shooter.hasBall()) {
+		if(!Robot.shooter.hasBall() && Constants.DEPEND_ON_SHOOTER_SENSOR) {
 			endTime = 0;
 		}
 	}
 
 	@Override
 	protected void execute() {
-		if (ballInShooter && Robot.shooter.hasBall()) {
+		if(!Constants.DEPEND_ON_SHOOTER_SENSOR) {
+			Robot.intake.intakeOut(0.7);
+		}
+		else if (ballInShooter && Robot.shooter.hasBall()) {
 			ballInShooter = false;
 			endTime = Timer.getFPGATimestamp() + 1;
 		}
@@ -41,6 +45,7 @@ public class Shoot extends Command {
 	@Override
 	protected void end() {
 		Robot.shooter.stop();
+		Robot.intake.intakeStop();
 	}
 
 	@Override

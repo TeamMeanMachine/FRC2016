@@ -1,10 +1,15 @@
-package org.usfirst.frc.team2471.robot.commands;
+package org.usfirst.frc.team2471.robot.commandgroups;
 
+import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
-import org.usfirst.frc.team2471.robot.commandgroups.MicroBallHelper;
+import org.usfirst.frc.team2471.robot.commands.CenterBall;
+import org.usfirst.frc.team2471.robot.commands.IntakeDown;
+import org.usfirst.frc.team2471.robot.commands.QueueShot;
+import org.usfirst.frc.team2471.robot.commands.RumbleJoystick;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -32,9 +37,12 @@ public class PickUpBallAuto extends CommandGroup {
     	addSequential(new IntakeDown());
     	addParallel(new RumbleJoystick(0.5, OI.driverStick));
     	addSequential(new CenterBall(), 1);
+    	
     	addSequential(new MicroBallHelper());
 //    	addSequential(new MicroBallHelper()); commented because robot looks nicer only centering once
-    	addSequential(new QueueShot(), 2);
+    	if(Constants.DEPEND_ON_SHOOTER_SENSOR) {
+        	addSequential(new QueueShot(), 2);
+    	}
     }
     
     @Override

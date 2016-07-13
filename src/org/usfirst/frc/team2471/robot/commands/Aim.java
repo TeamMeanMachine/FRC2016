@@ -35,7 +35,7 @@ public class Aim extends PIDCommand {
 				input = -100;
 			}
 			if (blobCount > 0) {
-				return SmartDashboard.getNumber("AIM_ERROR");
+				return SmartDashboard.getNumber("AIM_ERROR", 0);
 			}
 			else {
 				input = getSetpoint();
