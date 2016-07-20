@@ -4,7 +4,6 @@ import org.usfirst.frc.team2471.robot.Constants;
 import org.usfirst.frc.team2471.robot.OI;
 import org.usfirst.frc.team2471.robot.Robot;
 import org.usfirst.frc.team2471.robot.RobotMap;
-import org.usfirst.frc.team2471.util.CSVLogger;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.PIDCommand;
@@ -77,12 +76,6 @@ public class Aim2 extends PIDCommand {
 				
 				SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
 //				SmartDashboard.putNumber("Aim Error", aimController.getError());`
-				
-
-				Robot.aimLogger.addToBuffer("Aim Error", SmartDashboard.getNumber("AIM_ERROR", 0));
-				Robot.aimLogger.addToBuffer("Gyro Angle", RobotMap.gyro.getAngle());
-				Robot.aimLogger.addToBuffer("Gyro Setpoint", aimController.getSetpoint());
-				Robot.aimLogger.addToBuffer("Setpoint Error", aimController.getError());
 
 				doRumble(true);
 

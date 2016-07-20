@@ -82,13 +82,13 @@ public class Drive extends Subsystem {
 	}
 	
 	public void autonomousMode() {
-		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_AUTO, Constants.TURN_D);
-		Robot.logger.logDebug("Using Auto Mode PID for drive");
+//		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_AUTO, Constants.TURN_D);
+//		Robot.logger.logDebug("Using Auto Mode PID for drive");
 	}
 	
 	public void teleopMode() {
-		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_TELEOP, Constants.TURN_D);
-		Robot.logger.logDebug("Using Telop Mode PID for drive");
+//		turnRateController.setPID(Constants.TURN_P, Constants.TURN_I_TELEOP, Constants.TURN_D);
+//		Robot.logger.logDebug("Using Telop Mode PID for drive");
 	}
 	
 	public void setAimerMotor(double power) {
@@ -166,7 +166,6 @@ public class Drive extends Subsystem {
 		final double FASTRATE = 250;  // TODO: determine how fast is fast
 		
 		if (useGyro) {
-			Robot.drive.teleopMode();
 			Robot.drive.turnRateController.enable();
 			
 			Robot.drive.turnRateController.setSetpoint(turn * FASTRATE);
@@ -223,7 +222,6 @@ public class Drive extends Subsystem {
 		final double FASTRATE = 250;  // TODO: determine how fast is fast
 		
 		if (useGyro) {
-			Robot.drive.autonomousMode();
 			Robot.drive.turnRateController.enable();
 			
 			Robot.drive.turnRateController.setSetpoint(turn * FASTRATE);

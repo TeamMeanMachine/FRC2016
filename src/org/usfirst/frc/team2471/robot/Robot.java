@@ -13,11 +13,11 @@ import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
 import org.usfirst.frc.team2471.robot.subsystems.Shooter;
-import org.usfirst.frc.team2471.util.CSVLogger;
 import org.usfirst.frc.team2471.util.Logger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -59,7 +59,6 @@ public class Robot extends IterativeRobot {
     public static Preferences prefs;
     
     public static Logger logger;
-    public static CSVLogger aimLogger;
     
     public static IntelComms vision;
     
@@ -75,7 +74,6 @@ public class Robot extends IterativeRobot {
         intake = new Intake();
         shooter = new Shooter();
 		defenseArm = new DefenseArm();
-		aimLogger = new CSVLogger();
 
 		prefs = Preferences.getInstance();
 		logger = new Logger();
@@ -228,7 +226,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     @Override
-	public void teleopPeriodic() {
+	public void teleopPeriodic() {    	
 		Robot.shooter.shootLogic();
         Scheduler.getInstance().run();
         if(SmartDashboard .getBoolean("LightON")) {

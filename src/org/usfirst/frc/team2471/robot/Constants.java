@@ -14,7 +14,7 @@ public final class Constants {
     public static final double AIM_2_D = 0.0008;
 
     public static final double DRIVE_P = 0.0025; // For demoing
-    public static final double DRIVE_I = 0.0007;
+    public static final double DRIVE_I = 0.0000;
     public static final double DRIVE_D = 0.0025;
     
 //    public static final double DRIVE_P = 0.005;
@@ -32,11 +32,11 @@ public final class Constants {
     public static final double SHOOTER_D = 0.00025;
     
     //Turning
-    public static final double TURN_P = 0.002;
+    public static final double TURN_P = 0.001;
 //	public static final double TURN_I_AUTO = 0.005;
     public static final double TURN_I_AUTO = 0.000;
     public static final double TURN_I_TELEOP = 0.0;
-    public static final double TURN_D = 0.004;
+    public static final double TURN_D = 0.001;
     
     //Rotate
     public static final double ROTATE_P = 0.1;

@@ -20,8 +20,9 @@ public class DriveUntilUltrasonic extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(!isFinished())
-    		Robot.drive.setPower(0, power);
+    	if(!isFinished()) {
+    		Robot.drive.setPower(0, power);    		
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,13 +33,11 @@ public class DriveUntilUltrasonic extends Command {
     protected boolean isFinished() {
     	if(lessThan) {
     		return RobotMap.backupUltrasonicRight.getRangeInches() <= threshold || 
-    				RobotMap.backupUltrasonicLeft.getRangeInches() <= threshold || 
-    				isTimedOut();
+    				RobotMap.backupUltrasonicLeft.getRangeInches() <= threshold;
     	}
     	else {
-    		return (RobotMap.backupUltrasonicRight.getRangeInches() >= threshold && 
-    				RobotMap.backupUltrasonicLeft.getRangeInches() >= threshold) ||
-    				isTimedOut();
+    		return  RobotMap.backupUltrasonicRight.getRangeInches() >= threshold && 
+    				RobotMap.backupUltrasonicLeft.getRangeInches() >= threshold;
     	}
     }
 

@@ -80,7 +80,7 @@ public class OI {
 		driverLight.whenPressed(new LightAction());
 		
 		backupUltrasonic = new JoystickButton(driverStick, 7);
-		backupUltrasonic.whenPressed(new BackUntilOuterWorks(0.4));
+		backupUltrasonic.whenPressed(new BackUntilOuterWorks(0.3));
 		
 //		aimDropTest = new JoystickButton(coStick, 1);
 //		aimDropTest.whenPressed(new AimDropTest());
