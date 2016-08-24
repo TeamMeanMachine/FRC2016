@@ -3,6 +3,7 @@ package org.usfirst.frc.team2471.robot.subsystems;
 import org.usfirst.frc.team2471.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,6 +13,7 @@ public class Intake extends Subsystem{
 	private CANTalon roller;
 	private Solenoid actuate;
 	private boolean ballIn;
+	private DigitalInput intakeBallSensor;
 
 	private boolean suckCanceled;
 	
@@ -27,6 +29,7 @@ public class Intake extends Subsystem{
 		roller = RobotMap.rollerIntake;
 		actuate = RobotMap.intakeActuate;
 		ballUltrasonic = RobotMap.ballUltrasonic;
+		intakeBallSensor = RobotMap.intakeBallSensor;
 	}
 	
 	public void intakeIn(double x){
@@ -51,7 +54,7 @@ public class Intake extends Subsystem{
 	}
 	
 	public boolean getIntakeSensor() {
-		return !RobotMap.intakeBallSensor.get();
+		return !intakeBallSensor.get();
 	}
 	
 	public boolean getBallState() {

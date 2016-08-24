@@ -15,15 +15,12 @@ public class Shoot extends Command {
 		requires(Robot.shooter);
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	protected void initialize() {
 		ballInShooter = true;
 		endTime = Timer.getFPGATimestamp() + 1.75;
 		Robot.shooter.shooterIntakeOn();
-		
-		if(!Robot.shooter.hasBall() && Constants.DEPEND_ON_SHOOTER_SENSOR) {
-			endTime = 0;
-		}
 	}
 
 	@Override

@@ -11,7 +11,6 @@ public class DriveDistanceCommand extends Command {
     private double distance;
     protected double x;
     private double y;
-    private boolean started = false;
     private double startDistance;
     
     public DriveDistanceCommand(double _distance, double _x, double _y) {
@@ -24,16 +23,13 @@ public class DriveDistanceCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	startDistance = Robot.drive.getEncoderDistance();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(!started) {
-        	startDistance = Robot.drive.getEncoderDistance();
-            started = true;
-        }
         Robot.drive.autoDrive(x, y);
+        Robot.logger.logInfo("Difference " + (Robot.drive.getEncoderDistance() - startDistance));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -44,7 +40,6 @@ public class DriveDistanceCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drive.setPower(0, 0);
-        started = false;
         
     }
 

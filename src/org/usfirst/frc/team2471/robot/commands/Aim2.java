@@ -144,7 +144,7 @@ public class Aim2 extends PIDCommand {
 		SmartDashboard.putBoolean("Rumble", rumble);
 		if (rumble) {
 			if(SmartDashboard.getBoolean("AutoAim", true)) {
-				new RumbleJoystick(0.5, OI.coStick).start();
+				new RumbleJoystick(0.2, OI.coStick).start();
 			}
 			onTargetCount++;
 		}

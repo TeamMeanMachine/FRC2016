@@ -53,7 +53,6 @@ public class RobotMap {
     
 /*_________________________Aimer---------------------------------------*/
     public static CANTalon aimer;
-    public static Encoder aimEncoder;
     
     
     
@@ -97,7 +96,7 @@ public class RobotMap {
     	
     	leftMaster = new CANTalon(14);
     	leftMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	leftMaster.configEncoderCodesPerRev(845);
+    	leftMaster.configEncoderCodesPerRev(845*1000);
     	leftDrive = leftMaster;
     	
     	leftSlave = new CANTalon(15);
@@ -109,7 +108,7 @@ public class RobotMap {
     	
     	rightMaster = new CANTalon(1);
     	rightMaster.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-    	rightMaster.configEncoderCodesPerRev(845);
+    	rightMaster.configEncoderCodesPerRev(845*1000);
     	rightDrive = rightMaster;
     	
     	rightSlave = new CANTalon(0);
@@ -136,7 +135,7 @@ public class RobotMap {
     	
     	rollerIntake = new CANTalon(9);
     	intakeBallSensor = new DigitalInput(0);
-    	
+
     	defenseArmLeft = new CANTalon(8);
     	defenseArm = defenseArmLeft;
     	

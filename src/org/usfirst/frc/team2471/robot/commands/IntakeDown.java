@@ -21,15 +21,13 @@ public class IntakeDown extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	if (Robot.shooter.hasBall() || !Constants.DEPEND_ON_SHOOTER_SENSOR) {
-	    	Robot.intake.intakeDown();
-	    	Robot.intake.intakeIn(1.0);
-    	}
-    }
+    protected void initialize() {}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.intake.intakeDown();
+    	Robot.intake.intakeIn(1.0);
+    	
     	if(Robot.intake.getIntakeSensor()) {
     		Robot.intake.setBallState(true);
     		
@@ -38,6 +36,7 @@ public class IntakeDown extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	
     	if(!OI.driverStick.getRawButton(6)) {
     		Robot.intake.setSuckCanceled(true);
     		return true;

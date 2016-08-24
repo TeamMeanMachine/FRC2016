@@ -8,7 +8,9 @@ import org.usfirst.frc.team2471.robot.commandgroups.RotateTestCommandGroup;
 import org.usfirst.frc.team2471.robot.commandgroups.SallyPortAuto;
 import org.usfirst.frc.team2471.robot.commandgroups.TerrainAndShootAuto;
 import org.usfirst.frc.team2471.robot.commands.DoNothingAuto;
+import org.usfirst.frc.team2471.robot.commands.DriveDistanceCommand;
 import org.usfirst.frc.team2471.robot.commands.RotateToAngle;
+import org.usfirst.frc.team2471.robot.commands.ZeroArmCommand;
 import org.usfirst.frc.team2471.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team2471.robot.subsystems.Drive;
 import org.usfirst.frc.team2471.robot.subsystems.Intake;
@@ -81,6 +83,8 @@ public class Robot extends IterativeRobot {
 		
 		vision = new IntelComms();
 		
+		SmartDashboard.putData("Zero Arm", new ZeroArmCommand());
+		
 //		prefs.putDouble("AimChange", 15); // Temporary for testing without smart dashboard on 2/27/15
 //		prefs.putDouble("Top", 3300);
 //		prefs.putDouble("Bottom", 1920);
@@ -138,6 +142,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Draw Bridge", new DrawBridgeAuto());
         autoChooser.addObject("Chival de Frise", new ChevalAuto());
         autoChooser.addObject("Portcullis", new PortcullisAuto());
+        autoChooser.addObject("Move Forward Debug", new DriveDistanceCommand(5, 0, 0.4));
         SmartDashboard.putData("AutoChooser", autoChooser);
         
         drive.resetEncoders();
@@ -241,6 +246,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("UltrasonicR", RobotMap.backupUltrasonicRight.getRangeInches());
 		SmartDashboard.putNumber("UltrasonicL", RobotMap.backupUltrasonicLeft.getRangeInches());
 		SmartDashboard.putBoolean("ShooterHasBall", shooter.hasBall());
+		
+
+		SmartDashboard.putNumber("DriveLeftEncoder", RobotMap.leftDrive.getEncPosition());
+		SmartDashboard.putNumber("DriveRightEncoder", RobotMap.rightDrive.getEncPosition());
     }
     
     /**

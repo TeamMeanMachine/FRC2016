@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team2471.robot.Robot;
 
-/**
- * Created by tyler on 4/27/16.
- */
 public class IntakeIfUltrasonic extends Command { // I think I can get a better name than this
     private double sampleTime;
     private boolean finished = false;
