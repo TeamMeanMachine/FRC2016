@@ -95,8 +95,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(new RotateTestCommandGroup());
 		
 		// read prefs, put on dashboard
-		SmartDashboard.putNumber("TopSetSpeed", prefs.getDouble("TopSetSpeed", 3300));
-		SmartDashboard.putNumber("BottomSetSpeed", prefs.getDouble("BottomSetSpeed", 1920));
+		SmartDashboard.putNumber("TopSetSpeed", 0.6);
+		SmartDashboard.putNumber("BottomSetSpeed", 0.6);
 		SmartDashboard.putNumber("AimChange", prefs.getDouble("AimChange", 15.0));
 		SmartDashboard.putNumber("ArmZeroVolts", prefs.getDouble("ArmZeroVolts", 2.290));
 		SmartDashboard.putBoolean("UseGyro", prefs.getBoolean("UseGyro", false));
@@ -206,8 +206,6 @@ public class Robot extends IterativeRobot {
 	public void disabledInit(){
     	// write smartboard stuff to prefs
     	prefs.putBoolean("AutoAim", SmartDashboard.getBoolean("AutoAim"));
-    	prefs.putDouble("TopSetSpeed", SmartDashboard.getNumber("TopSetSpeed"));
-    	prefs.putDouble("BottomSetSpeed", SmartDashboard.getNumber("BottomSetSpeed"));
     	prefs.putDouble("AimChange", SmartDashboard.getNumber("AimChange"));
     	prefs.putDouble("ArmZeroVolts", SmartDashboard.getNumber("ArmZeroVolts"));
     	prefs.putBoolean("UseGyro", SmartDashboard.getBoolean("UseGyro"));
