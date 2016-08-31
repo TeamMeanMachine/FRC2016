@@ -139,7 +139,7 @@ public class Drive extends Subsystem {
 	
 	public double getEncoderDistance() {
 //		return ( rightDrive.getPosition() - leftDrive.getPosition() ) / 2.0; Old calculation
-		return rightDrive.getEncPosition();
+		return rightDrive.getEncPosition() / 3500.0;
 	}
 	
 	public void useControllerInput(double forward, double turn) {

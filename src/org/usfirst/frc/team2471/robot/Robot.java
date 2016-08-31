@@ -249,7 +249,7 @@ public class Robot extends IterativeRobot {
 		
 
 		SmartDashboard.putNumber("DriveLeftEncoder", RobotMap.leftDrive.getEncPosition());
-		SmartDashboard.putNumber("DriveRightEncoder", RobotMap.rightDrive.getEncPosition());
+		SmartDashboard.putNumber("DriveRightEncoder", RobotMap.rightDrive.getEncPosition() / 3500.0);
     }
     
     /**
