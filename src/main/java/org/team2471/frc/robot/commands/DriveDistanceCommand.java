@@ -7,8 +7,8 @@ import org.team2471.frc.robot.Robot;
  * @author FIRST
  */
 public class DriveDistanceCommand extends Command {
-    private double distance;
-    protected double x;
+    private double targetDistance;
+    double x;
     private double y;
     private double startDistance;
 
@@ -17,7 +17,7 @@ public class DriveDistanceCommand extends Command {
 
         x = _x;
         y = _y;
-        distance = _distance;
+        targetDistance = _distance;
     }
 
     // Called just before this Command runs the first time
@@ -33,7 +33,7 @@ public class DriveDistanceCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Math.abs(Robot.drive.getEncoderDistance() - startDistance)) > distance || isTimedOut();
+        return (Math.abs(Robot.drive.getEncoderDistance() - startDistance)) > targetDistance || isTimedOut();
     }
 
     // Called once after isFinished returns true

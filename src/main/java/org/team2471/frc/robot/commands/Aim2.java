@@ -47,53 +47,33 @@ public class Aim2 extends PIDCommand {
         targetFound = false;
         aimController.disable();
         onTargetCount = 0;
-
-        // if (SmartDashboard.getBoolean("AutoAim") &&
-        // !SmartDashboard.getBoolean("IntelVision")) {
-        // RobotMap.vision.resume();
-        // System.out.println("Vision Resumed");
-        // }
     }
 
     @Override
     protected void execute() {
-        if (SmartDashboard.getBoolean("AutoAim")) {
-            if (SmartDashboard.getBoolean("IntelVision")) {
+        if (SmartDashboard.getBoolean("AutoAim", true)) {
+            if (SmartDashboard.getBoolean("IntelVision", true)) {
                 if (!targetFound && SmartDashboard.getNumber("BLOB_COUNT", 0) > 0) {
                     targetFound = true;
                     aimController.enable();
                 }
                 SmartDashboard.putNumber("AimGyroError", aimController.getError());
-                if (targetFound && Math.abs(RobotMap.gyro.getRate()) < 1) {
-                    double aimError = SmartDashboard.getNumber("AIM_ERROR", 0);
-                    setSetpoint(RobotMap.gyro.getAngle() + aimError * 0.85); // Magic number because undershooting is better than overshooting
+                if (targetFound) {
+                    if(Math.abs(RobotMap.gyro.getRate()) < 1) {
+                        double aimError = SmartDashboard.getNumber("AIM_ERROR", 0);
+                        setSetpoint(RobotMap.gyro.getAngle() + aimError * 0.85); // Magic number because undershooting is better than overshooting
 
-                    double gyro = RobotMap.gyro.getAngle();
-                    Robot.logger.logInfo("Aiming to " + getSetpoint() + "\tGyro: " + gyro + "\tDifference: " + (getSetpoint() - gyro) + " degrees");
+                        double gyro = RobotMap.gyro.getAngle();
+                    }
+                    doRumble(true);
                 }
 
                 SmartDashboard.putNumber("GyroSetPoint", getPIDController().getSetpoint());
-//				SmartDashboard.putNumber("Aim Error", aimController.getError());`
 
-                doRumble(true);
 
             } // end of intel vision
             else {
                 SmartDashboard.putBoolean("Rumble", false);
-                // if(!targetFound && RobotMap.vision.getBlobCount() > 0) {
-                // targetFound = true;
-                // aimController.enable();
-                // }
-                // if(targetFound) {
-                // setSetpoint(RobotMap.vision.getGyroTarget());
-                // }
-                // if(Math.abs(aimController.getError()) < 0.5) {// &&
-                // RobotMap.pressureSensor.getPressure() > 55.0) {
-                // new RumbleJoystick(0.5, OI.coStick).start();
-                // onTargetCount++;
-                // }
-                // SmartDashboard.putNumber("Aim Error",
-                // aimController.getError());
             }
         } else {  // manual aim
             aimController.disable();

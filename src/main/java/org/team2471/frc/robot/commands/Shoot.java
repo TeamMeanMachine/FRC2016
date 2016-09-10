@@ -6,29 +6,23 @@ import org.team2471.frc.robot.Constants;
 import org.team2471.frc.robot.Robot;
 
 public class Shoot extends Command {
-    private boolean ballInShooter;
     private double endTime;
 
     public Shoot() {
         requires(Robot.shooter);
     }
 
-    @SuppressWarnings("unused")
     @Override
     protected void initialize() {
-        ballInShooter = true;
-        endTime = Timer.getFPGATimestamp() + 1.75;
-        Robot.shooter.shooterIntakeOn();
+        endTime = Timer.getFPGATimestamp() + 1;
     }
 
     @Override
     protected void execute() {
         if (!Constants.DEPEND_ON_SHOOTER_SENSOR) {
             Robot.intake.intakeOut(0.7);
-        } else if (ballInShooter && Robot.shooter.hasBall()) {
-            ballInShooter = false;
-            endTime = Timer.getFPGATimestamp() + 1;
         }
+        Robot.shooter.shooterIntakeOn();
     }
 
     @Override
@@ -46,5 +40,4 @@ public class Shoot extends Command {
     protected void interrupted() {
         end();
     }
-
 }

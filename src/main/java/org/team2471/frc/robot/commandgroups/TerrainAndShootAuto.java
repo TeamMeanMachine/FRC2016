@@ -16,8 +16,10 @@ public class TerrainAndShootAuto extends CommandGroup {
         addSequential(new ResetGyroCommand());
         addParallel(new RotateArmToAngle(0.0));
         addParallel(new QueueShot());
-        addSequential(new DriveDistanceCommand(12, 0, 0.6));
-        addSequential(new DriveDistanceCommand(4, 0, 0.4));
+//        addSequential(new DriveDistanceCommand(12, 0, 0.6));
+//        addSequential(new DriveDistanceCommand(4, 0, 0.4));
+        addSequential(new DriveDistanceCommand(4, 0, 0.6));
+        addSequential(new DriveDistanceCommand(2, 0, 0.4));
         addSequential(new WaitCommand(0.5));
         addSequential(new DriveDistanceCommand(1.5, 0.0, -0.4));
         addSequential(new RotateArmToAngle(0.0));
