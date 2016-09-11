@@ -1,5 +1,6 @@
 package org.team2471.frc.robot;
 
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.team2471.frc.robot.commandgroups.*;
@@ -52,6 +53,11 @@ public class OI {
 
         suckIn = new JoystickButton(driverStick, 6);
         suckIn.whenPressed(new PickUpBallAuto());
+
+        if(!Constants.DEPEND_ON_SHOOTER_SENSOR) {
+            JoystickButton doubleIntakeButton = new JoystickButton(driverStick, 5);
+            doubleIntakeButton.whenPressed(new DoubleBallIntake());
+        }
 
         //fastShot = new JoystickButton(coStick, 4);
         //fastShot.whenPressed(new AimAndShootGroup(true));

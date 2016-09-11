@@ -14,7 +14,7 @@ public class Shoot extends Command {
 
     @Override
     protected void initialize() {
-        endTime = Timer.getFPGATimestamp() + 1;
+        endTime = Timer.getFPGATimestamp() + (Constants.DEPEND_ON_SHOOTER_SENSOR ? 1.0 : 1.75);
     }
 
     @Override

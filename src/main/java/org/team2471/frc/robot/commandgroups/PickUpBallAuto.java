@@ -9,9 +9,6 @@ import org.team2471.frc.robot.commands.IntakeDown;
 import org.team2471.frc.robot.commands.QueueShot;
 import org.team2471.frc.robot.commands.RumbleJoystick;
 
-/**
- *
- */
 public class PickUpBallAuto extends CommandGroup {
 
     public PickUpBallAuto() {

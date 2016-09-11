@@ -30,9 +30,9 @@ public class QueueShot extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if (Constants.DEPEND_ON_SHOOTER_SENSOR) {
-            return Robot.shooter.hasBall() && (Timer.getFPGATimestamp() - startTime) >= 0.3 || isTimedOut(); // Potentially not working
+            return Robot.shooter.hasBall() && (Timer.getFPGATimestamp() - startTime) >= 0.3 || isTimedOut(); // May not work
         } else {
-            return Timer.getFPGATimestamp() - startTime >= 0.8 || isTimedOut() || Robot.shooter.hasBall();
+            return Timer.getFPGATimestamp() - startTime >= 0.85 || isTimedOut();
         }
 
 //    	return (Timer.getFPGATimestamp() - startTime) > 0.7;

@@ -1,8 +1,8 @@
 package org.team2471.frc.robot;
 
 public final class Constants {
-    public static final boolean AIM_DROP_DISABLED = false; // Turns with drive train instead of aim drop
-    public static final boolean DEPEND_ON_SHOOTER_SENSOR = true;
+    public static final boolean AIM_DROP_DISABLED = true; // Turns with drive train instead of aim drop
+    public static final boolean DEPEND_ON_SHOOTER_SENSOR = false; // set to false when demoing outdoors
     public static final boolean CLIMB_DISABLED = true;
     //Auto aimer
     public static final double AIM_P = 0.0125;

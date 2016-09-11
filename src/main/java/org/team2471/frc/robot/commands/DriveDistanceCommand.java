@@ -3,9 +3,6 @@ package org.team2471.frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team2471.frc.robot.Robot;
 
-/**
- * @author FIRST
- */
 public class DriveDistanceCommand extends Command {
     private double targetDistance;
     double x;

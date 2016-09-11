@@ -10,10 +10,17 @@ import org.team2471.frc.robot.commandgroups.PickupBallManual;
  *
  */
 public class IntakeDown extends Command {
+    int cancelButton;
+
+    public IntakeDown(int cancelButton) {
+        requires(Robot.intake);
+        this.cancelButton = cancelButton;
+    }
 
     public IntakeDown() {
-        requires(Robot.intake);
+        this(6);
     }
+
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -33,16 +40,12 @@ public class IntakeDown extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        if (!OI.driverStick.getRawButton(6)) {
+        if (!OI.driverStick.getRawButton(cancelButton)) {
             Robot.intake.setSuckCanceled(true);
             return true;
         }
 
-        if (SmartDashboard.getBoolean("ManualIntake", false)) {
-            return false;
-        } else {
-            return Robot.intake.getIntakeSensor();
-        }
+        return !SmartDashboard.getBoolean("ManualIntake", false) && Robot.intake.getIntakeSensor();
     }
 
     // Called once after isFinished returns true
