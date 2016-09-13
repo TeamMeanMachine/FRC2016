@@ -32,7 +32,7 @@ public class QueueShot extends Command {
         if (Constants.DEPEND_ON_SHOOTER_SENSOR) {
             return Robot.shooter.hasBall() && (Timer.getFPGATimestamp() - startTime) >= 0.3 || isTimedOut(); // May not work
         } else {
-            return Timer.getFPGATimestamp() - startTime >= 0.85 || isTimedOut();
+            return Timer.getFPGATimestamp() - startTime >= 0.915 || isTimedOut();
         }
 
 //    	return (Timer.getFPGATimestamp() - startTime) > 0.7;
