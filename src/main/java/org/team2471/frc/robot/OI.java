@@ -80,17 +80,17 @@ public class OI {
 //		aimDropTest = new JoystickButton(coStick, 1);
 //		aimDropTest.whenPressed(new AimDropTest());
 
-        sallyPortHelper = new JoystickPOVButton(driverStick, 0);
-        sallyPortHelper.whenPressed(new SallyPortHelper());
-
-        drawbridgeHelper = new JoystickPOVButton(driverStick, 90);
-        drawbridgeHelper.whenPressed(new DrawBridgeHelper());
-
-        chevalHelper = new JoystickPOVButton(driverStick, 180);
-        chevalHelper.whenPressed(new ChevalHelper());
-
-        portcullisHelper = new JoystickPOVButton(driverStick, 270);
-        portcullisHelper.whenPressed(new PortcullisHelper());
+//        sallyPortHelper = new JoystickPOVButton(driverStick, 0);
+//        sallyPortHelper.whenPressed(new SallyPortHelper());
+//
+//        drawbridgeHelper = new JoystickPOVButton(driverStick, 90);
+//        drawbridgeHelper.whenPressed(new DrawBridgeHelper());
+//
+//        chevalHelper = new JoystickPOVButton(driverStick, 180);
+//        chevalHelper.whenPressed(new ChevalHelper());
+//
+//        portcullisHelper = new JoystickPOVButton(driverStick, 270);
+//        portcullisHelper.whenPressed(new PortcullisHelper());
 
     }
 }
